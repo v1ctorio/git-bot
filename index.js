@@ -10,15 +10,6 @@ client.on('ready', () => {
 });
 const prefix = "!";
 
-client.on("guildCreate", guild => {
-  guild.createRole({ name: "Muted", color: "#313131" })
-  console.log("Joined a new server:" + guild.name)
-  console.log("It has " + guild.memberCount + " members ;)")
-});
-
-client.on("guildDelete", guild => {
-  console.log("Left the server:" + guild.name)
-});
 
 
 //empiezan comandos
@@ -74,10 +65,7 @@ client.on("message", function(message) {
   
 
 
-  else if (command === "f") {
-  message.reply('f');
-  //f
-  }
+ 
 
   
   
