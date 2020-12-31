@@ -1,6 +1,4 @@
-const Discord = require("discord.js");
-const config = require("./config.json");
-
+const Discord = require('discord.js');
 const client = new Discord.Client();
 
 client.on('ready', () => {
@@ -10,18 +8,7 @@ client.on('ready', () => {
 });
 const prefix = "!";
 
-client.on("guildCreate", guild => {
-  guild.createRole({ name: "Muted", color: "#313131" })
-  console.log("Joined a new server:" + guild.name)
-  console.log("It has " + guild.memberCount + " members ;)")
-});
 
-client.on("guildDelete", guild => {
-  console.log("Left the server:" + guild.name)
-});
-
-
-//empiezan comandos
 
 client.on("message", function(message) { 
     if (message.author.bot) return;
@@ -162,13 +149,16 @@ else if (command === "ban") {
 else if (command === 'server') {
   message.channel.send(`El nombre del servidor es: ${message.guild.name}\nTotal de miembros: ${message.guild.memberCount}\n se creo el ${message.guild.createdAt}\n Region:${message.guild.region}`);
 }
-
+else if (command ==='say') {
+        if (!args) return;
+        message.channel.send(args);
+    }
 
 
   });  
 
 
-  client.on('message', message  => {
+client.on('message', message  => {
 if (message.content === 'que') {
 
     message.channel.send ('so')
@@ -201,8 +191,10 @@ if (message.content === `nose`) {
 
 
   )
+//commands end
+
+   
+     
 
 
-
-//terminan los comandos
 client.login(config.BOT_TOKEN);
