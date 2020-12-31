@@ -5,22 +5,9 @@ const client = new Discord.Client();
 
 client.on('ready', () => {
   console.log(`Estoy listo! soy ${client.user.tag}`);
-  client.user.setStatus('online')
-  client.user.setActivity('type !help')
+  client.user.setStatus('idle')
 });
 const prefix = "!";
-
-client.on("guildCreate", guild => {
-  guild.createRole({ name: "Muted", color: "#313131" })
-  console.log("Joined a new server:" + guild.name)
-  console.log("It has " + guild.memberCount + " members ;)")
-});
-
-client.on("guildDelete", guild => {
-  console.log("Left the server:" + guild.name)
-});
-
-
 //empiezan comandos
 
 client.on("message", function(message) { 
@@ -45,7 +32,15 @@ client.on("message", function(message) {
   //piola                         
   }                            
   
-
+  else if (command === "invite") {
+  message.reply(`para invitarme a tu servidor pulsa aqui https://discord.com/oauth2/authorize?client_id=%20776106257597333515&scope=bot&permissions=8`);  
+  //invite                         
+  }      
+  //else if (command === 'delete') {
+//  const fetched = await.message.fetchMessages({limit: 50})
+    //  message.channel.bulkDelete(fetched)
+    //  console.log('mensajes eliminados')
+ // }
   
   else if (command === "a") {
   message.reply(`si a`);  
@@ -54,13 +49,12 @@ client.on("message", function(message) {
 
   else if (command === "tu") {
     message.reply(`preguntaste por mi o que si preeguntas por mi soy pancho del rencho y estoy en beta gracias por preguntar ${message.author}`)
+    message.react(`😃`)
+    .then(console.log)
+    .catch(console.error);
+    message.channel.send('comando secreto n1')
+    message.delete
     
-
-    
-  }
-
-  else if (command === 'id') {
-    message.reply (`tu id es ${message.author.id}`)
   }
   
   
@@ -78,8 +72,6 @@ client.on("message", function(message) {
   message.reply('f');
   //f
   }
-
-  
   
   else if (command === 'meme') {
     var meme = ['https://media.discordapp.net/attachments/757716017618223215/784488476736749588/EJlcnPcWsAEtkQk.png','https://media.discordapp.net/attachments/757548223660556300/785200403959513123/image0.png?width=854&height=641','https://media.discordapp.net/attachments/757716017618223215/784488476518776852/EKIeT1eUcAA5_Q3.jpeg?width=571&height=641','https://media.discordapp.net/attachments/757716017618223215/784488476343009300/20200513_183249.jpg','https://media.discordapp.net/attachments/757716017618223215/784488475478589510/1606711309-5fc4780d6a9e6.jpg','https://media.discordapp.net/attachments/410197118263754753/711096608715964536/FB_IMG_1589586420725.jpg?width=610&height=641','https://media.discordapp.net/attachments/757406384651501678/785443810083602442/a_sos_re_troll.PNG?width=642&height=641','https://media.discordapp.net/attachments/753193857092419584/785119269238079498/IMG_20200720_190125.jpg?width=835&height=641','https://media.discordapp.net/attachments/759027747409494016/783401125281136690/13383059d47d6a3f545e73f9ed21ec0c.png',
@@ -102,81 +94,17 @@ client.on("message", function(message) {
   //
   }
   
-  else if (command === 'invite') {
-    message.channel.send ('con esto podras invitarme a tu servidor https://botpiola.glitch.me/')
-
-  }
-// moderacion
-  else if (command === "kick") {
-    if (!message.member.hasPermission('KICK_MEMBERS'))
-        return message.channel.send(":no_entry: No tienes los permisos necesarios")
-    const member = message.mentions.members.first();
-    if (!member)
-        return message.channel.send(":no_entry: No mencionaste ingun usuario.")
-    const reason = args.slice(1).join(" ") 
-    if (!member.kickable)
-        return message.channel.send(":no_entry: NO puedo banear a este usuario")
-    if (member) {
-        if (!reason) {
-            return member.kick().then(member => {
-                message.channel.send(`${member.user.tag} fue baneado por ${message.author}, no se dio una razon.`);
-            })
-        }
-        if (reason) {
-            member.kick().then(member => {
-                message.channel.send(`${member.user.tag} fue baneado por ${message.author}, no se dio una razon.`);
-            })
-        }
-    }
-}
-
-else if (command === "ban") {
-  if (!message.member.hasPermission('BAN_MEMBERS'))
-      return message.channel.send(":no_entry: No tienes los permisos necesarios")
-  const member = message.mentions.members.first();
-  if (!member)
-      return message.channel.send(":no_entry: No mencionaste ningun usuario.")
-  const reason = args.slice(1).join(" ")
-  if (!member.kickable)
-      return message.channel.send(":no_entry: no puedo banear a este usuario.")
-  if (member) {
-      if (!reason) {
-          return member.ban().then(member => {
-              message.channel.send(`${member.user.tag} fue baneado por ${message.author}, no se dio una razon.`)
-          })
-      }
-      if (reason) {
-          member.ban().then(member => {
-              message.channel.send(`${member.user.tag} fue baneado por ${message.author} por que  ${reason}.`)
-          })
-      }
-  }
-}
-
-
-
-
   // invitcaion de bot https://discord.com/oauth2/authorize?client_id=%20776106257597333515&scope=bot&permissions=8
 
-  
-else if (command === 'server') {
-  message.channel.send(`El nombre del servidor es: ${message.guild.name}\nTotal de miembros: ${message.guild.memberCount}\n se creo el ${message.guild.createdAt}\n Region:${message.guild.region}`);
-}
 
   
   
-  });  
-  
+  });         
 
   client.on('message', message  => {
 if (message.content === 'que') {
 
     message.channel.send ('so')
-}
-
-if (message.content === 'f') {
-
-  message.channel.send ('efe')
 }
 
 if (message.content === `:c`) {
@@ -188,13 +116,9 @@ if (message.content === `abueno`) {
   message.channel.send (`https://images-ext-1.discordapp.net/external/fb9yq6BX4mFf-RQ4nS9NuJw65P07K4awYpPr93sRhiU/https/i.ytimg.com/vi/0qARVrAEpNc/hqdefault.jpg`)
 }
 
+if (message.content === `f`) {
 
-
-if (message.content === `nose`) {
-
-  message.delete()
-  .then
-  message.channel.send(`yo tampoco`)
+  message.channel.send('f')
 }
     
   }
