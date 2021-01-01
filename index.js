@@ -183,9 +183,7 @@ if (message.content === `abueno`) {
   message.channel.send (`https://images-ext-1.discordapp.net/external/fb9yq6BX4mFf-RQ4nS9NuJw65P07K4awYpPr93sRhiU/https/i.ytimg.com/vi/0qARVrAEpNc/hqdefault.jpg`)
 }
 
-if (message.content === 'a') {
-message.reply (`como que a es una argumento un vervo una onomatopeya o que ${messagr.author} a `)
-}
+
 
 if (message.content === `nose`) {
 
