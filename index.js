@@ -1,4 +1,6 @@
-const Discord = require('discord.js');
+const Discord = require("discord.js");
+const config = require("./config.json");
+
 const client = new Discord.Client();
 
 client.on('ready', () => {
@@ -9,6 +11,8 @@ client.on('ready', () => {
 const prefix = "!";
 
 
+
+//empiezan comandos
 
 client.on("message", function(message) { 
     if (message.author.bot) return;
@@ -149,16 +153,13 @@ else if (command === "ban") {
 else if (command === 'server') {
   message.channel.send(`El nombre del servidor es: ${message.guild.name}\nTotal de miembros: ${message.guild.memberCount}\n se creo el ${message.guild.createdAt}\n Region:${message.guild.region}`);
 }
-else if (command ==='say') {
-        if (!args) return;
-        message.channel.send(args);
-    }
+
 
 
   });  
 
 
-client.on('message', message  => {
+  client.on('message', message  => {
 if (message.content === 'que') {
 
     message.channel.send ('so')
@@ -178,7 +179,9 @@ if (message.content === `abueno`) {
   message.channel.send (`https://images-ext-1.discordapp.net/external/fb9yq6BX4mFf-RQ4nS9NuJw65P07K4awYpPr93sRhiU/https/i.ytimg.com/vi/0qARVrAEpNc/hqdefault.jpg`)
 }
 
-
+if (message.content === 'a') {
+message.reply (`este comadno no sirve para nada`)
+}
 
 if (message.content === `nose`) {
 
@@ -191,10 +194,10 @@ if (message.content === `nose`) {
 
 
   )
-//commands end
-
-   
-     
 
 
+
+//terminan los comandos
 client.login(config.BOT_TOKEN);
+
+//prueba
