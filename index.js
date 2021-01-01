@@ -87,6 +87,10 @@ client.on("message", function(message) {
     message.channel.send(`tu eres  ${message.author}`);
     //help
     }
+    
+    else if (command === "el") {
+      message.channel.send(`a si el es ${message.mentions.members} a si aparte de eso no sirve para mada el comando `)
+    }
 
   else if (command === "vizcarra") {
   message.reply('https://cdn.discordapp.com/attachments/757548223660556300/777529430947528704/video0.mp4');
