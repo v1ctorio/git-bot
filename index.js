@@ -89,7 +89,7 @@ client.on("message", function(message) {
     }
     
     else if (command === "el") {
-      message.channel.send(`a si el es ${message.mentions.members} a si aparte de eso no sirve para mada el comando `)
+      message.channel.send(`a si el es ${message.mentions.members} a si aparte de eso no sirve para nada el comando `)
     }
 
   else if (command === "vizcarra") {
@@ -106,7 +106,7 @@ client.on("message", function(message) {
     if (!message.member.hasPermission('KICK_MEMBERS'))
         return message.channel.send(":no_entry: No tienes los permisos necesarios")
     const member = message.mentions.members.first();
-    if (!member)
+    if (!member)  
         return message.channel.send(":no_entry: No mencionaste ingun usuario.")
     const reason = args.slice(1).join(" ") 
     if (!member.kickable)
@@ -184,7 +184,7 @@ if (message.content === `abueno`) {
 }
 
 if (message.content === 'a') {
-message.reply (`este comadno no sirve para nada`)
+message.reply (`como que a es una argumento un vervo una onomatopeya o que ${messagr.author} a `)
 }
 
 if (message.content === `nose`) {
