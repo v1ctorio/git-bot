@@ -80,7 +80,7 @@ client.on("message", function(message) {
 
   else if (command === "help") {
     message.channel.send(`
-    These are my supported commands:
+    Estos son mis comandos:
     **!help** - todos los comandos (lo estas viendo)
     **!sum <num1> <num2>** - Suma 2 numeros 
     **!meme** - manda un meme
