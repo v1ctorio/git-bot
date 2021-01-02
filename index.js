@@ -75,10 +75,6 @@ message.channel.send(`${args}`)
   //f
   }
 
-  else if (command === `prefix`) {
-    message.channel.send(`el prefix ahora es`+ args)
-     prefix = args
-  }
 
 
 
