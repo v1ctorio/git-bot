@@ -8,7 +8,7 @@ client.on('ready', () => {
   client.user.setStatus('online')
   client.user.setActivity('type !help')
 });
-const prefix = "!";
+var prefix = "!";
 
 
 
