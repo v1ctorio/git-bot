@@ -52,6 +52,12 @@ message.channel.send(`${args}`)
 
 
   }
+  else if (command ==='prefix-set') {
+     message.channel.send (`mi prefix es ${prefix}`)
+     .then
+     
+     prefix = args
+  }
 
 
 
@@ -193,11 +199,7 @@ if (message.content === 'f') {
 }
 
 if (message.content === `prefix`) {
-  if (!message.member.hasPermission('BAN_MEMBERS'))
-  return message.channel.send(":no_entry:")
-  if (!args)
-  return message.channel.send (`mi prefix es ${prefix}`)
-  return prefix = args
+  message.reply(`el prefix es ${prefix}`)
 }
 
 
