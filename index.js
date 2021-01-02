@@ -39,11 +39,6 @@ client.on("message", function(message) {
   else if (command === `say`) {
 message.channel.send(`${args}`)
   }
-else if (command === "prefix") {
-  message.reply(`el prefix ahora es ${args}`)
-  .then
-  var prefix = `${args}`
-}
 
 
   else if (command === "a") {
