@@ -99,6 +99,11 @@ message.channel.send(`${args}`)
     `)
   }
 
+  else if (command === "prefixset") {
+    message.reply(`ahora el prefix es\n ${args}`)
+    .then
+    prefix = args
+  }
 
   else if (command === "yo") {
     message.channel.send(`tu eres  ${message.author}`);
@@ -113,6 +118,7 @@ message.channel.send(`${args}`)
   message.reply('https://cdn.discordapp.com/attachments/757548223660556300/777529430947528704/video0.mp4');
   //
   }
+
 
   else if (command === 'invite') {
     message.channel.send ('con esto podras invitarme a tu servidor https://botpiola.glitch.me/')
@@ -190,6 +196,12 @@ if (message.content === 'f') {
 
   message.channel.send ('efe')
 }
+
+if (message.content === `prefix`) {
+  message.channel.send (`mi prefix es ${prefix}`)
+}
+
+
 
 if (message.content === `:c`) {
   message.channel.send ('https://media.discordapp.net/attachments/776484805880971295/786636533641248828/blue-monday.png')
