@@ -99,12 +99,7 @@ message.channel.send(`${args}`)
     `)
   }
 
-  else if (command === "prefixset") {
-    message.reply(`ahora el prefix es\n ${args}`)
-    .then
-    prefix = args
-  }
-
+  
   else if (command === "yo") {
     message.channel.send(`tu eres  ${message.author}`);
     //help
@@ -202,6 +197,7 @@ if (message.content === `prefix`) {
   return message.channel.send(":no_entry:")
   if (!args)
   return message.channel.send (`mi prefix es ${prefix}`)
+  prefix = args
 }
 
 
