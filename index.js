@@ -201,7 +201,7 @@ if (message.content === `abueno`) {
 }
 
 if (message.content === `a`) {
-  message.channel.send(`como que a es un argumento un vervo o que DIMEE ${message.author}`)
+  message.channel.send(`como que a es un argumento un verbo o que DIMEE ${message.author}`)
 }
 
 
