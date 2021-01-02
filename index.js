@@ -79,9 +79,19 @@ client.on("message", function(message) {
     }
 
   else if (command === "help") {
-  message.reply('mis comandos son : gg, f, a, invite, piola, sum, ping');
-  //help
+    message.channel.send(`
+    These are my supported commands:
+    **!help** - todos los comandos (lo estas viendo)
+    **!sum <num1> <num2>** - Suma 2 numeros 
+    **!meme** - manda un meme
+    **!invite** - manda el link para invitarme a tu servidor
+    **!kick** - expulsa a un usuario (necesita permisos de administrador)
+    **!ban** - banea a un usuario (necesita permisos de administrador)
+
+    
+    `)
   }
+
 
   else if (command === "yo") {
     message.channel.send(`tu eres  ${message.author}`);
