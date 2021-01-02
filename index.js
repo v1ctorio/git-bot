@@ -89,10 +89,10 @@ client.on("message", function(message) {
     }
     
     else if (command === "el") {
-      message.channel.send(`a si el es ${message.mentions.members} a si aparte de eso no sirve para nada el comando `)
+      message.channel.send(`a si el es ${message.mentions.members}  aparte de eso no sirve para nada el comando `)
     }
 
-  else if (command === "vizcarra") {
+  else if (command === "vizcar.ra") {
   message.reply('https://cdn.discordapp.com/attachments/757548223660556300/777529430947528704/video0.mp4');
   //
   }
@@ -183,6 +183,9 @@ if (message.content === `abueno`) {
   message.channel.send (`https://images-ext-1.discordapp.net/external/fb9yq6BX4mFf-RQ4nS9NuJw65P07K4awYpPr93sRhiU/https/i.ytimg.com/vi/0qARVrAEpNc/hqdefault.jpg`)
 }
 
+if (message.content === `a`) {
+  message.channel.send(`como que a es un argumento un vervo o que DIMEE ${message.author}`)
+}
 
 
 if (message.content === `nose`) {
