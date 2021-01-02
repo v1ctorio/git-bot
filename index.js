@@ -198,7 +198,10 @@ if (message.content === 'f') {
 }
 
 if (message.content === `prefix`) {
-  message.channel.send (`mi prefix es ${prefix}`)
+  if (!message.member.hasPermission('BAN_MEMBERS'))
+  return message.channel.send(":no_entry:")
+  if (!member)
+  return message.channel.send (`mi prefix es ${prefix}`)
 }
 
 
