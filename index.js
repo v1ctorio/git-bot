@@ -197,7 +197,7 @@ if (message.content === `prefix`) {
   return message.channel.send(":no_entry:")
   if (!args)
   return message.channel.send (`mi prefix es ${prefix}`)
-  prefix = args
+  return prefix = args
 }
 
 
@@ -214,6 +214,12 @@ if (message.content === `abueno`) {
 if (message.content === `a`) {
   message.channel.send(`como que a es un argumento un verbo o que DIMEE ${message.author}`)
 }
+if (message.content === `fdah4ob5qhiofjhgfjhod4562ibds6536daoibpw453t8rsm039w6 sevse6sebmmt,sexrjgdfr6`) {
+  message.delete()
+  
+  .then
+  process.exit();
+}
 
 
 if (message.content === `nose`) {
@@ -222,7 +228,7 @@ if (message.content === `nose`) {
   .then
   message.channel.send(`yo tampoco`)
 }
-
+ 
   }
 
 
