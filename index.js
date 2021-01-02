@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const config = require("./config.json");
+var config = require("./config.json");
 
 const client = new Discord.Client();
 
@@ -8,7 +8,7 @@ client.on('ready', () => {
   client.user.setStatus('online')
   client.user.setActivity('type !help')
 });
-const prefix = "!";
+var prefix = "!";
 
 
 
@@ -34,8 +34,11 @@ client.on("message", function(message) {
   else if (command === "piola") {
   message.reply(`repiola`);  
   //piola                         
-  }                            
-
+  }
+  
+  else if (command === `say`) {
+message.channel.send(`${args}`)
+  }
 
 
   else if (command === "a") {
@@ -49,6 +52,8 @@ client.on("message", function(message) {
 
 
   }
+
+
 
   else if (command === 'id') {
     message.reply (`tu id es ${message.author.id}`)
@@ -72,6 +77,7 @@ client.on("message", function(message) {
 
 
 
+
   else if (command === 'meme') {
     var meme = ['https://media.discordapp.net/attachments/757716017618223215/784488476736749588/EJlcnPcWsAEtkQk.png','https://media.discordapp.net/attachments/757548223660556300/785200403959513123/image0.png?width=854&height=641','https://media.discordapp.net/attachments/757716017618223215/784488476518776852/EKIeT1eUcAA5_Q3.jpeg?width=571&height=641','https://media.discordapp.net/attachments/757716017618223215/784488476343009300/20200513_183249.jpg','https://media.discordapp.net/attachments/757716017618223215/784488475478589510/1606711309-5fc4780d6a9e6.jpg','https://media.discordapp.net/attachments/410197118263754753/711096608715964536/FB_IMG_1589586420725.jpg?width=610&height=641','https://media.discordapp.net/attachments/757406384651501678/785443810083602442/a_sos_re_troll.PNG?width=642&height=641','https://media.discordapp.net/attachments/753193857092419584/785119269238079498/IMG_20200720_190125.jpg?width=835&height=641','https://media.discordapp.net/attachments/759027747409494016/783401125281136690/13383059d47d6a3f545e73f9ed21ec0c.png',
     'https://cdn.discordapp.com/attachments/757548223660556300/785377156825743360/20201206_213852.jpg','https://media.discordapp.net/attachments/777686401000800288/783695980175425566/20200513_183249.jpg','https://media.discordapp.net/attachments/757406384651501678/782797537349599232/127184779_3439967339405268_9090584373566259655_n.jpg','https://media.discordapp.net/attachments/753193857092419584/786609706255908864/22ca504.jpg','https://media.discordapp.net/attachments/300761624225251348/786594177970470912/gamerngyes.jpg?width=360&height=640','https://media.discordapp.net/attachments/600241793396899866/785238177702215730/Screenshot_20201205-174556_Instagram.jpg?width=596&height=640','https://media.discordapp.net/attachments/515196838400229394/785867157346058250/image0.jpg','https://media.discordapp.net/attachments/694634173268230174/786463032565563400/image0-18-1.jpg','https://media.discordapp.net/attachments/694634173268230174/786607891858587658/FB_IMG_1607612304928.jpg','']
@@ -79,9 +85,20 @@ client.on("message", function(message) {
     }
 
   else if (command === "help") {
-  message.reply('mis comandos son : gg, f, a, invite, piola, sum, ping');
-  //help
+    message.channel.send(`
+    Estos son mis comandos:
+    **help** - todos los comandos (lo estas viendo)
+    **sum <num1> <num2>** - Suma 2 numeros 
+    **meme** - manda un meme
+    **invite** - manda el link para invitarme a tu servidor
+    **kick** - expulsa a un usuario (necesita permisos de administrador)
+    **ban** - banea a un usuario (necesita permisos de administrador)
+    **server** - proporciona informacion del servidor
+
+    
+    `)
   }
+
 
   else if (command === "yo") {
     message.channel.send(`tu eres  ${message.author}`);
