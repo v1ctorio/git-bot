@@ -34,7 +34,11 @@ client.on("message", function(message) {
   else if (command === "piola") {
   message.reply(`repiola`);  
   //piola                         
-  }                            
+  }
+  
+  else if (command === `say`) {
+message.channel.send(`${args}`)
+  }
 
 
 
