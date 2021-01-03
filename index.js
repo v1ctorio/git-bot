@@ -10,7 +10,7 @@ client.on('ready', () => {
   client.user.setStatus('online')
   client.user.setActivity('type !help')
 });
-var prefix = "!";
+let economia = new db.crearDB('!');
 
 
 
