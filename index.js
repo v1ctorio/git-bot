@@ -1,5 +1,7 @@
 const Discord = require("discord.js");
 var config = require("./config.json");
+const db = require('megadb'); 
+let vip = new db.crearDB('vip');
 
 const client = new Discord.Client();
 
@@ -35,6 +37,8 @@ client.on("message", function(message) {
   message.reply(`repiola`);  
   //piola                         
   }
+ 
+
   
   else if (command === `say`) {
 message.channel.send(`${args}`)
