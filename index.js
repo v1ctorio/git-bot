@@ -53,10 +53,18 @@ message.channel.send(`${args}`)
 
   }
   else if (command ==='prefix-set') {
-     message.channel.send (`mi prefix es ${prefix}`)
-     .then
+    if (!message.member.hasPermission(KICK_MEMBERS))
+    return message.channel.send(":no_entry:")
+    if (args)
+  return prefix = args .then(member => {
+      message.channel.send (`mi prefix ahora es ${prefix}`) }
+      )
+  
+
+      
+   
      
-     prefix = args
+
   }
 
 
