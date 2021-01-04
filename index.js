@@ -162,6 +162,17 @@ message.channel.send(`${args}`)
     }
 }
 
+else if (command === "uptime") {
+  let totalSeconds = (bot.uptime / 1000);
+  let days = Math.floor(totalSeconds / 86400);
+  let hours = Math.floor(totalSeconds / 3600);
+  totalSeconds %= 3600;
+  let minutes = Math.floor(totalSeconds / 60);
+  let seconds = totalSeconds / 60;
+  message.channel.send(`:low_brightness: **Uptime:** ${days} days, ${hours} hours and ${minutes} mins`)
+
+}
+
 else if (command === "ban") {
   if (!message.member.hasPermission('BAN_MEMBERS'))
       return message.channel.send(":no_entry: No tienes los permisos necesarios")
