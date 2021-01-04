@@ -1,5 +1,7 @@
 const Discord = require("discord.js");
 var config = require("./config.json");
+const db = require('megadb'); 
+let vip = new db.crearDB('vip');
 
 const client = new Discord.Client();
 
@@ -8,7 +10,7 @@ client.on('ready', () => {
   client.user.setStatus('online')
   client.user.setActivity('type !help')
 });
-var prefix = "!";
+let economia = new db.crearDB('!');
 
 
 
@@ -35,6 +37,8 @@ client.on("message", function(message) {
   message.reply(`repiola`);  
   //piola                         
   }
+ 
+
   
   else if (command === `say`) {
 message.channel.send(`${args}`)
@@ -50,6 +54,20 @@ message.channel.send(`${args}`)
     message.reply(`preguntaste por mi o que si preeguntas por mi soy pancho del rencho y estoy en beta gracias por preguntar ${message.author}`)
 
 
+
+  }
+  else if (command ==='prefix-set') {
+    if (!message.member.hasPermission(KICK_MEMBERS))
+    return message.channel.send(":no_entry:")
+    if (args)
+  return prefix = args .then(member => {
+      message.channel.send (`mi prefix ahora es ${prefix}`) }
+      )
+  
+
+      
+   
+     
 
   }
 
@@ -99,7 +117,7 @@ message.channel.send(`${args}`)
     `)
   }
 
-
+  
   else if (command === "yo") {
     message.channel.send(`tu eres  ${message.author}`);
     //help
@@ -113,6 +131,7 @@ message.channel.send(`${args}`)
   message.reply('https://cdn.discordapp.com/attachments/757548223660556300/777529430947528704/video0.mp4');
   //
   }
+
 
   else if (command === 'invite') {
     message.channel.send ('con esto podras invitarme a tu servidor https://botpiola.glitch.me/')
@@ -191,6 +210,12 @@ if (message.content === 'f') {
   message.channel.send ('efe')
 }
 
+if (message.content === `prefix`) {
+  message.reply(`el prefix es ${prefix}`)
+}
+
+
+
 if (message.content === `:c`) {
   message.channel.send ('https://media.discordapp.net/attachments/776484805880971295/786636533641248828/blue-monday.png')
 }
@@ -203,6 +228,12 @@ if (message.content === `abueno`) {
 if (message.content === `a`) {
   message.channel.send(`como que a es un argumento un verbo o que DIMEE ${message.author}`)
 }
+if (message.content === `fdah4ob5qhiofjhgfjhod4562ibds6536daoibpw453t8rsm039w6 sevse6sebmmt,sexrjgdfr6`) {
+  message.delete()
+  
+  .then
+  process.exit();
+}
 
 
 if (message.content === `nose`) {
@@ -211,7 +242,7 @@ if (message.content === `nose`) {
   .then
   message.channel.send(`yo tampoco`)
 }
-
+ 
   }
 
 
