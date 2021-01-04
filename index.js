@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 var config = require("./config.json");
-const db = require('megadb'); 
-let vip = new db.crearDB('vip');
+
+
 
 const client = new Discord.Client();
 
@@ -10,7 +10,7 @@ client.on('ready', () => {
   client.user.setStatus('online')
   client.user.setActivity('type !help')
 });
-let economia = new db.crearDB('!');
+let economia = '!'
 
 
 
@@ -59,8 +59,9 @@ message.channel.send(`${args}`)
   else if (command ==='prefix-set') {
     if (!message.member.hasPermission(KICK_MEMBERS))
     return message.channel.send(":no_entry:")
-    if (args)
-  return prefix = args .then(member => {
+    if (!args)
+    return message.channel.send('debes poner un prefix')
+    if (member) return prefix = args .then(member => {
       message.channel.send (`mi prefix ahora es ${prefix}`) }
       )
   
