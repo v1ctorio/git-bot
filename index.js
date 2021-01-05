@@ -60,18 +60,17 @@ message.channel.send(`${args}`)
   else if (command === "prefix-set") {
     if (!message.member.hasPermission('KICK_MEMBERS'))
         return message.channel.send(":no_entry: No tienes los permisos necesarios")
-    const member = message.mentions.members.first();
+
     if (!args)  
         return message.channel.send(":no_entry: No pusiste ningun prefix.")
     const reason = args.slice(1).join(" ") 
-    if (!member.kickable)
-        return message.channel.send(":no_entry: NO puedo banear a este usuario")
-    if (args) {return message.channel.send("el prefix es a cambiado a "+ args) 
+    
+    if (args) return message.channel.send("el prefix es a cambiado a "+ args) 
     .then 
     prefix = args
         
         
-    }
+    
 }
 
 
