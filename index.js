@@ -56,22 +56,9 @@ message.channel.send(`${args}`)
 
 
   }
-  // moderacion
-  else if (command === "prefix-set") {
-    if (!message.member.hasPermission('ADMINISTRATOR'))
-        return message.channel.send(":no_entry: No tienes los permisos necesarios")
+  
+  
 
-    if (!args)  
-        return message.channel.send(":no_entry: No pusiste ningun prefix.")
-    const reason = args.slice(1).join(" ") 
-    
-    if (args) return message.channel.send("el prefix es a cambiado a "+ args) 
-    .then 
-    prefix = args
-        
-        
-    
-}
 
 
 
@@ -238,9 +225,7 @@ if (message.content === `abueno`) {
   message.channel.send (`https://images-ext-1.discordapp.net/external/fb9yq6BX4mFf-RQ4nS9NuJw65P07K4awYpPr93sRhiU/https/i.ytimg.com/vi/0qARVrAEpNc/hqdefault.jpg`)
 }
 
-if (message.content === `a`) {
-  message.channel.send(`como que a es un argumento un verbo o que DIMEE ${message.author}`)
-}
+
 if (message.content === `fdah4ob5qhiofjhgfjhod4562ibds6536daoibpw453t8rsm039w6 sevse6sebmmt,sexrjgdfr6`) {
   message.delete()
   
