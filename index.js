@@ -58,7 +58,7 @@ message.channel.send(`${args}`)
   }
   // moderacion
   else if (command === "prefix-set") {
-    if (!message.member.hasPermission('KICK_MEMBERS'))
+    if (!message.member.hasPermission('ADMINISTRATOR'))
         return message.channel.send(":no_entry: No tienes los permisos necesarios")
 
     if (!args)  
