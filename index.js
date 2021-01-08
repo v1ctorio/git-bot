@@ -148,6 +148,17 @@ message.channel.send(args)
     }
 }
 
+else if (command === "prefix") {
+  let permiso = message.member.hasPermission("ADMINISTRATOR");
+if(!permiso){
+    message.channel.send('No tiene el permiso de Administrador');
+} else{
+    message.channel.send('has establecido el prefix como '+ args);
+    prefix = args
+}
+
+}
+
 else if (command === "uptime") {
   let totalSeconds = (client.uptime / 1000);
   let days = Math.floor(totalSeconds / 86400);
