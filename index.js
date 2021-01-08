@@ -41,7 +41,7 @@ client.on("message", function(message) {
 
   
   else if (command === `say`) {
-message.channel.send(`${args}`)
+message.channel.send(args)
   }
 
 
@@ -94,13 +94,14 @@ message.channel.send(`${args}`)
   else if (command === "help") {
     message.channel.send(`
     Estos son mis comandos:
-    **help** - todos los comandos (lo estas viendo)
-    **sum <num1> <num2>** - Suma 2 numeros 
-    **meme** - manda un meme
-    **invite** - manda el link para invitarme a tu servidor
-    **kick** - expulsa a un usuario (necesita permisos de administrador)
-    **ban** - banea a un usuario (necesita permisos de administrador)
-    **server** - proporciona informacion del servidor
+    **${prefix}help** - todos los comandos (lo estas viendo)
+    **${prefix}sum <num1> <num2>** - Suma 2 numeros 
+    **${prefix}meme** - manda un meme
+    **${prefix}invite** - manda el link para invitarme a tu servidor
+    **${prefix}kick** - expulsa a un usuario (necesita permisos de administrador)
+    **${prefix}ban** - banea a un usuario (necesita permisos de administrador)
+    **${prefix}server** - proporciona informacion del servidor
+    **${prefix}uptime** - tiempo que el bot esta online
 
     
     `)
@@ -116,10 +117,7 @@ message.channel.send(`${args}`)
       message.channel.send(`a si el es ${message.mentions.members}  aparte de eso no sirve para nada el comando `)
     }
 
-  else if (command === "vizcar.ra") {
-  message.reply('https://cdn.discordapp.com/attachments/757548223660556300/777529430947528704/video0.mp4');
-  //
-  }
+  
 
 
   else if (command === 'invite') {
@@ -200,7 +198,7 @@ else if (command === 'server') {
 
 
   client.on('message', message  => {
-if (message.content === 'que') {
+if (message.content === 'que?') {
 
     message.channel.send ('so')
 }
