@@ -38,11 +38,7 @@ client.on("message", function(message) {
   //piola                         
   }
 
-  else if (command === "prefix-set") {
-    message.channel.send(`estableciste el prefix en: ${args}`)
-    .then
-    prefix.establecer(args)
-  }
+  
  
 
   
