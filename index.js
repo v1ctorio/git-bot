@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 var config = require("./config.json");
 
-const db = require('megadb');
+
 
 const client = new Discord.Client();
 
@@ -10,8 +10,8 @@ client.on('ready', () => {
   client.user.setStatus('online')
   client.user.setActivity('type !help')
 });
-let prefix = new db.crearDB('prefix');
-prefix.establecer(`!`)
+let prefix = ('!');
+
 
 
 //empiezan comandos
