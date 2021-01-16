@@ -12,7 +12,7 @@ client.on('ready', () => {
 });
 let prefix = ('!');
 
-
+//algo solo es pata hacer commit y que se reinicie en heroku
 
 //empiezan comandos
 
