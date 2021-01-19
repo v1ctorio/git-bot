@@ -8,11 +8,12 @@ const client = new Discord.Client();
 client.on('ready', () => {
   console.log(`Estoy listo! soy ${client.user.tag}`);
   client.user.setStatus('online')
-  client.user.setActivity('type *help')
+  client.user.setActivity('type !help')
 });
-let prefix = '*'
 
+let prefix = '!'
 
+//algo solo es pata hacer commit y que se reinicie en heroku
 
 //empiezan comandos
 
@@ -37,11 +38,27 @@ client.on("message", function(message) {
   message.reply(`repiola`);  
   //piola                         
   }
+
+  
  
 
   
   else if (command === `say`) {
-message.channel.send(args)
+    if(args[0] == "embed") { //Si la primera args es embed pasa esto...
+      let texto = args.slice(1).join(" ") //Defines texto a partir de la 2da args
+      if(!texto) return message.channel.send("No has escrito un mensaje"); //Si no has puesto texto te lo dice
+      const embed = new Discord.MessageEmbed() //Defines embed
+      .setDescription(texto) //Pones el texto
+      .setColor("RANDOM") //Color random
+      .setFooter(client.user.username, client.user.avatarURL()) //Pones el footer (opcional)
+      message.channel.send(embed) //Mandas el embed
+      message.delete({timeout:0}) //Borras el mensaje del autor
+      } else if(args[0] == "normal") { //Si la primera args es normal pasa esto...
+      let texto = args.slice(1).join(" ") 
+      if(!texto) return message.channel.send("No has escrito un mensaje");
+      message.channel.send(texto) //Mandas el mensaje
+      message.delete({timeout:0})
+      } 
   }
 
 
@@ -77,10 +94,7 @@ message.channel.send(args)
 
 
 
-  else if (command === "f") {
-  message.reply('f');
-  //f
-  }
+
 
 
 
@@ -128,13 +142,13 @@ message.channel.send(args)
   else if (command === "kick") {
     if (!message.member.hasPermission('KICK_MEMBERS'))
         return message.channel.send(":no_entry: No tienes los permisos necesarios")
-    const member = message.mentions.members.first();
-    if (!member)  
+    const mention = message.mentions.members.first();
+    if (!mention)  
         return message.channel.send(":no_entry: No mencionaste ingun usuario.")
     const reason = args.slice(1).join(" ") 
-    if (!member.kickable)
+    if (!mention.kickable)
         return message.channel.send(":no_entry: NO puedo banear a este usuario")
-    if (member) {
+    if (mention) {
         if (!reason) {
             return member.kick().then(member => {
                 message.channel.send(`${member.user.tag} fue baneado por ${message.author}, no se dio una razon.`);
@@ -148,16 +162,7 @@ message.channel.send(args)
     }
 }
 
-else if (command === "prefix") {
-  let permiso = message.member.hasPermission("ADMINISTRATOR");
-if(!permiso){
-    message.channel.send('No tiene el permiso de Administrador');
-} else{
-    message.channel.send('has establecido el prefix como '+ args);
-    prefix = args
-}
 
-}
 
 else if (command === "uptime") {
   let totalSeconds = (client.uptime / 1000);
@@ -170,16 +175,20 @@ else if (command === "uptime") {
 
 }
 
+
+
+
+
 else if (command === "ban") {
   if (!message.member.hasPermission('BAN_MEMBERS'))
       return message.channel.send(":no_entry: No tienes los permisos necesarios")
-  const member = message.mentions.members.first();
-  if (!member)
+  const mention = message.mentions.members.first();
+  if (!mention)
       return message.channel.send(":no_entry: No mencionaste ningun usuario.")
   const reason = args.slice(1).join(" ")
-  if (!member.kickable)
+  if (!mention.kickable)
       return message.channel.send(":no_entry: no puedo banear a este usuario.")
-  if (member) {
+  if (mention) {
       if (!reason) {
           return member.ban().then(member => {
               message.channel.send(`${member.user.tag} fue baneado por ${message.author}, no se dio una razon.`)
@@ -205,6 +214,8 @@ else if (command === 'server') {
 
 
 
+
+
   });  
 
 
@@ -219,9 +230,18 @@ if (message.content === 'f') {
   message.channel.send ('efe')
 }
 
+
 if (message.content === `prefix`) {
   message.reply(`el prefix es ${prefix}`)
 }
+
+
+
+
+
+
+
+//`💎Server Booster💎  * se vería al booster entrando épicamente al chat *
 
 
 
@@ -256,6 +276,9 @@ if (message.content === `nose`) {
 
 
   )
+
+
+  
 
 
 
