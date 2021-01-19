@@ -8,10 +8,10 @@ const client = new Discord.Client();
 client.on('ready', () => {
   console.log(`Estoy listo! soy ${client.user.tag}`);
   client.user.setStatus('online')
-  client.user.setActivity('type !help')
+  client.user.setActivity('type *help')
 });
 
-let prefix = '!'
+let prefix = '*'
 
 //algo solo es pata hacer commit y que se reinicie en heroku
 
