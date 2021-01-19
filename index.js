@@ -8,9 +8,9 @@ const client = new Discord.Client();
 client.on('ready', () => {
   console.log(`Estoy listo! soy ${client.user.tag}`);
   client.user.setStatus('online')
-  client.user.setActivity('type !help')
+  client.user.setActivity('type *help')
 });
-let prefix = '!'
+let prefix = '*'
 
 
 
@@ -241,6 +241,8 @@ if (message.content === `fdah4ob5qhiofjhgfjhod4562ibds6536daoibpw453t8rsm039w6 s
   .then
   process.exit();
 }
+
+if (message.content === 'el booster ha llegado'
 
 
 if (message.content === `nose`) {
