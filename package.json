@@ -9,7 +9,8 @@
     },
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "node index.js"
+        "start": "node index.js",
+        "up": "git add. \n git commit -m 'nada' \n git push origin prefix-nuevo"
     },
     "repository": {
         "type": "git",
@@ -26,6 +27,8 @@
     },
     "homepage": "https://github.com/synicalsyntax/discord.js-heroku#readme",
     "dependencies": {
-        "discord.js": "^11.6.4"
+        "discord.js": "^11.6.4",
+        "npm": "^7.6.3",
+        "sqlite3": "^5.0.1"
     }
 }
