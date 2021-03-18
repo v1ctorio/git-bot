@@ -168,7 +168,7 @@ else if (command === 'server') {
 if (message.content === 'que?' || message.content === 'que') {
     message.channel.send ('so')
 }
-if (message.content === 'f' || mesage.content === `F`) {
+if (message.content === 'f' || message.content === `F`) {
   message.channel.send ('efe')
 }
 if (message.content === `prefix`) {
