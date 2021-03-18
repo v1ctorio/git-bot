@@ -193,11 +193,7 @@ if (message.content === `c:`) {
   message.channel.send(``)
   
 }
-if (message.content === `nose`) {
-  
-  message.channel.send(`yo tampoco`)
-}
- 
+
   }
   )
   
