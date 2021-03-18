@@ -176,7 +176,7 @@ if (message.content === `prefix`) {
 }
 //`💎Server Booster💎  * se vería al booster entrando épicamente al chat *
 if (message.content === `:c`) {
-  message.channel.send (`${message.author.username}` esta triste:c )
+  message.channel.send (`${message.author.username} esta triste:c `)
   message.channel.send ('https://media.discordapp.net/attachments/776484805880971295/786636533641248828/blue-monday.png')
 }
 if (message.content === `abueno`) {
