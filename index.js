@@ -138,26 +138,47 @@ else if (command === "uptime") {
   message.channel.send(`:low_brightness: **Uptime:** ${days} days, ${hours} hours and ${minutes} mins`)
 }
 else if (command === "ban") {
-  if (!message.member.hasPermission('BAN_MEMBERS'))
-      return message.channel.send(":no_entry: No tienes los permisos necesarios")
-  const mention = message.mentions.members.first();
-  if (!mention)
-      return message.channel.send(":no_entry: No mencionaste ningun usuario.")
-  const reason = args.slice(1).join(" ")
-  if (!mention.kickable)
-      return message.channel.send(":no_entry: no puedo banear a este usuario.")
-  if (mention) {
-      if (!reason) {
-          return member.ban().then(member => {
-              message.channel.send(`${member.user.tag} fue baneado por ${message.author}, no se dio una razon.`)
-          })
-      }
-      if (reason) {
-          member.ban().then(member => {
-              message.channel.send(`${member.user.tag} fue baneado por ${message.author} por que  ${reason}.`)
-          })
-      }
-  }
+  /*
+
+Patear a un usuario mencionado usando member().ban()
+incluye razón para los registros de auditoría-log 
+*/
+if (!message.guild.me.permissions.has('BAN_MEMBERS')) {
+  return message.channel.send('No tengo permisos para banear personas')
+}
+
+if (!message.member.permissions.has('BAN_MEMBERS')) {
+  return message.channel.send('Perdon, pero no tienes el permiso para banear personas')
+}
+
+let persona = message.mentions.members.first() || 
+  message.guild.members.resolve(args[0])
+
+if (!persona) {
+  return message.channel.send('Debe mencionar a alguien para banear')
+} else if(!persona.bannable){
+  return message.channel.send('No puedo banear a esta persona')
+}else if (persona.roles.highest.comparePositionTo(message.member.roles.highest) > 0) {
+  return message.channel.send('Esta persona esta en la misma o mayor nivel de jerarquia que tu, no puedes banearlo')
+}
+
+var razon = args.slice(1).join(' ')
+if (!razon) {
+  razon = 'Razon no especificada'
+}
+
+razon += `, Baneado por ${message.author.tag}`
+
+message.guild.members.ban(persona, {
+  reason: razon
+})
+  .catch(e => message.reply('Ocurrio un **error** desconocido'))
+  .then(() => {
+    message.channel.send(`Listo, banee a **${persona.user.tag}**`)
+  })
+
+// Propuesto por: Fabricio-191#8051
+    
 }
   // invitcaion de bot https://discord.com/oauth2/authorize?client_id=%20776106257597333515&scope=bot&permissions=8
 else if (command === 'server') {
