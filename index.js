@@ -188,6 +188,7 @@ else if (command === 'server') {
   });  
   client.on('message', message  => {
 if (message.content === 'que?' || message.content === 'que') {
+  if(message.author.id == '688476559019212805') return
     message.channel.send ('so')
 }
 if (message.content === 'f' || message.content === `F`) {
@@ -203,6 +204,10 @@ if (message.content === `:c`) {
 }
 if (message.content === `abueno`) {
   message.channel.send (`https://images-ext-1.discordapp.net/external/fb9yq6BX4mFf-RQ4nS9NuJw65P07K4awYpPr93sRhiU/https/i.ytimg.com/vi/0qARVrAEpNc/hqdefault.jpg`)
+}
+
+if (message.content === 'xd') {
+  message.channel.send (`equis the`)
 }
 if (message.content === `fdah4ob5qhiofjhgfjhod4562ibds6536daoibpw453t8rsm039w6sevse6sebmmt,sexrjgdfr6`) {
   message.delete()
