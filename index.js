@@ -179,7 +179,7 @@ message.guild.members.ban(persona, {
   })
 
 // Propuesto por: Fabricio-191#8051
-    
+    //prueba
 }
   // invitcaion de bot https://discord.com/oauth2/authorize?client_id=%20776106257597333515&scope=bot&permissions=8
 else if (command === 'server') {
