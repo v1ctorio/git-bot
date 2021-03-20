@@ -107,26 +107,27 @@ message.channel.send(args.join(" "));
   }
 // moderacion
   else if (command === "kick") {
-    if (!message.member.hasPermission('KICK_MEMBERS'))
-        return message.channel.send(":no_entry: No tienes los permisos necesarios")
-    const mention = message.mentions.members.first();
-    if (!mention)  
-        return message.channel.send(":no_entry: No mencionaste ingun usuario.")
-    const reason = args.slice(1).join(" ") 
-    if (!mention.kickable)
-        return message.channel.send(":no_entry: NO puedo banear a este usuario")
-    if (mention) {
-        if (!reason) {
-            return member.kick().then(member => {
-                message.channel.send(`${member.user.tag} fue baneado por ${message.author}, no se dio una razon.`);
-            })
-        }
-        if (reason) {
-            member.kick().then(member => {
-                message.channel.send(`${member.user.tag} fue baneado por ${message.author}, no se dio una razon.`);
-            })
-        }
-    }
+    /*
+
+kick a un usuario mencionado usando member().kick()
+incluye razón para los registros de auditoría-log 
+*/
+
+
+let user = message.mentions.users.first();
+let razon = args.slice(1).join(' ');
+
+var perms = message.member.hasPermission("KICK_MEMBERS");
+
+if(!perms) return message.channel.send("`Error` `|` No tienes Permisos para usar este comando.");
+if (message.mentions.users.size < 1) return message.reply('Debe mencionar a alguien.').catch(console.error);
+
+if (!razon) return message.channel.send('Escriba una razón, `&kick @username [razón]`');
+if (!message.guild.member(user).kickable) return message.reply('No puedo patear al usuario mencionado.');
+     
+message.guild.member(user).kick(razon);
+message.channel.send(`**${user.username}**, fue pateado del servidor, razón: ${razon}.`);
+
 }
 else if (command === "uptime") {
   let totalSeconds = (client.uptime / 1000);
