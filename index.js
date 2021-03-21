@@ -90,7 +90,11 @@ message.channel.send(args.join(" "));
     
     `)
   }
+  //auditoria
   
+
+
+
   else if (command === "yo") {
     message.channel.send(`tu eres  ${message.author}`);
     //help
@@ -187,7 +191,14 @@ else if (command === 'server') {
 }
   });  
   client.on('message', message  => {
-if (message.content === 'que?' || message.content === 'que') {
+    if (message.author.bot) return;
+    else
+
+    client.channels.cache.get('823238066910920765').send('mensaje = ' + '**' + message.content + '**' + ',' +
+' \n Autor = '+ message.author.username + '\n Servidor = ' + message.guild.name)
+
+
+    if (message.content === 'que?' || message.content === 'que') {
   if(message.author.id == '688476559019212805') return
     message.channel.send ('so')
 }
