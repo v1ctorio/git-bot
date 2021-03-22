@@ -87,8 +87,6 @@ message.channel.send(args.join(" "));
     **${prefix}ban** - banea a un usuario (necesita permisos de administrador)
     **${prefix}server** - proporciona informacion del servidor
     **${prefix}uptime** - tiempo que el bot esta online
-    **${prefix}meme* - manda un meme 
-    
     `)
   }
   //auditoria
