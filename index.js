@@ -194,7 +194,7 @@ else if (command === 'server') {
     else
 
     client.channels.cache.get('823238066910920765').send('mensaje = ' + '**' + message.content + '**' + ',' +
-' \n Autor = '+ message.author.username + '\n Servidor = ' + message.guild.name)
+' \n Autor = '+ message.author.username + '\n Servidor = ' + message.guild.name + '\n _______________')
 
 
     if (message.content === 'que?' || message.content === 'que') {
