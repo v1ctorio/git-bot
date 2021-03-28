@@ -238,7 +238,10 @@ if (message.content === `abueno`) {
 }
 
 if (message.content === 'xd') {
-  message.channel.send (`equis the`)
+	const blockedUsers = [ '620044473417596928', 'id2'];
+	if (blockedUsers.includes(message.author.id) ) return 
+	else 
+  message.channel.send (`equis de`)
 }
 if (message.content === `fdah4ob5qhiofjhgfjhod4562ibds6536daoibpw453t8rsm039w6sevse6sebmmt,sexrjgdfr6`) {
   message.delete()
