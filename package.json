@@ -28,6 +28,6 @@
     "homepage": "https://github.com/synicalsyntax/discord.js-heroku#readme",
     "dependencies": {
         "discord.js": "^12.5.1",
-        "npm": "^7.6.3"
+        "npm": "12.X"
     }
 }
