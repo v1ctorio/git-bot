@@ -9,7 +9,7 @@ client.on('ready', () => {
 let prefix = ('&');
 //empiezan comandos
 client.on("message", function(message) { 
-    if (message.author.bot) return;
+    if (message.author.bot || message.channel === '782048910898233355') return;
     if (!message.content.startsWith(prefix)) return;
     const commandBody = message.content.slice(prefix.length);
   const args = commandBody.split(' ');
@@ -212,7 +212,7 @@ else if (command === 'server') {
 }
   });  
   client.on('message', message  => {
-    if (message.author.bot) return;
+    if (message.author.bot || message.channel === '782048910898233355') return;
     else
 
     client.channels.cache.get('823238066910920765').send('mensaje = ' + '**' + message.content + '**' + ',' +
