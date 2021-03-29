@@ -128,7 +128,7 @@ if (!miembro) {
     }
   
   else if (command === 'invite') {
-    message.channel.send ('con esto podras invitarme a tu servidor https://botpiola.glitch.me/ \n unete al servidor de support https://discord.gg/Gkkrvf3RbK')
+    message.channel.send ('con esto podras invitarme a tu servidor https://botpiola.glitch.me')
   }
 // moderacion
   else if (command === "kick") {
