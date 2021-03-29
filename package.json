@@ -10,7 +10,7 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "node index.js",
-        "up": "git add. \n git commit -m 'nada' \n git push origin prefix-nuevo"
+        "up": "git add . \n git commit -m 'nada' \n git push origin master"
     },
     "repository": {
         "type": "git",
