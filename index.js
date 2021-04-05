@@ -68,8 +68,9 @@ Bloque por si el usuario tiene los mensajes privados desactivados */
     if(!args) return message.channel.send(`debe escribir un mensaje a enviar.`);
     
 	message.delete()
-	
-message.channel.send(args.join(" "));
+	var mensjaesay = args.join("")
+message.channel.send(mensjaesay, {allowedMentions:{parse:[]}});
+
   }
 
 
