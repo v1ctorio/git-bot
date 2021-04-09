@@ -129,7 +129,7 @@ if (!miembro) {
     }
   
   else if (command === 'invite') {
-    message.channel.send ('con esto podras invitarme a tu servidor https://botpiola.glitch.me')
+    message.channel.send ('con esto podras invitarme a tu servidor https://bit.ly/panchodelrancho')
   }
 // moderacion
   else if (command === "kick") {
