@@ -256,7 +256,7 @@ if (message.content === `c:`) {
   message.channel.send(``)
   
 }
-if (message.content === 'fabi es gei') {
+if (message.content === 'sisos') {
   message.reply('sies')
 }
 
