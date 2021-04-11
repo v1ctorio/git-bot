@@ -121,6 +121,35 @@ if (!miembro) {
     message.channel.send(`tu eres  ${message.author}`);
     //help
     }
+
+    else if (command === 'tweet') {
+      if (command === "tweet"){  //Hacemos el comando, dependiendo de su codigo lo hacen como lo tengan
+
+        message.delete() //Con esto borraremos el mensaje del comando, lo pueden quitar si quieren
+          
+        let txt = args.join('%20'); //Definimos los args.
+          
+        const embed2 = new Discord.MessageEmbed() //EMBED DE ERROR
+        .setTitle(`ERROR`)
+        .setDescription(`No has colocado ningun argumento.`)
+        .setColor(`RED`)
+        .setThumbnail("https://weakwifisolutions.com/wp-content/uploads/2019/08/error-red-cross-1.png?ezimgfmt=rs:372x372/rscb2/ng:webp/ngcb2")	
+          
+        
+        if (!txt) return message.channel.send(embed2) //Si no hay argumentos se enviara esto
+        
+          
+        let autor = message.author; //Definiremos autor
+        
+        let attachment = new Discord.MessageAttachment(`https://nekobot.xyz/api/imagegen?type=tweet&username=${autor.username}&text=${txt}&raw=1`,'logo.png') 
+        
+        //Creamos el attachment reemplazando los valores por el nombre del autor y los argumentos por el texto
+        
+        
+        message.channel.send(attachment)	// Enviamos el attachment
+        
+        } // Fin
+    }
 	
 
     
@@ -259,6 +288,7 @@ if (message.content === `c:`) {
 if (message.content === 'sisos') {
   message.reply('sies')
 }
+
 
   }
   )
