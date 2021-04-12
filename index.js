@@ -95,6 +95,7 @@ message.channel.send(mensjaesay, {allowedMentions:{parse:[]}});
     **${prefix}tweet** - simula un tweet 
     **${prefix}pp** - mira tu foto de perfil o la de alguien 
     **${prefix}magik** - transforma la foto de perfil con el efecto magik 
+    **${prefix}phcomment** - simula un comentario en ph 
     `)
   }
   //auditoria
