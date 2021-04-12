@@ -92,6 +92,9 @@ message.channel.send(mensjaesay, {allowedMentions:{parse:[]}});
     **${prefix}ban** - banea a un usuario (necesita permisos de administrador)
     **${prefix}server** - proporciona informacion del servidor
     **${prefix}uptime** - tiempo que el bot esta online
+    **${prefix}tweet** - simula un tweet 
+    **${prefix}pp** - mira tu foto de perfil o la de alguien 
+    **${prefix}magik** - transforma la foto de perfil con el efecto magik 
     `)
   }
   //auditoria
