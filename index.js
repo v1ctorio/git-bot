@@ -150,7 +150,44 @@ if (!miembro) {
         
         } // Fin
     }
-	
+	else if (command === 'hack') {
+	  let msg = message; //Esto por si tienen paja y hacen C&P, igual NO LO HAGAN.
+
+let user = msg.author.username; //Aqui definimos el username del user.
+let correos = ["@gmail.com", "@outlook.com", "@hotmail.com", `@discordapp.com`]; //Aqui definimos un array que contenga la dirección de los correos.
+let correosa = Math.floor(Math.random () * correos.length); //Aqui hacemos un Math.random para que nos de un resultado al azar de lo contenido en el array de los correos.
+let nums = ["1", "2", "3", "4"] //Un array con números.
+let num = Math.floor(Math.random () * nums.length); //Hacemos un Math.floor para que nos tire un número al azar.
+let correo = correosa[correos]; //Aqui juntamos el array y el Math.random para que funcionen.
+let nu = nums[num]; //Aqui hacemos lo que hicimos antes, juntar el array y el Math.random.
+let correo = `${user}${nu}${nu}${nu}${nu}${correo}`; //Aqui juntamos el user, los números y el correo. Supongamos que el men se llama Loki, le sale el @discordapp.com y el número es 4, sería así: Loki4444@discordapp.com el resultado.
+
+let contraseñas = ["MaquinaDeGuerraEsLaOnda", "iAmIronMan", "YahikoPorSiempre", "CraterEnElSuelo"]; //Aqui creamos un array con las contraseñas disponibles.
+let contraseño = Math.floor(Math.random () * contraseñas.length); //Hacemos el Math.floor, lo de siempre.
+let contraseña = contraseño[contraseñas]; //Unimos el array y el Math.random.
+let contra = `${nu}${contraseña}${nu}` //Si el número que le salió arriba es 4 y la contrasela es iAmIronMan, el resultado sería: 4iAmIronMan4, debido a contener en un string el número definido, la contraseña y el número, ahora continuaremos.
+
+const embedCorreo = new Discord.RichEmbed() //Definimos el Embed.
+.addField("Correo Electrónico:", correo) //Hacemos un field que contenga el correo.
+.setColor("RANDOM"); //Para darle color Random al Embed.
+const embedContra = new Discord.RichEmbed() //Otro Embed.
+.addField("Contraseña:", contra) //El Field con la contraseña.
+.setColor("RANDOM") //El Color Random.
+const embed = new Discord.RichEmbed()
+.addField("Correo Electrónico:", correo) //Correo.
+.addField("Contraseña:", contra) //Contraseña.
+.setColor("RANDOM") //Color random.
+msg.channel.send(embedCorreo).then(m =>{
+//arriba abrimos un then al enviar el mensaje, para poder editarlo.
+setTimeout(() =>{ //Abrimos un setTimeout.
+m.edit(embedContra)//Editamos el mensaje enviando el Embed de la contraseña.
+}, 3000); //Cerramos el setTimeout.
+setTimeout(() =>{ //Abrimos otro setTimeout.
+m.edit("¡Hackeo terminado! >:D") //Edita el mensaje y dice del Hackeo terminado.
+msg.author.send(embed); //El que usó el comando recibirá a su MD el correo y la contra.
+}, 3500); //Cerramos el setTimeout de nuevo.
+});
+	}
 
     
     else if (command === "el") {
