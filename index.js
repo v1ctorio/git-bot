@@ -164,7 +164,7 @@ let persona = message.mentions.users.first() || message.author;//esto nos sirve 
     let embed = new Discord.MessageEmbed()//en caso de que uses la version v11 cambia MessageEmbed por RichEmbed
         .setImage(link)
         .setColor("#ff0092")//aqui colocas el color que quieras jejeje
-    message.channel.send(embed)
+    message.channel.send(link)
 //cerramos cmd
 
 	}
