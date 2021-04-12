@@ -169,6 +169,7 @@ let persona = message.mentions.users.first() || message.author;//esto nos sirve 
 
         .setImage(link)
         .setColor("#ff0092")//aqui colocas el color que quieras jejeje
+        .setTitle('jajant esto no funciona')
 
  message.channel.send(embed)
 
