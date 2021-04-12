@@ -186,7 +186,19 @@ setTimeout(() =>{ //Abrimos otro setTimeout.
 m.edit("¡Hackeo terminado! >:D") //Edita el mensaje y dice del Hackeo terminado.
 msg.author.send(embed); //El que usó el comando recibirá a su MD el correo y la contra.
 }, 3500); //Cerramos el setTimeout de nuevo.
-});
+})} 
+
+else if (command === 'magik') {
+  
+let persona = message.mentions.users.first() || message.author;//esto nos sirve por si pones el comando tu mismo o mencionas a alguien
+    if (!persona) persona = message.author;
+    let link = `https://api.alexflipnote.dev/filter/magik?image=${persona.displayAvatarURL({ format: "png" })}`;
+    let embed = new Discord.MessageEmbed()//en caso de que uses la version v11 cambia MessageEmbed por RichEmbed
+        .setImage(link)
+        .setColor("#ff0092")//aqui colocas el color que quieras jejeje
+    message.channel.send(embed)
+//cerramos cmd
+
 	}
 
     
