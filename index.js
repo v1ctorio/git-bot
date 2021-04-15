@@ -105,14 +105,14 @@ else if (command === 'pp') {
  let miembro = message.mentions.users.first()
 if (!miembro) {
     const embed = new Discord.MessageEmbed()
-        .setImage(`${message.author.displayAvatarURL()}`)
+        .setImage(`${message.author.displayAvatarURL({size: 2048})}`)
         .setColor(0x66b3ff)
         .setFooter(`Avatar de ${message.author.tag}`);
     message.channel.send(embed);
 
 } else {
     const embed = new Discord.MessageEmbed()
-        .setImage(`${miembro.displayAvatarURL()}`)
+        .setImage(`${miembro.displayAvatarURL({size: 2048})}`)
         .setColor(0x66b3ff)
         .setFooter(`Avatar de ${miembro.tag}`);
 
@@ -175,7 +175,23 @@ message.channel.send(attachment)    //La enviamos
 
 }   
 
-
+else if (command === 'ship') {
+       message.delete() //Con esto borraremos el mensaje del comando, lo pueden quitar si quieren
+  
+       let txt = args.join('%20'); //Definimos los args.
+  
+       const embed2 = new Discord.MessageEmbed() //EMBED DE ERROR
+         .setTitle(`ERROR`)
+         .setDescription(`No has colocado ningun argumento.`)
+         .setColor(`RED`)
+         .setThumbnail("https://weakwifisolutions.com/wp-content/uploads/2019/08/error-red-cross-1.png?ezimgfmt=rs:372x372/rscb2/ng:webp/ngcb2")
+  
+  
+       if (!txt) return message.channel.send(embed2) //Si no hay argumentos se enviara esto
+  
+  
+       let autor = message.author;  
+}
 else if (command === 'magik') {//abrimos cmd   
 
 
