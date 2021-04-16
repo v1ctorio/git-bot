@@ -1,6 +1,14 @@
 const Discord = require("discord.js");
 var config = require("./config.json");
 const client = new Discord.Client();
+
+// Retorna un entero aleatorio entre min (incluido) y max (excluido)
+// ¡Usando Math.round() te dará una distribución no-uniforme!
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
+
 client.on('ready', () => {
   console.log(`Estoy listo! soy ${client.user.tag}`);
   client.user.setStatus('online')
@@ -75,9 +83,16 @@ message.channel.send(mensjaesay, {allowedMentions:{parse:[]}});
 
 
   else if (command === 'meme') {
-    var meme = ['https://media.discordapp.net/attachments/757716017618223215/784488476736749588/EJlcnPcWsAEtkQk.png','https://media.discordapp.net/attachments/757548223660556300/785200403959513123/image0.png?width=854&height=641','https://media.discordapp.net/attachments/757716017618223215/784488476518776852/EKIeT1eUcAA5_Q3.jpeg?width=571&height=641','https://media.discordapp.net/attachments/757716017618223215/784488476343009300/20200513_183249.jpg','https://media.discordapp.net/attachments/757716017618223215/784488475478589510/1606711309-5fc4780d6a9e6.jpg','https://media.discordapp.net/attachments/410197118263754753/711096608715964536/FB_IMG_1589586420725.jpg?width=610&height=641','https://media.discordapp.net/attachments/757406384651501678/785443810083602442/a_sos_re_troll.PNG?width=642&height=641','https://media.discordapp.net/attachments/753193857092419584/785119269238079498/IMG_20200720_190125.jpg?width=835&height=641','https://media.discordapp.net/attachments/759027747409494016/783401125281136690/13383059d47d6a3f545e73f9ed21ec0c.png',
-    'https://cdn.discordapp.com/attachments/757548223660556300/785377156825743360/20201206_213852.jpg','https://media.discordapp.net/attachments/777686401000800288/783695980175425566/20200513_183249.jpg','https://media.discordapp.net/attachments/757406384651501678/782797537349599232/127184779_3439967339405268_9090584373566259655_n.jpg','https://media.discordapp.net/attachments/753193857092419584/786609706255908864/22ca504.jpg','https://media.discordapp.net/attachments/300761624225251348/786594177970470912/gamerngyes.jpg?width=360&height=640','https://media.discordapp.net/attachments/600241793396899866/785238177702215730/Screenshot_20201205-174556_Instagram.jpg?width=596&height=640','https://media.discordapp.net/attachments/515196838400229394/785867157346058250/image0.jpg','https://media.discordapp.net/attachments/694634173268230174/786463032565563400/image0-18-1.jpg','https://media.discordapp.net/attachments/694634173268230174/786607891858587658/FB_IMG_1607612304928.jpg','https://media.discordapp.net/attachments/820286843424997428/820287531751964692/4f852321-aef1-475a-8358-1fe88bb4c57c.jpeg?width=357&height=639','https://media.discordapp.net/attachments/820286843424997428/820287532188303370/150195639_1559306024269045_8644370702747701799_o.png?width=863&height=640','https://media.discordapp.net/attachments/820286843424997428/820287532469059604/dcf029c7-0e49-41ef-9f0d-44a43bbee9a8.jpeg?width=323&height=639','https://media.discordapp.net/attachments/820286843424997428/820287734094364682/60396f70e2344.jpeg?width=640&height=640','https://media.discordapp.net/attachments/820286843424997428/820287734689169408/Ev44BePXYAA2FEP.png','https://media.discordapp.net/attachments/820286843424997428/820287532871843850/PicsArt_02-17-08.46.35.jpg?width=960&height=610']
-      message.channel.send (meme[Math.floor(Math.random() * meme.length)])
+    
+    var meme = config.memes
+    var numerodememes = meme.length
+    var numeroestes = getRandomInt(0, numerodememes)  
+const memeembed = new Discord.MessageEmbed()
+.setColor(0x66b3ff)
+.setTitle(meme[numeroestes].nombre)
+//.setImage(meme[numeroestes].url)
+
+    message.channel.send(memeembed)
     }
   else if (command === "help") {
     message.channel.send(`
