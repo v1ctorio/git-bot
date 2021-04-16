@@ -19,9 +19,7 @@ client.on("message", function(message) {
     message.reply(`Pong! Este mensaje tiene la latencia de  ${timeTaken}ms.`);                         
   } 
   //ping y pong
-  else if (command === 'botsuggest') {
-    client.users.get("688476559019212805").send(`${message.author.name}sugiere que: \n ${args.join("")}`);
-  }
+
   else if (command === "sum") {
     const numArgs = args.map(x => parseFloat(x));
     const sum = numArgs.reduce((counter, x) => counter += x);
