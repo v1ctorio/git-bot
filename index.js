@@ -14,7 +14,7 @@ client.on('ready', () => {
   client.user.setStatus('online')
   client.user.setActivity('type &help')
 });
-let prefix = ('&');
+let prefix = config.prefix
 //empiezan comandos
 client.on("message", function(message) { 
     if (message.author.bot || message.channel === '782048910898233355') return;
@@ -38,17 +38,57 @@ client.on("message", function(message) {
   message.reply(`repiola`);  
   //piola                         
   }
-  else if (command === "botsuggest") {
-    let usuario = client.users.resolve("688476559019212805") 
-    if(!args) return message.channel.send(`debe escribir un mensaje a enviar.`);
-   
-usuario.send(args.join(" ")).catch(() => {
-/*
-Bloque por si el usuario tiene los mensajes privados desactivados */
-}) 
+  
+  
+  
+else if (command === "serverinfo" || command === 'server') {//primero tienen que tener command y args definidos
+  var server = message.guild;//definimos server
+  if (server.owner) {
+  
+  const embed = new Discord.MessageEmbed()//creamos un embed
+  .setTitle("**SERVERINFO**")//establecemos titulo
+  .setDescription("**INFORMACION ACTUAL DEL SERVIDOR**")//establecemos descripcion
+  .setThumbnail(server.iconURL())//aca aparecera el icono del server
+  .setAuthor(server.name, server.iconURL())//aca va a aparecer el icono y nombre del server
+  .addField('**ID**', server.id, true)//esto es para obtener la id del server
+  .addField('**FECHA DE CREACION**',`${server.joinedAt}`)//con esto obtenemos la fecha de creacion del server
+  .addField("**REGION:**", message.guild.region)//con esto obtenemos la region del server
+  .addField("**OWNER DEL SERVIDOR:**",`${server.owner.user}`)//con esto obtenemos el creador del server
+  .addField("** ID DEL OWNER :**",`${server.ownerID}`)//con esto la id del creador del server
+  .addField(`**CANALES** [${server.channels.cache.size}]ㅤㅤ`, `Categoria: ${server.channels.cache.filter(x => x.type === "category").size} texto: ${server.channels.cache.filter(x => x.type === "text").size} voz: ${server.channels.cache.filter(x => x.type === "voice").size}`, true)
+  //con esto todos los canales del servidor
+  .addField('**MIEMBROS**', server.memberCount, true)//con esto obtenemos los miembros que hay en el server
+  .addField("**BOTS**",`${message.guild.members.cache.filter(m => m.user.bot).size}`)//con esto obtenemos los bots del server
+  .addField('**EMOJIS**',message.guild.emojis.cache.size)//con esto todos los emojis del server 
+  .addField('**BOOSTER**',message.guild.premiumSubscriptionCount.toString())// con esto el numero de booster del server
+  .addField('**NIVEL DE VERIFICACION**',`${server.verificationLevel}`)//con esto obtenemos el nivel de verificacion del server
+  .addField('**ROLES**', server.roles.cache.size,true)//con esto la cantidad de roles
+  .setColor("RANDOM")//establecemos el color  yo puse random para que salga diferente color
+  message.channel.send(embed);//enviamos el embed
   }
-  
-  
+  if (!server.owner) {
+    const embed = new Discord.MessageEmbed()//creamos un embed
+  .setTitle("**SERVERINFO**")//establecemos titulo
+  .setDescription("**INFORMACION ACTUAL DEL SERVIDOR**")//establecemos descripcion
+  .setThumbnail(server.iconURL())//aca aparecera el icono del server
+  .setAuthor(server.name, server.iconURL())//aca va a aparecer el icono y nombre del server
+  .addField('**ID**', server.id, true)//esto es para obtener la id del server
+  .addField('**FECHA DE CREACION**',`${server.joinedAt}`)//con esto obtenemos la fecha de creacion del server
+  .addField("**REGION:**", message.guild.region)//con esto obtenemos la region del server
+  //con esto obtenemos el creador del server
+  .addField("** ID DEL OWNER :**",`${server.ownerID}`)//con esto la id del creador del server
+  .addField(`**CANALES** [${server.channels.cache.size}]ㅤㅤ`, `Categoria: ${server.channels.cache.filter(x => x.type === "category").size} texto: ${server.channels.cache.filter(x => x.type === "text").size} voz: ${server.channels.cache.filter(x => x.type === "voice").size}`, true)
+  //con esto todos los canales del servidor
+  .addField('**MIEMBROS**', server.memberCount, true)//con esto obtenemos los miembros que hay en el server
+  .addField("**BOTS**",`${message.guild.members.cache.filter(m => m.user.bot).size}`)//con esto obtenemos los bots del server
+  .addField('**EMOJIS**',message.guild.emojis.cache.size)//con esto todos los emojis del server 
+  .addField('**BOOSTER**',message.guild.premiumSubscriptionCount.toString())// con esto el numero de booster del server
+  .addField('**NIVEL DE VERIFICACION**',`${server.verificationLevel}`)//con esto obtenemos el nivel de verificacion del server
+  .addField('**ROLES**', server.roles.cache.size,true)//con esto la cantidad de roles
+  .setColor("RANDOM")//establecemos el color  yo puse random para que salga diferente color
+  message.channel.send(embed);//enviamos el embed
+  }
+  }//cerramos y finnn  
  
   
   
@@ -311,9 +351,7 @@ message.guild.members.ban(persona, {
     //prueba
 }
   // invitcaion de bot https://discord.com/oauth2/authorize?client_id=%20776106257597333515&scope=bot&permissions=8
-else if (command === 'server') {
-  message.channel.send(`El nombre del servidor es: ${message.guild.name}\nTotal de miembros: ${message.guild.memberCount}\n se creo el ${message.guild.createdAt}\n Region:${message.guild.region}`);
-}
+
   });  
   client.on('message', message  => {
     if (message.author.bot || message.channel === '782048910898233355') return;
