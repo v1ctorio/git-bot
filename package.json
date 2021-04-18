@@ -29,6 +29,7 @@
     "dependencies": {
         "config.json": "^0.0.4",
         "discord.js": "^12.5.1",
+        "megadb": "^3.4.0",
         "npm": "^7.6.3"
     }
 }

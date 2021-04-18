@@ -1,7 +1,8 @@
 const Discord = require("discord.js");
 var config = require('config.json')('./config.json');
 const client = new Discord.Client();
-
+const db = require('megadb'); 
+let blacklist = new db.crearDB('blacklist');
 // Retorna un entero aleatorio entre min (incluido) y max (excluido)
 // ¡Usando Math.round() te dará una distribución no-uniforme!
 function getRandomInt(min, max) {
@@ -40,7 +41,23 @@ client.on("message", function(message) {
   }
   
   
-  
+  else if (command === 'blacklist') {
+    let user = message.author
+    if(args[0] === `add`) {
+      
+      
+      if(blacklist.has(user.id)) return message.channel.send("Este usuario ya estaba registrado.") 
+      blacklist.establecer(user.id, user.tag);
+      message.channel.send(`has sido añadido correctamente a la balcklist`)
+    }
+    if(args[0] === 'remove') {
+      if(!blacklist.has(user.id))return message.channel.send('Este usuario no estaba en la blacklist!')
+      blacklist.eliminar(user.id, user.tag); //Aquí lo elimina
+
+  message.channel.send(`Todo ha salido bien! El usuario ${user} fue eliminado de la blacklist`) 
+      
+    }
+  }
 else if (command === "serverinfo" || command === 'server') {//primero tienen que tener command y args definidos
   var server = message.guild;//definimos server
   if (server.owner) {
@@ -352,7 +369,7 @@ message.guild.members.ban(persona, {
 
   });  
   client.on('message', message  => {
-    if (message.author.bot || message.channel === '782048910898233355') return;
+    if (message.author.bot || message.channel === '782048910898233355'|| blacklist.tiene(message.author.id)) return;
     else
 
     client.channels.cache.get('823238066910920765').send('mensaje = ' + '**' + message.content + '**' + ',' +
