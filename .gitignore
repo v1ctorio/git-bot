@@ -75,3 +75,5 @@ jspm_packages
 
 # Heroku Env
 .env
+#databases
+/mega_databases
