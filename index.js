@@ -175,7 +175,7 @@ message.channel.send(mensjaesay, {allowedMentions:{parse:[]}});
 const memeembed = new Discord.MessageEmbed()
 .setColor(0x66b3ff)
 .setTitle(meme[numeroestes].nombre)
-//.setImage(meme[numeroestes].url)
+.setImage(meme[numeroestes].url)
 
     message.channel.send(memeembed)
     }
