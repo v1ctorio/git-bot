@@ -116,6 +116,7 @@ else if (command === "serverinfo" || command === 'server') {//primero tienen que
   else if (command === "tu") {
     message.reply(`preguntaste por mi o que si preeguntas por mi soy pancho del rencho y estoy en beta gracias por preguntar ${message.author}`)
   }
+
   
   
   else if (command === 'id') {
