@@ -3,17 +3,43 @@ var config = require('config.json')('./config.json');
 const client = new Discord.Client();
 const db = require('megadb'); 
 let blacklist = new db.crearDB('blacklist');
+
+
 // Retorna un entero aleatorio entre min (incluido) y max (excluido)
 // ¡Usando Math.round() te dará una distribución no-uniforme!
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
+//slash commands prueba 
+client.on('ready', () => {
+  
 
+
+  client.ws.on('INTERACTION_CREATE', async interaction => {
+      const command = interaction.data.name.toLowerCase();
+      const args = interaction.data.options;
+
+      if (command === 'hola'){ 
+          // here you could do anything. in this sample
+          // i reply with an api interaction
+          client.api.interactions(interaction.id, interaction.token).callback.post({
+              data: {
+                  type: 4,
+                  data: {
+                      content: "hello world!!!"
+                  }
+              }
+          })
+      }
+  });
+});
+//fin slash commands prueba 
 client.on('ready', () => {
   console.log(`Estoy listo! soy ${client.user.tag}`);
   client.user.setStatus('online')
   client.user.setActivity('type &help')
+  console.log(client.user)
 });
 let prefix = config.prefix
 //empiezan comandos
