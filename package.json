@@ -14,7 +14,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/synicalsyntax/discord.js-heroku.git"
+        "url": "git+https://github.com/Victorio0005/git-bot.git"
     },
     "keywords": [
         "heroku",
@@ -23,7 +23,7 @@
     "author": "synicalsyntax",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/synicalsyntax/discord.js-heroku/issues"
+        "url": "https://github.com/Victorio0005/git-bot.git"
     },
     "homepage": "https://github.com/synicalsyntax/discord.js-heroku#readme",
     "dependencies": {

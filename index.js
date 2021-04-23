@@ -33,6 +33,7 @@ var saludoxd = config.slaudos[getRandomInt(0, config.slaudos.length)]
               }
           })
       }
+      
   });
 });
 //fin slash commands prueba 
