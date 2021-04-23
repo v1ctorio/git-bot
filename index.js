@@ -14,6 +14,7 @@ function getRandomInt(min, max) {
 //slash commands prueba 
 client.on('ready', () => {
   
+var saludoxd = config.slaudos[getRandomInt(0, config.slaudos.length)]
 
 
   client.ws.on('INTERACTION_CREATE', async interaction => {
@@ -27,7 +28,7 @@ client.on('ready', () => {
               data: {
                   type: 4,
                   data: {
-                      content: "hello world!!!"
+                      content: saludoxd
                   }
               }
           })
