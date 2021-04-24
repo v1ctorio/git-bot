@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 var config = require('config.json')('./config.json');
 const client = new Discord.Client();
 //const db = require('megadb'); 
-
+var version =  "1.9.3"
 //let blacklist = new db.crearDB('blacklist');
 
 
@@ -41,7 +41,7 @@ var saludoxd = config.slaudos[getRandomInt(0, config.slaudos.length)]
 client.on('ready', () => {
   console.log(`Estoy listo! soy ${client.user.tag}`);
   client.user.setStatus('online')
-  client.user.setActivity('type &help | V 1.9.3')
+  client.user.setActivity(`type &help | V ${version}`)
   console.log(client.user)
   client.channels.cache.get('818932024961138718').send('hola, ha terminado mi reinicio esto puede ser debido a un actualizacion o a un problema con el hostng')
 });
