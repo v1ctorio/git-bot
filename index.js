@@ -3,7 +3,7 @@ const ytdl = require('ytdl-core');
 var config = require('config.json')('./config.json');
 const client = new Discord.Client();
 //const db = require('megadb'); 
-var version =  "1.9.3"
+var version =  "2.0.0"
 //let blacklist = new db.crearDB('blacklist');
 
 
@@ -51,7 +51,8 @@ client.on('ready', () => {
   
 
   channel.join().then(connection => {
-      const stream = ytdl('https://www.youtube.com/watch?v=_DYAnU3H7RI', { filter: 'audioonly' });
+
+      const stream = ytdl('https://www.youtube.com/watch?v=5qap5aO4i9A', { filter: 'audioonly' });
       const dispatcher = connection.play(stream);
       
       dispatcher.on('finish', () => console.log('termine 10 horas'));
