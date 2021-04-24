@@ -1,4 +1,5 @@
 const Discord = require("discord.js");
+const ytdl = require('ytdl-core');
 var config = require('config.json')('./config.json');
 const client = new Discord.Client();
 //const db = require('megadb'); 
@@ -44,6 +45,17 @@ client.on('ready', () => {
   client.user.setActivity(`type &help | V ${version}`)
   console.log(client.user)
   client.channels.cache.get('818932024961138718').send('hola, ha terminado mi reinicio esto puede ser debido a un actualizacion o a un problema con el hostng')
+  const channel = client.channels.cache.get("835526023176912926");
+    
+
+  
+
+  channel.join().then(connection => {
+      const stream = ytdl('https://www.youtube.com/watch?v=_DYAnU3H7RI', { filter: 'audioonly' });
+      const dispatcher = connection.play(stream);
+      
+      dispatcher.on('finish', () => console.log('termine 10 horas'));
+  })
 });
 let prefix = config.prefix
 //empiezan comandos
@@ -448,6 +460,11 @@ message.channel.send(`${message.author.tag} uso un pacman, es hora de la funa`)
 
   }
   )
+
+
+ 
+   
   
+
 //terminan los comandos
 client.login(config.BOT_TOKEN);
