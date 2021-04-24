@@ -41,7 +41,7 @@ var saludoxd = config.slaudos[getRandomInt(0, config.slaudos.length)]
 client.on('ready', () => {
   console.log(`Estoy listo! soy ${client.user.tag}`);
   client.user.setStatus('online')
-  client.user.setActivity('type &help | V 1.9.1')
+  client.user.setActivity('type &help | V 1.9.3')
   console.log(client.user)
   client.channels.cache.get('818932024961138718').send('hola, ha terminado mi reinicio esto puede ser debido a un actualizacion o a un problema con el hostng')
 });
@@ -72,7 +72,7 @@ client.on("message", function(message) {
   
   
 else if (command === "reset") {
-    if (message.author.id !== "835507933491232768") return false;
+    if (message.author.id !== "688476559019212805") return 
     message.reply("Resetting...");
     client.destroy();
     client.login(config.BOT_TOKEN);
