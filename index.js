@@ -41,8 +41,9 @@ var saludoxd = config.slaudos[getRandomInt(0, config.slaudos.length)]
 client.on('ready', () => {
   console.log(`Estoy listo! soy ${client.user.tag}`);
   client.user.setStatus('online')
-  client.user.setActivity('type &help')
+  client.user.setActivity('type &help | V 1.9.1')
   console.log(client.user)
+  client.channels.cache.get('818932024961138718').send('hola, ha terminado mi reinicio essto puede ser debido a un actualizacion o a un problema con el hostng')
 });
 let prefix = config.prefix
 //empiezan comandos
