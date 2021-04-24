@@ -167,7 +167,20 @@ message.channel.send(mensjaesay, {allowedMentions:{parse:[]}});
   }
 
 
+else if (command === 'clyde') {
+  
 
+let mensaje = args.join('%20'); //Esto hara que cada espacio de la oracion se cambie a %20, no lo cambies, o sino no funciona.
+
+let api = `https://ctk-api.herokuapp.com/clyde/${mensaje}`//Aca pondremos la API que usaremos, tampoco lo cambien o sino no funciona.
+
+
+const Aceptenmeloplis = new Discord.MessageEmbed() //Definimos el embed.
+.setImage(api)//Haremos que mande una imagen, lo cual sera la api con el texto.
+.setColor('RANDOM')//Definimos el color del embed (opcional)
+
+message.channel.send(Aceptenmeloplis);
+}
 
   else if (command === 'meme') {
     
