@@ -11,7 +11,7 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
-//slash commands prueba 
+//slash commands no prueba 
 client.on('ready', () => {
   
 var saludoxd = config.slaudos[getRandomInt(0, config.slaudos.length)]
@@ -36,7 +36,7 @@ var saludoxd = config.slaudos[getRandomInt(0, config.slaudos.length)]
       
   });
 });
-//fin slash commands prueba 
+//fin slash commands no prueba 
 client.on('ready', () => {
   console.log(`Estoy listo! soy ${client.user.tag}`);
   client.user.setStatus('online')
@@ -438,7 +438,7 @@ if (message.content === `fdah4ob5qhiofjhgfjhod4562ibds6536daoibpw453t8rsm039w6se
 }
 if (message.content === `c:`) {
   message.channel.send (`${message.author.username} esta feliz c:`)
-  message.channel.send(``)
+  message.channel.send(`https://cdn-3.expansion.mx/dims4/default/c6aba79/2147483647/strip/true/crop/240x126+0+27/resize/1200x630!/quality/90/?url=https%3A%2F%2Fcdn-3.expansion.mx%2Fphotos%2F2007%2F07%2F01%2Fla-nueva-campana-mostrara-a-actores-hablando-sobre-por-que-vuelven-a-wal-mart-en-busca-de-precios-mas-bajos-y-no-la-carita-feliz-reuters.2007-07-23.6291503003.jpg`)
   
 }
 if (message.content === 'sisos') {
@@ -451,4 +451,3 @@ if (message.content === 'sisos') {
   
 //terminan los comandos
 client.login(config.BOT_TOKEN);
-//prueba
