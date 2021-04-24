@@ -161,7 +161,7 @@ else if (command === "serverinfo" || command === 'server') {//primero tienen que
     if(!args) return message.channel.send(`debe escribir un mensaje a enviar.`);
     
 	message.delete()
-	var mensjaesay = args.join("")
+	var mensjaesay = args.join("%20")
 message.channel.send(mensjaesay, {allowedMentions:{parse:[]}});
 
   }
