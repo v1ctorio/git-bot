@@ -71,6 +71,13 @@ client.on("message", function(message) {
   }
   
   
+else if (command === "reset") {
+    if (message.author.id !== "835507933491232768") return false;
+    message.reply("Resetting...");
+    client.destroy();
+    client.login(config.BOT_TOKEN);
+}
+
 
 else if (command === "serverinfo" || command === 'server') {//primero tienen que tener command y args definidos
   var server = message.guild;//definimos server
