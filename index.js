@@ -2,6 +2,7 @@ const Discord = require("discord.js");
 var config = require('config.json')('./config.json');
 const client = new Discord.Client();
 const db = require('megadb'); 
+
 let blacklist = new db.crearDB('blacklist');
 
 
@@ -275,21 +276,9 @@ message.channel.send(attachment)    //La enviamos
 }   
 
 else if (command === 'ship') {
-       message.delete() //Con esto borraremos el mensaje del comando, lo pueden quitar si quieren
+
+  message.channel.send('aun nada')
   
-       let txt = args.join('%20'); //Definimos los args.
-  
-       const embed2 = new Discord.MessageEmbed() //EMBED DE ERROR
-         .setTitle(`ERROR`)
-         .setDescription(`No has colocado ningun argumento.`)
-         .setColor(`RED`)
-         .setThumbnail("https://weakwifisolutions.com/wp-content/uploads/2019/08/error-red-cross-1.png?ezimgfmt=rs:372x372/rscb2/ng:webp/ngcb2")
-  
-  
-       if (!txt) return message.channel.send(embed2) //Si no hay argumentos se enviara esto
-  
-  
-       let autor = message.author;  
 }
 else if (command === 'magik') {//abrimos cmd   
 
