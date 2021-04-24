@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const ytdl = require('ytdl-core');
+
 var config = require('config.json')('./config.json');
 const client = new Discord.Client();
 //const db = require('megadb'); 
@@ -50,13 +50,7 @@ client.on('ready', () => {
 
   
 
-  /*channel.join().then(connection => {
-
-      const stream = ytdl('https://www.youtube.com/watch?v=5qap5aO4i9A', { filter: 'audioonly' });
-      const dispatcher = connection.play(stream);
-      
-      dispatcher.on('finish', () => console.log('termine 10 horas'));
-  })*/
+ 
 });
 let prefix = config.prefix
 //empiezan comandos
