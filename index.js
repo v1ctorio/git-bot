@@ -50,13 +50,13 @@ client.on('ready', () => {
 
   
 
-  channel.join().then(connection => {
+  /*channel.join().then(connection => {
 
       const stream = ytdl('https://www.youtube.com/watch?v=5qap5aO4i9A', { filter: 'audioonly' });
       const dispatcher = connection.play(stream);
       
       dispatcher.on('finish', () => console.log('termine 10 horas'));
-  })
+  })*/
 });
 let prefix = config.prefix
 //empiezan comandos
