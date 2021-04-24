@@ -432,6 +432,12 @@ if (message.content === 'sisos') {
   message.reply('sies')
 }
 
+const pacman_verificator = /(>|<?)(:|;)('|"|,|.?)(v|u|y)|(v|u|y)('|"|,|.?)(:|;)(>|<?)/gi
+if(message.content.match(pacman_verificator)){
+console.log(`${message.author.tag} ha usado un pacman.`) 
+message.channel.send(`${message.author.tag} uso un pacman, es hora de la funa`)
+}
+
 
   }
   )
