@@ -193,25 +193,9 @@ const memeembed = new Discord.MessageEmbed()
 
     message.channel.send(memeembed)
     }
-  else if (command === "help") {
-    message.channel.send(`
-    Estos son mis comandos:
-    **&help** - todos los comandos (lo estas viendo)
-    **&sum <num1> <num2>** - Suma 2 numeros 
-    **&meme** - manda un meme
-    **&invite** - manda el link para invitarme a tu servidor
-    **&kick** - expulsa a un usuario (necesita permisos de administrador)
-    **&ban** - banea a un usuario (necesita permisos de administrador)
-    **&server** - proporciona informacion del servidor
-    **&uptime** - tiempo que el bot esta online
-    **&tweet** - simula un tweet 
-    **&pp** - mira tu foto de perfil o la de alguien 
-    **&magik** - transforma la foto de perfil con el efecto magik 
-    **&phcomment** - simula un comentario en ph 
-    `)
-  }
+
   //auditoria
-  else if (command === 'info'|| command === 'botinfo') {
+  else if (command === 'info'|| command === 'botinfo'|| command === 'help') {
     info = {
       "title": "Información",
       "description": "soy un bot creado por Victorio#5994 con comandos de entretenimiento y moderación",
