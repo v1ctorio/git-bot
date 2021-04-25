@@ -44,7 +44,7 @@ client.on('ready', () => {
   client.user.setStatus('online')
   client.user.setActivity(`type &help | V ${version}`)
   console.log(client.user)
-  client.channels.cache.get('818932024961138718').send('hola, ha terminado mi reinicio esto puede ser debido a un actualizacion o a un problema con el hostng')
+  client.channels.cache.get('835470740618346546').send('hola, ha terminado mi reinicio esto puede ser debido a un actualizacion o a un problema con el hostng')
   const channel = client.channels.cache.get("835526023176912926");
     
 
@@ -196,22 +196,51 @@ const memeembed = new Discord.MessageEmbed()
   else if (command === "help") {
     message.channel.send(`
     Estos son mis comandos:
-    **${prefix}help** - todos los comandos (lo estas viendo)
-    **${prefix}sum <num1> <num2>** - Suma 2 numeros 
-    **${prefix}meme** - manda un meme
-    **${prefix}invite** - manda el link para invitarme a tu servidor
-    **${prefix}kick** - expulsa a un usuario (necesita permisos de administrador)
-    **${prefix}ban** - banea a un usuario (necesita permisos de administrador)
-    **${prefix}server** - proporciona informacion del servidor
-    **${prefix}uptime** - tiempo que el bot esta online
-    **${prefix}tweet** - simula un tweet 
-    **${prefix}pp** - mira tu foto de perfil o la de alguien 
-    **${prefix}magik** - transforma la foto de perfil con el efecto magik 
-    **${prefix}phcomment** - simula un comentario en ph 
+    **&help** - todos los comandos (lo estas viendo)
+    **&sum <num1> <num2>** - Suma 2 numeros 
+    **&meme** - manda un meme
+    **&invite** - manda el link para invitarme a tu servidor
+    **&kick** - expulsa a un usuario (necesita permisos de administrador)
+    **&ban** - banea a un usuario (necesita permisos de administrador)
+    **&server** - proporciona informacion del servidor
+    **&uptime** - tiempo que el bot esta online
+    **&tweet** - simula un tweet 
+    **&pp** - mira tu foto de perfil o la de alguien 
+    **&magik** - transforma la foto de perfil con el efecto magik 
+    **&phcomment** - simula un comentario en ph 
     `)
   }
   //auditoria
-  
+  else if (command === 'info'|| command === 'botinfo') {
+    info = {
+      "title": "Información",
+      "description": "soy un bot creado por Victorio#5994 con comandos de entretenimiento y moderación",
+      "color": null,
+      "fields": [
+        {
+          "name": "Comandos",
+          "value": "Puedes ver todos los comandos usando &help o aquí \n  Estos son mis comandos:\n    **&help** - todos los comandos (lo estas viendo)\n    **&sum <num1> <num2>** - Suma 2 numeros \n    **&meme** - manda un meme\n    **&invite** - manda el link para invitarme a tu servidor\n    **&kick** - expulsa a un usuario (necesita permisos de administrador)\n    **&ban** - banea a un usuario (necesita permisos de administrador)\n    **&server** - proporciona informacion del servidor\n    **&uptime** - tiempo que el bot esta online\n    **&tweet** - simula un tweet \n    **&pp** - mira tu foto de perfil o la de alguien \n    **&magik** - transforma la foto de perfil con el efecto magik \n    **&phcomment** - simula un comentario en ph"
+        },
+        {
+          "name": "Servidor",
+          "value": "Unete al servidor oficial del bot aqui [discord.gg/P5438xBR94](https://discord.gg/P5438xBR94)"
+        }
+      ],
+      "author": {
+        "name": "Pancho del rancho",
+        "url": "https://bit.ly/panchodelrancho",
+        "icon_url": "https://images-ext-2.discordapp.net/external/LFiST9waRyxge-xibE8gsIVb6BwQLhGnRDFPpE7HrTE/%3Fsize%3D2048/https/cdn.discordapp.com/avatars/776106257597333515/2a357a609135bd1372f94367c728b564.webp?width=427&height=427"
+      },
+      "footer": {
+        "text": "leíste esto, tabien."
+      },
+      "timestamp": "2021-04-25T14:08:00.000Z"
+    }
+
+    const infoembed = new Discord.MessageEmbed(info)
+    message.author.send(infoembed)
+    message.react('✅')
+  }
 
 else if (command === 'pp') {
  let miembro = message.mentions.users.first()
@@ -414,7 +443,7 @@ if (message.content === 'f' || message.content === `F`) {
   message.channel.send ('efe')
 }
 if (message.content === `prefix`) {
-  message.reply(`el prefix es ${prefix}`)
+  message.reply(`el prefix es &`)
 }
 //`💎Server Booster💎  * se vería al booster entrando épicamente al chat *
 if (message.content === `:c`) {
@@ -445,7 +474,9 @@ if (message.content === `c:`) {
 if (message.content === 'sisos') {
   message.reply('sies')
 }
+if (message.content === ':v') {
 
+}
 const pacman_verificator = /(>|<?)(:|;)('|"|,|.?)(v|u|y)|(v|u|y)('|"|,|.?)(:|;)(>|<?)/gi
 
 
