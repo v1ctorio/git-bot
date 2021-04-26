@@ -3,7 +3,7 @@ const Discord = require("discord.js");
 var config = require('config.json')('./config.json');
 const client = new Discord.Client();
 //const db = require('megadb'); 
-var version =  "2.0.0"
+var version =  "2.0.9"
 //let blacklist = new db.crearDB('blacklist');
 
 
@@ -148,7 +148,9 @@ else if (command === "serverinfo" || command === 'server') {//primero tienen que
   
   
   else if (command === 'id') {
-    message.reply (`tu id es ${message.author.id}`)
+    var usuario2 = message.mentions.users.first()
+    if(!usuario2) return message.reply (`tu id es ${message.author.id}`)
+    else message.reply(`la id de ${usuario2.tag} es ${usuario2.id}`)
   }
   else if (command === "gg") {
   message.channel.send(`bien jugado ${message.author}`);  
@@ -196,30 +198,7 @@ const memeembed = new Discord.MessageEmbed()
 
   //auditoria
   else if (command === 'info'|| command === 'botinfo'|| command === 'help') {
-    info = {
-      "title": "Información",
-      "description": "soy un bot creado por Victorio#5994 con comandos de entretenimiento y moderación",
-      "color": null,
-      "fields": [
-        {
-          "name": "Comandos",
-          "value": "Puedes ver todos los comandos usando &help o aquí \n  Estos son mis comandos:\n    **&help** - todos los comandos (lo estas viendo)\n    **&sum <num1> <num2>** - Suma 2 numeros \n    **&meme** - manda un meme\n    **&invite** - manda el link para invitarme a tu servidor\n    **&kick** - expulsa a un usuario (necesita permisos de administrador)\n    **&ban** - banea a un usuario (necesita permisos de administrador)\n    **&server** - proporciona informacion del servidor\n    **&uptime** - tiempo que el bot esta online\n    **&tweet** - simula un tweet \n    **&pp** - mira tu foto de perfil o la de alguien \n    **&magik** - transforma la foto de perfil con el efecto magik \n    **&phcomment** - simula un comentario en ph"
-        },
-        {
-          "name": "Servidor",
-          "value": "Unete al servidor oficial del bot aqui [discord.gg/P5438xBR94](https://discord.gg/P5438xBR94)"
-        }
-      ],
-      "author": {
-        "name": "Pancho del rancho",
-        "url": "https://bit.ly/panchodelrancho",
-        "icon_url": "https://images-ext-2.discordapp.net/external/LFiST9waRyxge-xibE8gsIVb6BwQLhGnRDFPpE7HrTE/%3Fsize%3D2048/https/cdn.discordapp.com/avatars/776106257597333515/2a357a609135bd1372f94367c728b564.webp?width=427&height=427"
-      },
-      "footer": {
-        "text": "leíste esto, tabien."
-      },
-      "timestamp": "2021-04-25T14:08:00.000Z"
-    }
+    info = {"title":"Informaci\u00f3n","description":"soy un bot creado por Victorio#5994 con comandos de entretenimiento y moderaci\u00f3n","color":random,"fields":[{"name":"Comandos","value":" \n  Estos son mis comandos:\n    **&help** - todos los comandos (lo estas viendo)\n    **&sum <num1> <num2>** - Suma 2 numeros \n    **&meme** - manda un meme\n    **&invite** - manda el link para invitarme a tu servidor\n    **&kick** - expulsa a un usuario (necesita permisos de administrador)\n    **&ban** - banea a un usuario (necesita permisos de administrador)\n    **&server** - proporciona informacion del servidor\n    **&uptime** - tiempo que el bot esta online\n    **&tweet** - simula un tweet \n    **&pp** - mira tu foto de perfil o la de alguien \n    **&magik** - transforma la foto de perfil con el efecto magik \n    **&phcomment** - simula un comentario en ph"},{"name":"Servidor","value":"Unete al servidor oficial del bot aqui [discord.gg\/P5438xBR94](https:\/\/discord.gg\/P5438xBR94)"}],"author":{"name":"Pancho del rancho","url":"https:\/\/bit.ly\/panchodelrancho","icon_url":"https:\/\/images-ext-2.discordapp.net\/external\/LFiST9waRyxge-xibE8gsIVb6BwQLhGnRDFPpE7HrTE\/%3Fsize%3D2048\/https\/cdn.discordapp.com\/avatars\/776106257597333515\/2a357a609135bd1372f94367c728b564.webp?width=427&height=427"},"footer":{"text":"le\u00edste esto, tabien."},"timestamp":"2021-04-25T14:08:00.000Znull"}
 
     const infoembed = new Discord.MessageEmbed(info)
     message.author.send(infoembed)
@@ -332,7 +311,7 @@ let persona = message.mentions.users.first() || message.author;//esto nos sirve 
     }
   
   else if (command === 'invite') {
-    message.channel.send ('con esto podras invitarme a tu servidor https://bit.ly/panchodelrancho')
+    message.channel.send ('con esto podras invitarme a tu servidor <https://bit.ly/panchodelrancho>')
   }
 // moderacion
   else if (command === "kick") {
@@ -349,9 +328,11 @@ var perms = message.member.hasPermission("KICK_MEMBERS");
 
 if(!perms) return message.channel.send("`Error` `|` No tienes Permisos para usar este comando.");
 if (message.mentions.users.size < 1) return message.reply('Debe mencionar a alguien.').catch(console.error);
-
+ if (persona.roles.highest.comparePositionTo(message.member.roles.highest) > 0) {
+  return message.channel.send('Esta persona esta en la misma o mayor nivel de jerarquia que tu, no puedes banearlo')
+}
 if (!razon) return message.channel.send('Escriba una razón, `&kick @username [razón]`');
-if (!message.guild.member(user).kickable) return message.reply('No puedo patear al usuario mencionado.');
+if (!message.guild.member(user).kickable) return message.reply('No puedo expulsar al usuario mencionado.');
      
 message.guild.member(user).kick(razon);
 message.channel.send(`**${user.username}**, fue pateado del servidor, razón: ${razon}.`);
@@ -364,11 +345,11 @@ else if (command === "uptime") {
   totalSeconds %= 3600;
   let minutes = Math.floor(totalSeconds / 60);
   let seconds = totalSeconds / 60;
-  message.channel.send(`:low_brightness: **Uptime:** ${days} days, ${hours} hours and ${minutes} mins`)
+  message.channel.send(`:low_brightness: **Uptime:** ${days} dias, ${hours} horas y ${minutes} minutos`)
 }
 else if (command === "ban") {
   /*
-Patear a un usuario mencionado usando member().ban()
+expulsar a un usuario mencionado usando member().ban()
 incluye razón para los registros de auditoría-log 
 */
 if (!message.guild.me.permissions.has('BAN_MEMBERS')) {
