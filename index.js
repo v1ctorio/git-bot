@@ -286,6 +286,7 @@ else if (command === 'ship') {
 }
 
 else if (command === 'servers') {
+  if (!message.author.id === '688476559019212805') return
   let embed = new Discord.MessageEmbed() //declaramos embed
       .setTitle(`Estoy en ${client.guilds.cache.size} Servers !`)
 //escribimos un titulo (la funcion de ${client.guilds.cache.size} es mostrar la cantidad de servidores en los que se encuentra el bot
@@ -293,7 +294,7 @@ else if (command === 'servers') {
 //Buscamos un MAP, el cual nos mostrara los nombres de los servidores
       .setColor("RANDOM")
 //Seleccionamos un color, en este caso random
-    message.reply(embed) 
+    message.author.send(embed) 
 }
 else if (command === 'magik') {//abrimos cmd   
 
