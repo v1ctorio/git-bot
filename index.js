@@ -413,8 +413,19 @@ message.guild.members.ban(persona, {
 
 
     if (message.content === 'que?' || message.content === 'que') {
-  if(message.author.id == '688476559019212805') return
-    message.channel.send ('so')
+  
+  message.channel.send('so').then(() => {
+    const filter = m => message.author.id === m.author.id;
+  
+    message.channel.awaitMessages(filter, { time: 60000, max: 1, errors: ['time'] })
+      .then(messages => {
+        if(messages.first().content == 'pa')
+        message.channel.send(`ra`);
+      })
+      .catch(() => {
+        console.log('You did not enter any input!');
+      });
+  });
 }
 if (message.content === 'f' || message.content === `F`) {
   message.channel.send ('efe')
@@ -451,8 +462,13 @@ if (message.content === `c:`) {
 if (message.content === 'sisos') {
   message.reply('sies')
 }
-if (message.content === ':v') {
-
+if (message.content === ':v'|| message.content === ':V') {
+var elejido = getRandomInt(1,10)
+if (elejido > 8) {
+  var elegido = true
+} 
+attachment23 = new Discord.MessageAttachment('https://images-ext-2.discordapp.net/external/xitugu5chFLjGkDYYThIaqtLlt794ZraCuzhMsPIMXg/%3Fcb%3D20201224065056%26path-prefix%3Des/https/static.wikia.nocookie.net/memes-pedia/images/8/8f/Empanycal_3.jpg/revision/latest/scale-to-width-down/177','grasa.png') 
+if(elegido) message.channel.send(`<@${message.author.id}>`,attachment23)
 }
 const pacman_verificator = /(>|<?)(:|;)('|"|,|.?)(v|u|y)|(v|u|y)('|"|,|.?)(:|;)(>|<?)/gi
 
