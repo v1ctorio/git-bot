@@ -420,7 +420,7 @@ message.guild.members.ban(persona, {
     message.channel.awaitMessages(filter, { time: 60000, max: 1, errors: ['time'] })
       .then(messages => {
         if(messages.first().content == 'pa')
-        message.channel.send(`ra`);
+        message.channel.send(`to`);
       })
       .catch(() => {
         console.log('You did not enter any input!');
