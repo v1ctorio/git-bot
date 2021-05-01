@@ -472,7 +472,17 @@ if(elegido) message.channel.send(`<@${message.author.id}>`,attachment23)
 }
 const pacman_verificator = /(>|<?)(:|;)('|"|,|.?)(v|u|y)|(v|u|y)('|"|,|.?)(:|;)(>|<?)/gi
 
+if(message.channel.id == '838002833566990357' ) {
+  var guild = message.guild
 
+  let loteria = message.guild.roles.cache.get("838002543400452148");
+  /* usar try para h¡probar luego catch 
+  try{
+  message.author.role.remove(role)} catch(error){
+    console.error(error)
+  }*/
+  message.member.roles.remove(loteria).catch(console.error);
+}
 
   }
   )
