@@ -3,10 +3,13 @@ const Discord = require("discord.js");
 var config = require('config.json')('./config.json');
 const client = new Discord.Client();
 //const db = require('megadb'); 
-var version =  "2.0.9"
+var version =  "2.1.0";
 //let blacklist = new db.crearDB('blacklist');
-
-
+if(0 > 1) {
+  const newLocal = 'de alguna forma 0 es mayor que 1';
+}else{
+  console.log('o es menos que uno, todo bien ');
+};
 // Retorna un entero aleatorio entre min (incluido) y max (excluido)
 // ¡Usando Math.round() te dará una distribución no-uniforme!
 function getRandomInt(min, max) {
@@ -290,7 +293,8 @@ else if (command === 'servers') {
   let embed = new Discord.MessageEmbed() //declaramos embed
       .setTitle(`Estoy en ${client.guilds.cache.size} Servers !`)
 //escribimos un titulo (la funcion de ${client.guilds.cache.size} es mostrar la cantidad de servidores en los que se encuentra el bot
-      .setDescription(`${client.guilds.cache.map(r => r.name).join(". \n\n")}`)
+      .setDescription(`${client.guilds.cache.map(r => r.name).join(". \n\n")+'\n comando solo del owner'}`)
+      
 //Buscamos un MAP, el cual nos mostrara los nombres de los servidores
       .setColor("RANDOM")
 //Seleccionamos un color, en este caso random
@@ -359,6 +363,8 @@ else if (command === "uptime") {
   let seconds = totalSeconds / 60;
   message.channel.send(`:low_brightness: **Uptime:** ${days} dias, ${hours} horas y ${minutes} minutos`)
 }
+
+
 else if (command === "ban") {
   /*
 expulsar a un usuario mencionado usando member().ban()

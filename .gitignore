@@ -77,3 +77,4 @@ jspm_packages
 .env
 #databases
 /mega_databases
+/.vscode
