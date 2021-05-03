@@ -1,8 +1,20 @@
 const Discord = require("discord.js");
 
 var config = require('config.json')('./config.json');
-const client = new Discord.Client();
-//const db = require('megadb'); 
+
+const client = new Discord.Client({ ws: { intents: Discord.Intents.ALL } });
+const mongoose = require("mongoose"); // Mongoose es lo más utilizado a la hora de usar una base de datos de MongoDB y también es el mejor para esto.
+
+// Conectamos la base: 
+mongoose.connect('mongodb+srv://Vic:juan@principal.vpbcj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+}, async(err, db) => {
+  if(err) console.log(err); else {
+    
+    console.log('Conectado a mongodb.')
+  var conectadoadb = true}
+})
 var version =  "2.1.0";
 //let blacklist = new db.crearDB('blacklist');
 if(0 > 1) {
@@ -57,7 +69,7 @@ client.on('ready', () => {
 });
 let prefix = config.prefix
 //empiezan comandos
-client.on("message", function(message) { 
+client.on("message", async function(message) { 
     if (message.author.bot || message.channel === '782048910898233355') return;
     if (!message.content.startsWith(prefix)) return;
     const commandBody = message.content.slice(prefix.length);
@@ -84,9 +96,14 @@ client.on("message", function(message) {
 else if (command === "reset") {
     if (message.author.id !== "688476559019212805") return 
     message.reply("Resetting...");
-    client.destroy();
-    client.login(config.BOT_TOKEN);
+  process.exit()
 }
+
+
+//Sin usar command Handler
+
+
+
 
 
 else if (command === "serverinfo" || command === 'server') {//primero tienen que tener command y args definidos
@@ -329,6 +346,7 @@ let persona = message.mentions.users.first() || message.author;//esto nos sirve 
   else if (command === 'invite') {
     message.channel.send ('con esto podras invitarme a tu servidor <https://bit.ly/panchodelrancho>')
   }
+
 // moderacion
   else if (command === "kick") {
     /*
@@ -410,7 +428,7 @@ message.guild.members.ban(persona, {
   // invitcaion de bot https://discord.com/oauth2/authorize?client_id=%20776106257597333515&scope=bot&permissions=8
 
   });  
-  client.on('message', message  => {
+  client.on('message', async message  => {
     if (message.author.bot || message.channel === '782048910898233355') return;
     else
 
@@ -495,7 +513,7 @@ if(message.channel.id == '838002833566990357' ) {
 
 
  
-   
+  
   
 
 //terminan los comandos
