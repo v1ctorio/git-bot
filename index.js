@@ -169,14 +169,9 @@ else if (command === "serverinfo" || command === 'server') {//primero tienen que
   
   else if (command === 'id') {
     var usuario2 = message.mentions.users.first()
-    if(!usuario2) return message.reply (`tu id es ${message.author.id}`)
-    else message.reply(`la id de ${usuario2.tag} es ${usuario2.id}`)
+    if(!usuario2) {return message.reply (`tu id es ${message.author.id}`)
+   } else message.reply(`la id de ${usuario2.tag} es ${usuario2.id}`)
   }
-  else if (command === "gg") {
-  message.channel.send(`bien jugado ${message.author}`);  
-  //gg                    
-
-  } 
 
   else if (command === `say`) {
     if(!args) return message.channel.send(`debe escribir un mensaje a enviar.`);
