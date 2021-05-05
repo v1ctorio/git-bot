@@ -1,9 +1,9 @@
 const Discord = require("discord.js");
-const Schema = require('./models/bienvenida.js');
+//const Schema = require('./models/bienvenida.js');
 const config = require('config.json')('./config.json');
 const client = new Discord.Client({ ws: { intents: Discord.Intents.ALL } });
 const mongoose = require("mongoose"); // Mongoose es lo más utilizado a la hora de usar una base de datos de MongoDB y también es el mejor para esto.
-let prefixes = require('./models/prefixes.js')
+//let prefixes = require('./models/prefixes.js')
 //A
 // Conectamos la base:
 mongoose.connect('mongodb+srv://Vic:juan@principal.vpbcj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {
@@ -204,7 +204,7 @@ var Aceptenmeloplis = new Discord.MessageEmbed() //Definimos el embed.
 
 message.channel.send(attachment2);
 }
-else if (command === 'setwelcome') {
+/*else if (command === 'setwelcome') {
   
   let Canal = message.guild.channels.cache.find(canal => canal.id == args[0]) || message.mentions.channels.first();
   let Bienvenida = await Schema.findOne({ Guild: message.guild.id }).exec();
@@ -234,7 +234,7 @@ else if (command === 'setwelcome') {
     );
   
   }
-  }
+  }*/
   else if (command === 'meme') {
 
     var meme = config.memes
