@@ -1,10 +1,10 @@
-var Discord = require("discord.js");
-var Schema = require('./models/bienvenida.js');
+const Discord = require("discord.js");
+const Schema = require('./models/bienvenida.js');
 //var Start = require("./models/setup.js")
-var config = require('config.json')('./config.json');
-var ModelSuggest = require('./models/suggest')
-var client = new Discord.Client({ ws: { intents: Discord.Intents.ALL } });
-var mongoose = require("mongoose"); // Mongoose es lo más utilizado a la hora de usar una base de datos de MongoDB y también es el mejor para esto.
+const config = require('config.json')('./config.json');
+const ModelSuggest = require('./models/suggest')
+const client = new Discord.Client({ ws: { intents: Discord.Intents.ALL } });
+const mongoose = require("mongoose"); // Mongoose es lo más utilizado a la hora de usar una base de datos de MongoDB y también es el mejor para esto.
 let prefixes = require('./models/prefixes.js')
 
 // Conectamos la base:
