@@ -78,14 +78,8 @@ client.on('ready', () => {
 
 //empiezan comandos
 client.on("message", async function(message) {
-    var prefix
-    let prefixnt = prefixes.findOne({ server: message.guild.id }).exec()
-  if(prefixnt) {
-      prefix = prefixnt.prefix
-  } if(!prefixnt) {
-      prefix = config.prefix
-  }
-  console.log(prefix)
+    var prefix = '&'
+    
     if (message.author.bot || message.channel === '782048910898233355') return;
     if (!message.content.startsWith(prefix)) return;
     var commandBody = message.content.slice(prefix.length);
@@ -421,34 +415,6 @@ else if (command === "uptime") {
   let seconds = totalSeconds / 60;
   message.channel.send(`:low_brightness: **Uptime:** ${days} dias, ${hours} horas y ${minutes} minutos`)
 }
-else if (command = 'setprefix') {
-  
-
-
-let newprefix = args[0] //el nuevo prefix sera args[0] ( segun tu caso puede ser args[1] )
-if(!message.member.hasPermission("MANAGE_GUILD")) {
-return message.channel.send("No tienes el permiso necesario para cambiar el prefix") //si el usuario no tiene el permiso de gestionar servidor que retorne un mensaje 
-}
-else if(!newprefix) {
-return message.channel.send("Escribe el nuevo prefix") //si no escribimos el nuevo prefix
-}
-else if(newprefix.length > 1) { //esto es opcional pero yo lo recomiendo y es que si el nuevo prefix es mayor a 5 caracteres no deje ponerlo y retorne
-return message.channel.send("El nuevo prefix no puede ser mayor a 1 caracter")
-}
-
-let prefix = await prefixes.findOne({ server: message.guild.id }).exec() //buscamos si el server ya tiene algo guardado
-
-if(prefix) { //si el server tiene algo solo actualiza lo que ya tenia
-await prefix.updateOne({ server: message.guild.id, prefix: newprefix })
-message.channel.send("Prefix cambiado correctamente")
-}
-else { //si no crea nuevos datos
-let prefix2 = new prefixes({ server: message.guild.id, prefix: newprefix })
-await prefix2.save()
-message.channel.send("Prefix establecido correctamente")
-}
-}
-
 
 else if (command === "ban") {
   /*
@@ -570,11 +536,7 @@ if(message.channel.id == '838002833566990357' ) {
   var guild = message.guild
 
   let loteria = message.guild.roles.cache.get("838002543400452148");
-  /* usar try para h¡probar luego catch
-  try{
-  message.author.role.remove(role)} catch(error){
-    console.error(error)
-  }*/
+
   message.member.roles.remove(loteria).catch(console.error(console.error))
   }
   
