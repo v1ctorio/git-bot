@@ -1,24 +1,30 @@
-const Discord = require("discord.js");
-
+var Discord = require("discord.js");
+var Schema = require('./models/bienvenida.js');
+//var Start = require("./models/setup.js")
 var config = require('config.json')('./config.json');
+var ModelSuggest = require('./models/suggest')
+var client = new Discord.Client({ ws: { intents: Discord.Intents.ALL } });
+var mongoose = require("mongoose"); // Mongoose es lo más utilizado a la hora de usar una base de datos de MongoDB y también es el mejor para esto.
+let prefixes = require('./models/prefixes.js')
 
-const client = new Discord.Client({ ws: { intents: Discord.Intents.ALL } });
-const mongoose = require("mongoose"); // Mongoose es lo más utilizado a la hora de usar una base de datos de MongoDB y también es el mejor para esto.
-
-// Conectamos la base: 
+// Conectamos la base:
 mongoose.connect('mongodb+srv://Vic:juan@principal.vpbcj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 }, async(err, db) => {
   if(err) console.log(err); else {
-    
+
     console.log('Conectado a mongodb.')
   var conectadoadb = true}
+})
+var db = mongoose.connection 
+db.on('error', _ => {
+  console.log('hay un error con la base de datos', err )
 })
 var version =  "2.1.0";
 //let blacklist = new db.crearDB('blacklist');
 if(0 > 1) {
-  const newLocal = 'de alguna forma 0 es mayor que 1';
+  var newLocal = 'de alguna forma 0 es mayor que 1';
 }else{
   console.log('o es menos que uno, todo bien ');
 };
@@ -28,17 +34,20 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
-//slash commands no prueba 
+//slash commands no prueba
 client.on('ready', () => {
-  
+
+
+
+
 var saludoxd = config.slaudos[getRandomInt(0, config.slaudos.length)]
 
 
   client.ws.on('INTERACTION_CREATE', async interaction => {
-      const command = interaction.data.name.toLowerCase();
-      const args = interaction.data.options;
+      var command = interaction.data.name.toLowerCase();
+      var args = interaction.data.options;
 
-      if (command === 'hola'){ 
+      if (command === 'hola'){
           // here you could do anything. in this sample
           // i reply with an api interaction
           client.api.interactions(interaction.id, interaction.token).callback.post({
@@ -50,57 +59,63 @@ var saludoxd = config.slaudos[getRandomInt(0, config.slaudos.length)]
               }
           })
       }
-      
+
   });
 });
-//fin slash commands no prueba 
+//fin slash commands no prueba
 client.on('ready', () => {
   console.log(`Estoy listo! soy ${client.user.tag}`);
   client.user.setStatus('online')
   client.user.setActivity(`type &help | V ${version}`)
   console.log(client.user)
   client.channels.cache.get('835470740618346546').send('hola, ha terminado mi reinicio esto puede ser debido a un actualizacion o a un problema con el hostng')
-  const channel = client.channels.cache.get("835526023176912926");
-    
+  var channel = client.channels.cache.get("835526023176912926");
 
-  
 
- 
+
+
 });
-let prefix = config.prefix
+
 //empiezan comandos
-client.on("message", async function(message) { 
+client.on("message", async function(message) {
+    var prefix
+    let prefixnt = prefixes.findOne({ server: message.guild.id }).exec()
+  if(prefixnt) {
+      prefix = prefixnt.prefix
+  } if(!prefixnt) {
+      prefix = config.prefix
+  }
+  console.log(prefix)
     if (message.author.bot || message.channel === '782048910898233355') return;
     if (!message.content.startsWith(prefix)) return;
-    const commandBody = message.content.slice(prefix.length);
-  const args = commandBody.split(' ');
-  const command = args.shift().toLowerCase();
+    var commandBody = message.content.slice(prefix.length);
+  var args = commandBody.split(' ');
+  var command = args.shift().toLowerCase();
   if (command === "ping") {
-    const timeTaken = Date.now() - message.createdTimestamp;
-    message.reply(`Pong! Este mensaje tiene la latencia de  ${timeTaken}ms.`);                         
-  } 
+    var timeTaken = Date.now() - message.createdTimestamp;
+    message.reply(`Pong! Este mensaje tiene la latencia de  ${timeTaken}ms.`);
+  }
   //ping y pong
 
   else if (command === "sum") {
-    const numArgs = args.map(x => parseFloat(x));
-    const sum = numArgs.reduce((counter, x) => counter += x);
-    message.reply(`la suma de todos los numeros dados da ${sum}!`);  
-    //comando de suma                             
-  }                            
-  else if (command === "piola") {
-  message.reply(`repiola`);  
-  //piola                         
+    var numArgs = args.map(x => parseFloat(x));
+    var sum = numArgs.reduce((counter, x) => counter += x);
+    message.reply(`la suma de todos los numeros dados da ${sum}!`);
+    //comando de suma
   }
-  
-  
+  else if (command === "piola") {
+  message.reply(`repiola`);
+  //piola
+  }
+
+
 else if (command === "reset") {
-    if (message.author.id !== "688476559019212805") return 
+    if (message.author.id !== "688476559019212805") return
     message.reply("Resetting...");
   process.exit()
 }
 
 
-//Sin usar command Handler
 
 
 
@@ -109,8 +124,8 @@ else if (command === "reset") {
 else if (command === "serverinfo" || command === 'server') {//primero tienen que tener command y args definidos
   var server = message.guild;//definimos server
   if (server.owner) {
-  
-  const embed = new Discord.MessageEmbed()//creamos un embed
+
+  var embed = new Discord.MessageEmbed()//creamos un embed
   .setTitle("**SERVERINFO**")//establecemos titulo
   .setDescription("**INFORMACION ACTUAL DEL SERVIDOR**")//establecemos descripcion
   .setThumbnail(server.iconURL())//aca aparecera el icono del server
@@ -124,7 +139,7 @@ else if (command === "serverinfo" || command === 'server') {//primero tienen que
   //con esto todos los canales del servidor
   .addField('**MIEMBROS**', server.memberCount, true)//con esto obtenemos los miembros que hay en el server
   .addField("**BOTS**",`${message.guild.members.cache.filter(m => m.user.bot).size}`)//con esto obtenemos los bots del server
-  .addField('**EMOJIS**',message.guild.emojis.cache.size)//con esto todos los emojis del server 
+  .addField('**EMOJIS**',message.guild.emojis.cache.size)//con esto todos los emojis del server
   .addField('**BOOSTER**',message.guild.premiumSubscriptionCount.toString())// con esto el numero de booster del server
   .addField('**NIVEL DE VERIFICACION**',`${server.verificationLevel}`)//con esto obtenemos el nivel de verificacion del server
   .addField('**ROLES**', server.roles.cache.size,true)//con esto la cantidad de roles
@@ -132,7 +147,7 @@ else if (command === "serverinfo" || command === 'server') {//primero tienen que
   message.channel.send(embed);//enviamos el embed
   }
   if (!server.owner) {
-    const embed = new Discord.MessageEmbed()//creamos un embed
+    var embed = new Discord.MessageEmbed()//creamos un embed
   .setTitle("**SERVERINFO**")//establecemos titulo
   .setDescription("**INFORMACION ACTUAL DEL SERVIDOR**")//establecemos descripcion
   .setThumbnail(server.iconURL())//aca aparecera el icono del server
@@ -146,27 +161,27 @@ else if (command === "serverinfo" || command === 'server') {//primero tienen que
   //con esto todos los canales del servidor
   .addField('**MIEMBROS**', server.memberCount, true)//con esto obtenemos los miembros que hay en el server
   .addField("**BOTS**",`${message.guild.members.cache.filter(m => m.user.bot).size}`)//con esto obtenemos los bots del server
-  .addField('**EMOJIS**',message.guild.emojis.cache.size)//con esto todos los emojis del server 
+  .addField('**EMOJIS**',message.guild.emojis.cache.size)//con esto todos los emojis del server
   .addField('**BOOSTER**',message.guild.premiumSubscriptionCount.toString())// con esto el numero de booster del server
   .addField('**NIVEL DE VERIFICACION**',`${server.verificationLevel}`)//con esto obtenemos el nivel de verificacion del server
   .addField('**ROLES**', server.roles.cache.size,true)//con esto la cantidad de roles
   .setColor("RANDOM")//establecemos el color  yo puse random para que salga diferente color
   message.channel.send(embed);//enviamos el embed
   }
-  }//cerramos y finnn  
- 
-  
-  
+  }//cerramos y finnn
+
+
+
   else if (command === "a") {
-  message.reply(`si a`);  
-  //a                         
-  }      
+  message.reply(`si a`);
+  //a
+  }
   else if (command === "tu") {
     message.reply(`preguntaste por mi o que si preeguntas por mi soy pancho del rencho y estoy en beta gracias por preguntar ${message.author}`)
   }
 
-  
-  
+
+
   else if (command === 'id') {
     var usuario2 = message.mentions.users.first()
     if(!usuario2) {return message.reply (`tu id es ${message.author.id}`)
@@ -175,7 +190,7 @@ else if (command === "serverinfo" || command === 'server') {//primero tienen que
 
   else if (command === `say`) {
     if(!args) return message.channel.send(`debe escribir un mensaje a enviar.`);
-    
+
 	message.delete()
 	var mensjaesay = args.join(" ")
 message.channel.send(mensjaesay, {allowedMentions:{parse:[]}});
@@ -184,26 +199,56 @@ message.channel.send(mensjaesay, {allowedMentions:{parse:[]}});
 
 
 else if (command === 'clyde') {
-  
+
 
 let mensaje = args.join(' '); //Esto hara que cada espacio de la oracion se cambie a %20, no lo cambies, o sino no funciona.
 
 let api = `https://ctk-api.herokuapp.com/clyde/${mensaje}`//Aca pondremos la API que usaremos, tampoco lo cambien o sino no funciona.
-attachment2 = new Discord.MessageAttachment(api,'clyde.png') 
+attachment2 = new Discord.MessageAttachment(api,'clyde.png')
 
-const Aceptenmeloplis = new Discord.MessageEmbed() //Definimos el embed.
+var Aceptenmeloplis = new Discord.MessageEmbed() //Definimos el embed.
 .setImage(api)//Haremos que mande una imagen, lo cual sera la api con el texto.
 .setColor('RANDOM')//Definimos el color del embed (opcional)
 
 message.channel.send(attachment2);
 }
-
-  else if (command === 'meme') {
+else if (command === 'setwelcome') {
+  
+  let Canal = message.guild.channels.cache.find(canal => canal.id == args[0]) || message.mentions.channels.first();
+  let Bienvenida = await Schema.findOne({ Guild: message.guild.id }).exec();
+  
+  
+  if (!Canal) return message.channel.send('Menciona o ingresa la ID de un canal donde irán las bienvenidas');
+  
+  if (!message.member.hasPermission('MANAGE_GUILD')) return message.channel.send('Permisos insuficientes\nPermisos necesarios: `Gestionar Servidor`');
+  
+  
+  if (Bienvenida) {
+  
+    await Bienvenida.updateOne({ Guild: message.guild.id, Channel: Canal.id });
+   
     
+    message.channel.send(new Discord.MessageEmbed()
+    .setDescription(`El canal de bienvenidas ahora es `+ Canal.toString())
+    .setColor('RANDOM')
+    );
+  
+  } else {
+    await new Schema({ Guild: message.guild.id, Channel: Canal.id }).save();
+  
+  
+    message.channel.send(new Discord.MessageEmbed()
+    .setDescription(`El canal de bienvenidas es `+ Canal.toString())
+    );
+  
+  }
+  }
+  else if (command === 'meme') {
+
     var meme = config.memes
     var numerodememes = meme.length
-    var numeroestes = getRandomInt(0, numerodememes)  
-const memeembed = new Discord.MessageEmbed()
+    var numeroestes = getRandomInt(0, numerodememes)
+var memeembed = new Discord.MessageEmbed()
 .setColor(0x66b3ff)
 .setTitle(meme[numeroestes].nombre)
 .setImage(meme[numeroestes].url)
@@ -215,7 +260,7 @@ const memeembed = new Discord.MessageEmbed()
   else if (command === 'info'|| command === 'botinfo'|| command === 'help') {
     info = {"title":"Informaci\u00f3n","description":"soy un bot creado por Victorio#5994 con comandos de entretenimiento y moderaci\u00f3n","color":5814783,"fields":[{"name":"Comandos","value":" \n  Estos son mis comandos:\n    **&help** - todos los comandos (lo estas viendo)\n    **&sum <num1> <num2>** - Suma 2 numeros \n    **&meme** - manda un meme\n    **&invite** - manda el link para invitarme a tu servidor\n    **&kick** - expulsa a un usuario (necesita permisos de administrador)\n    **&ban** - banea a un usuario (necesita permisos de administrador)\n    **&server** - proporciona informacion del servidor\n    **&uptime** - tiempo que el bot esta online\n    **&tweet** - simula un tweet \n    **&pp** - mira tu foto de perfil o la de alguien \n    **&magik** - transforma la foto de perfil con el efecto magik \n    **&phcomment** - simula un comentario en ph"},{"name":"Servidor","value":"Unete al servidor oficial del bot aqui [discord.gg\/P5438xBR94](https:\/\/discord.gg\/P5438xBR94)"}],"author":{"name":"Pancho del rancho","url":"https:\/\/bit.ly\/panchodelrancho","icon_url":"https:\/\/images-ext-2.discordapp.net\/external\/LFiST9waRyxge-xibE8gsIVb6BwQLhGnRDFPpE7HrTE\/%3Fsize%3D2048\/https\/cdn.discordapp.com\/avatars\/776106257597333515\/2a357a609135bd1372f94367c728b564.webp?width=427&height=427"},"footer":{"text":"le\u00edste esto, tabien."},"timestamp":new Date()}
 
-    const infoembed = new Discord.MessageEmbed(info)
+    var infoembed = new Discord.MessageEmbed(info)
     message.author.send(infoembed)
     message.react('✅')
   }
@@ -223,14 +268,14 @@ const memeembed = new Discord.MessageEmbed()
 else if (command === 'pp') {
  let miembro = message.mentions.users.first()
 if (!miembro) {
-    const embed = new Discord.MessageEmbed()
+    var embed = new Discord.MessageEmbed()
         .setImage(`${message.author.displayAvatarURL({size: 2048})}`)
         .setColor(0x66b3ff)
         .setFooter(`Avatar de ${message.author.tag}`);
     message.channel.send(embed);
 
 } else {
-    const embed = new Discord.MessageEmbed()
+    var embed = new Discord.MessageEmbed()
         .setImage(`${miembro.displayAvatarURL({size: 2048})}`)
         .setColor(0x66b3ff)
         .setFooter(`Avatar de ${miembro.tag}`);
@@ -249,36 +294,36 @@ if (!miembro) {
       if (command === "tweet"){  //Hacemos el comando, dependiendo de su codigo lo hacen como lo tengan
 
         message.delete() //Con esto borraremos el mensaje del comando, lo pueden quitar si quieren
-          
+
         let txt = args.join('%20'); //Definimos los args.
-          
-        const embed2 = new Discord.MessageEmbed() //EMBED DE ERROR
+
+        var embed2 = new Discord.MessageEmbed() //EMBED DE ERROR
         .setTitle(`ERROR`)
         .setDescription(`No has colocado ningun argumento.`)
         .setColor(`RED`)
-        .setThumbnail("https://weakwifisolutions.com/wp-content/uploads/2019/08/error-red-cross-1.png?ezimgfmt=rs:372x372/rscb2/ng:webp/ngcb2")	
-          
-        
+        .setThumbnail("https://weakwifisolutions.com/wp-content/uploads/2019/08/error-red-cross-1.png?ezimgfmt=rs:372x372/rscb2/ng:webp/ngcb2")
+
+
         if (!txt) return message.channel.send(embed2) //Si no hay argumentos se enviara esto
-        
-          
+
+
         let autor = message.author; //Definiremos autor
-        
-        let attachment = new Discord.MessageAttachment(`https://nekobot.xyz/api/imagegen?type=tweet&username=${autor.username}&text=${txt}&raw=1`,'logo.png') 
-        
+
+        let attachment = new Discord.MessageAttachment(`https://nekobot.xyz/api/imagegen?type=tweet&username=${autor.username}&text=${txt}&raw=1`,'logo.png')
+
         //Creamos el attachment reemplazando los valores por el nombre del autor y los argumentos por el texto
-        
-        
+
+
         message.channel.send(attachment)	// Enviamos el attachment
-        
+
         } // Fin
     }
-	
+
 else if (command === "phcomment"){ //Creamos el comando (esto lo adaptan a su codigo, claro)
 
 message.delete() //Esto es opcional. Es para borrar el mensaje que nosotros coloquemos como comando. si no lo quieren, borrenlo
 
-let txt = args.join('%20');  //Argumentos 
+let txt = args.join('%20');  //Argumentos
 
 if (!txt) return message.channel.send("Olvidaste colocar los argumentos.") //Si no hay argumentos...
 
@@ -292,12 +337,12 @@ let attachment = new Discord.MessageAttachment(`https://nekobot.xyz/api/imagegen
 
 message.channel.send(attachment)    //La enviamos
 
-}   
+}
 
 else if (command === 'ship') {
 
   message.channel.send('aun nada')
-  
+
 }
 
 else if (command === 'servers') {
@@ -306,13 +351,13 @@ else if (command === 'servers') {
       .setTitle(`Estoy en ${client.guilds.cache.size} Servers !`)
 //escribimos un titulo (la funcion de ${client.guilds.cache.size} es mostrar la cantidad de servidores en los que se encuentra el bot
       .setDescription(`${client.guilds.cache.map(r => r.name).join(". \n\n")+'\n comando solo del owner'}`)
-      
+
 //Buscamos un MAP, el cual nos mostrara los nombres de los servidores
       .setColor("RANDOM")
 //Seleccionamos un color, en este caso random
-    message.author.send(embed) 
+    message.author.send(embed)
 }
-else if (command === 'magik') {//abrimos cmd   
+else if (command === 'magik') {//abrimos cmd
 
 
 let persona = message.mentions.users.first() || message.author;//esto nos sirve por si pones el comando tu mismo o mencionas a alguien
@@ -333,11 +378,11 @@ let persona = message.mentions.users.first() || message.author;//esto nos sirve 
 
 }//cerramos cmd
 
-    
+
     else if (command === "el") {
       message.channel.send(`a si el es ${message.mentions.members}  aparte de eso no sirve para nada el comando `)
     }
-  
+
   else if (command === 'invite') {
     message.channel.send ('con esto podras invitarme a tu servidor <https://bit.ly/panchodelrancho>')
   }
@@ -346,7 +391,7 @@ let persona = message.mentions.users.first() || message.author;//esto nos sirve 
   else if (command === "kick") {
     /*
 kick a un usuario mencionado usando member().kick()
-incluye razón para los registros de auditoría-log 
+incluye razón para los registros de auditoría-log
 */
 
 
@@ -362,7 +407,7 @@ if (message.mentions.users.size < 1) return message.reply('Debe mencionar a algu
 }
 if (!razon) return message.channel.send('Escriba una razón, `&kick @username [razón]`');
 if (!message.guild.member(user).kickable) return message.reply('No puedo expulsar al usuario mencionado.');
-     
+
 message.guild.member(user).kick(razon);
 message.channel.send(`**${user.username}**, fue pateado del servidor, razón: ${razon}.`);
 
@@ -376,12 +421,39 @@ else if (command === "uptime") {
   let seconds = totalSeconds / 60;
   message.channel.send(`:low_brightness: **Uptime:** ${days} dias, ${hours} horas y ${minutes} minutos`)
 }
+else if (command = 'setprefix') {
+  
+
+
+let newprefix = args[0] //el nuevo prefix sera args[0] ( segun tu caso puede ser args[1] )
+if(!message.member.hasPermission("MANAGE_GUILD")) {
+return message.channel.send("No tienes el permiso necesario para cambiar el prefix") //si el usuario no tiene el permiso de gestionar servidor que retorne un mensaje 
+}
+else if(!newprefix) {
+return message.channel.send("Escribe el nuevo prefix") //si no escribimos el nuevo prefix
+}
+else if(newprefix.length > 1) { //esto es opcional pero yo lo recomiendo y es que si el nuevo prefix es mayor a 5 caracteres no deje ponerlo y retorne
+return message.channel.send("El nuevo prefix no puede ser mayor a 1 caracter")
+}
+
+let prefix = await prefixes.findOne({ server: message.guild.id }).exec() //buscamos si el server ya tiene algo guardado
+
+if(prefix) { //si el server tiene algo solo actualiza lo que ya tenia
+await prefix.updateOne({ server: message.guild.id, prefix: newprefix })
+message.channel.send("Prefix cambiado correctamente")
+}
+else { //si no crea nuevos datos
+let prefix2 = new prefixes({ server: message.guild.id, prefix: newprefix })
+await prefix2.save()
+message.channel.send("Prefix establecido correctamente")
+}
+}
 
 
 else if (command === "ban") {
   /*
 expulsar a un usuario mencionado usando member().ban()
-incluye razón para los registros de auditoría-log 
+incluye razón para los registros de auditoría-log
 */
 if (!message.guild.me.permissions.has('BAN_MEMBERS')) {
   return message.channel.send('No tengo permisos para banear personas')
@@ -391,7 +463,7 @@ if (!message.member.permissions.has('BAN_MEMBERS')) {
   return message.channel.send('Perdon, pero no tienes el permiso para banear personas')
 }
 
-let persona = message.mentions.members.first() || 
+let persona = message.mentions.members.first() ||
   message.guild.members.resolve(args[0])
 
 if (!persona) {
@@ -422,7 +494,7 @@ message.guild.members.ban(persona, {
 }
   // invitcaion de bot https://discord.com/oauth2/authorize?client_id=%20776106257597333515&scope=bot&permissions=8
 
-  });  
+  });
   client.on('message', async message  => {
     if (message.author.bot || message.channel === '782048910898233355') return;
     else
@@ -432,10 +504,10 @@ message.guild.members.ban(persona, {
 
 
     if (message.content === 'que?' || message.content === 'que') {
-  
+
   message.channel.send('so').then(() => {
-    const filter = m => message.author.id === m.author.id;
-  
+    var filter = m => message.author.id === m.author.id;
+
     message.channel.awaitMessages(filter, { time: 60000, max: 1, errors: ['time'] })
       .then(messages => {
         if(messages.first().content == 'pa')
@@ -462,54 +534,67 @@ if (message.content === `abueno`) {
 }
 
 if (message.content === 'xd') {
-	const blockedUsers = [ '620044473417596928', 'id2'];
-	if (blockedUsers.includes(message.author.id) ) return 
-	else 
+	var blockedUsers = [ '620044473417596928', 'id2'];
+	if (blockedUsers.includes(message.author.id) ) return
+	else
   message.channel.send (`equis de`)
 }
 if (message.content === `fdah4ob5qhiofjhgfjhod4562ibds6536daoibpw453t8rsm039w6sevse6sebmmt,sexrjgdfr6`) {
   message.delete()
-  
-  .then
   process.exit();
 }
 if (message.content === `c:`) {
   message.channel.send (`${message.author.username} esta feliz c:`)
   message.channel.send(`https://cdn-3.expansion.mx/dims4/default/c6aba79/2147483647/strip/true/crop/240x126+0+27/resize/1200x630!/quality/90/?url=https%3A%2F%2Fcdn-3.expansion.mx%2Fphotos%2F2007%2F07%2F01%2Fla-nueva-campana-mostrara-a-actores-hablando-sobre-por-que-vuelven-a-wal-mart-en-busca-de-precios-mas-bajos-y-no-la-carita-feliz-reuters.2007-07-23.6291503003.jpg`)
-  
+
 }
 if (message.content === 'sisos') {
   message.reply('sies')
+}
+if (message.content === 'こんにちは')　{
+if (getRandomInt(0 ,1) > 0) { message.reply('おはよございます') }else message.channel.send('こばなんは')
 }
 if (message.content === ':v'|| message.content === ':V') {
 var elejido = getRandomInt(1,10)
 if (elejido > 8) {
   var elegido = true
-} 
-attachment23 = new Discord.MessageAttachment('https://images-ext-2.discordapp.net/external/xitugu5chFLjGkDYYThIaqtLlt794ZraCuzhMsPIMXg/%3Fcb%3D20201224065056%26path-prefix%3Des/https/static.wikia.nocookie.net/memes-pedia/images/8/8f/Empanycal_3.jpg/revision/latest/scale-to-width-down/177','grasa.png') 
+}
+attachment23 = new Discord.MessageAttachment('https://images-ext-2.discordapp.net/external/xitugu5chFLjGkDYYThIaqtLlt794ZraCuzhMsPIMXg/%3Fcb%3D20201224065056%26path-prefix%3Des/https/static.wikia.nocookie.net/memes-pedia/images/8/8f/Empanycal_3.jpg/revision/latest/scale-to-width-down/177','grasa.png')
 if(elegido) message.channel.send(`<@${message.author.id}>`,attachment23)
 }
-const pacman_verificator = /(>|<?)(:|;)('|"|,|.?)(v|u|y)|(v|u|y)('|"|,|.?)(:|;)(>|<?)/gi
+
+
+var pacman_verificator = /(>|<?)(:|;)('|"|,|.?)(v|u|y)|(v|u|y)('|"|,|.?)(:|;)(>|<?)/gi
 
 if(message.channel.id == '838002833566990357' ) {
   var guild = message.guild
 
   let loteria = message.guild.roles.cache.get("838002543400452148");
-  /* usar try para h¡probar luego catch 
+  /* usar try para h¡probar luego catch
   try{
   message.author.role.remove(role)} catch(error){
     console.error(error)
   }*/
-  message.member.roles.remove(loteria).catch(console.error);
-}
-
+  message.member.roles.remove(loteria).catch(console.error(console.error))
+  }
+  
   }
   )
 
+  client.on('guildMemberAdd', async (member) => {
+  
+    let Bienvenida = await Schema.findOne({ Guild: member.guild.id });
+    if (!Bienvenida) return; // Si no hay nada retorna
+    let Channel = member.guild.channels.cache.get(Bienvenida.Channel)
+    if (!Channel) return; // Si no hay nada retorna
+  
+    Channel.send(`hey <@${member.user.id}> bienvenido a ${member.guild.name}`);
 
- 
   
+  })
   
+
+
 
 //terminan los comandos
 client.login(config.BOT_TOKEN);
