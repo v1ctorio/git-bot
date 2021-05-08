@@ -1,5 +1,6 @@
 const Discord = require("discord.js");
 const Schema = require('./models/bienvenida.js');
+
 const config = require('config.json')('./config.json');
 const client = new Discord.Client({ ws: { intents: Discord.Intents.ALL } });
 const mongoose = require("mongoose"); // Mongoose es lo más utilizado a la hora de usar una base de datos de MongoDB y también es el mejor para esto.
@@ -174,7 +175,9 @@ else if (command === "serverinfo" || command === 'server') {//primero tienen que
   }
 
 
-
+else if (command === 'join') {
+  client.emit('guildMemberAdd', message.member); 
+ } 
   else if (command === 'id') {
     var usuario2 = message.mentions.users.first()
     if(!usuario2) {return message.reply (`tu id es ${message.author.id}`)
@@ -548,7 +551,7 @@ if(message.channel.id == '838002833566990357' ) {
     if (!Bienvenida) return; // Si no hay nada retorna
     let Channel = member.guild.channels.cache.get(Bienvenida.Channel)
     if (!Channel) return; // Si no hay nada retorna
-  
+    
     Channel.send(`hey <@${member.user.id}> bienvenido a ${member.guild.name}`);
 
   
