@@ -35,33 +35,7 @@ function getRandomInt(min, max) {
 }
 
 //slash commands no prueba
-client.on('ready', () => {
 
-
-
-
-var saludoxd = config.slaudos[getRandomInt(0, config.slaudos.length)]
-
-
-  client.ws.on('INTERACTION_CREATE', async interaction => {
-      var command = interaction.data.name.toLowerCase();
-      var args = interaction.data.options;
-
-      if (command === 'hola'){
-          // here you could do anything. in this sample
-          // i reply with an api interaction
-          client.api.interactions(interaction.id, interaction.token).callback.post({
-              data: {
-                  type: 4,
-                  data: {
-                      content: saludoxd
-                  }
-              }
-          })
-      }
-
-  });
-});
 //fin slash commands no prueba
 client.on('ready', () => {
   console.log(`Estoy listo! soy ${client.user.tag}`);
