@@ -282,9 +282,11 @@ if (!miembro) {
         let attachment = new Discord.MessageAttachment(`https://nekobot.xyz/api/imagegen?type=tweet&username=${autor.username}&text=${txt}&raw=1`,'logo.png')
 
         //Creamos el attachment reemplazando los valores por el nombre del autor y los argumentos por el texto
-
-
-        message.channel.send(attachment)	// Enviamos el attachment
+message.channel.startTyping()
+setTimeout(() => {
+  message.channel.send('‎      ‏‏‎', attachment)	// Enviamos el attachment
+message.channel.stopTyping()
+}, 3000);
 
         } // Fin
     }
@@ -441,8 +443,6 @@ message.guild.members.ban(persona, {
     if (message.author.bot || message.channel === '782048910898233355') return;
     else
 
-    client.channels.cache.get('823238066910920765').send('mensaje = ' + '**' + message.content + '**' + ',' +
-' \n Autor = '+ message.author.username + '\n Servidor = ' + message.guild.name + '\n canal:' + message.channel.name + '\n _______________', {allowedMentions:{parse:[]}})
 
 
     if (message.content === 'que?' || message.content === 'que') {
