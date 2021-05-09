@@ -25,9 +25,10 @@ var version =  "2.1.0";
 
 if(0 > 1) {
   var newLocal = 'de alguna forma 0 es mayor que 1';
-}else{
-  console.log('o es menos que uno, todo bien ');
+}{
+  console.log('0 es menos que uno, todo bien ');
 };
+
 // Retorna un entero aleatorio entre min (incluido) y max (excluido)
 // ¡Usando Math.round() te dará una distribución no-uniforme!
 function getRandomInt(min, max) {
@@ -253,6 +254,7 @@ if (!miembro) {
     message.channel.send(embed);
 
 };
+
 }
 
   else if (command === "yo") {
@@ -261,15 +263,13 @@ if (!miembro) {
     }
 
     else if (command === 'tweet') {
-      if (command === "tweet"){  //Hacemos el comando, dependiendo de su codigo lo hacen como lo tengan
+      
 
-        message.delete() //Con esto borraremos el mensaje del comando, lo pueden quitar si quieren
-
-        let txt = args.join('%20'); //Definimos los args.
-
-        var embed2 = new Discord.MessageEmbed() //EMBED DE ERROR
+message.delete()
+        let txt = args.join('%20'); 
+        var embed2 = new Discord.MessageEmbed() 
         .setTitle(`ERROR`)
-        .setDescription(`No has colocado ningun argumento.`)
+        .setDescription(`No has colocado ningun texto.`)
         .setColor(`RED`)
         .setThumbnail("https://weakwifisolutions.com/wp-content/uploads/2019/08/error-red-cross-1.png?ezimgfmt=rs:372x372/rscb2/ng:webp/ngcb2")
 
@@ -284,11 +284,11 @@ if (!miembro) {
         //Creamos el attachment reemplazando los valores por el nombre del autor y los argumentos por el texto
 message.channel.startTyping()
 setTimeout(() => {
-  message.channel.send('‎      ‏‏‎', attachment)	// Enviamos el attachment
+  message.channel.send(attachment)	// Enviamos el attachment
 message.channel.stopTyping()
 }, 3000);
 
-        } // Fin
+        
     }
 
 else if (command === "phcomment"){ //Creamos el comando (esto lo adaptan a su codigo, claro)
@@ -358,7 +358,29 @@ let persona = message.mentions.users.first() || message.author;//esto nos sirve 
   else if (command === 'invite') {
     message.channel.send ('con esto podras invitarme a tu servidor <https://bit.ly/panchodelrancho>')
   }
+else if (command === 'stats') {
+  
 
+const moment = require("moment");
+require('moment-duration-format');
+
+const actividad = moment.duration(client.uptime).format(" D [dias], H [hrs], m [mins], s [secs]");
+    
+    
+const embed = new Discord.MessageEmbed()
+.setColor(0x66ff66)
+
+.setAuthor(`Bot info`, client.user.avatarURL())
+.addField(`Dueño`, client.user.tag, true)
+.addField(`Version`, `1.0.0`, true)
+.addField(`Libreria`, `Discord ^12.0.2 (Js)`, true)
+
+.addField(`Memoria`, `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`, true)
+
+
+
+message.channel.send(embed);
+}
 // moderacion
   else if (command === "kick") {
     /*
@@ -443,23 +465,7 @@ message.guild.members.ban(persona, {
     if (message.author.bot || message.channel === '782048910898233355') return;
     else
 
-
-
-    if (message.content === 'que?' || message.content === 'que') {
-
-  message.channel.send('so').then(() => {
-    var filter = m => message.author.id === m.author.id;
-
-    message.channel.awaitMessages(filter, { time: 60000, max: 1, errors: ['time'] })
-      .then(messages => {
-        if(messages.first().content == 'pa')
-        message.channel.send(`to`);
-      })
-      .catch(() => {
-        console.log('You did not enter any input!');
-      });
-  });
-}
+   
 if (message.content === 'f' || message.content === `F`) {
   message.channel.send ('efe')
 }
@@ -501,6 +507,21 @@ var elejido = getRandomInt(1,10)
 if (elejido > 8) {
   var elegido = true
 }
+if (message.content === 'que?' || message.content === 'que') {
+
+  message.channel.send('so').then(() => {
+    var filter = m => message.author.id === m.author.id;
+
+    message.channel.awaitMessages(filter, { time: 60000, max: 1, errors: ['time'] })
+      .then(messages => {
+        if(messages.first().content == 'pa')
+        message.channel.send(`to`);
+      })
+      .catch(() => {
+        console.log('You did not enter any input!');
+      });
+  });
+}
 attachment23 = new Discord.MessageAttachment('https://images-ext-2.discordapp.net/external/xitugu5chFLjGkDYYThIaqtLlt794ZraCuzhMsPIMXg/%3Fcb%3D20201224065056%26path-prefix%3Des/https/static.wikia.nocookie.net/memes-pedia/images/8/8f/Empanycal_3.jpg/revision/latest/scale-to-width-down/177','grasa.png')
 if(elegido) message.channel.send(`<@${message.author.id}>`,attachment23)
 }
@@ -508,13 +529,7 @@ if(elegido) message.channel.send(`<@${message.author.id}>`,attachment23)
 
 var pacman_verificator = /(>|<?)(:|;)('|"|,|.?)(v|u|y)|(v|u|y)('|"|,|.?)(:|;)(>|<?)/gi
 
-if(message.channel.id == '838002833566990357' ) {
-  var guild = message.guild
 
-  let loteria = message.guild.roles.cache.get("838002543400452148");
-
-  message.member.roles.remove(loteria).catch(console.error(console.error))
-  }
   
   }
   )
