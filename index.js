@@ -367,12 +367,13 @@ const actividad = moment.duration(client.uptime).format(" D [dias], H [hrs], m [
 const embed = new Discord.MessageEmbed()
 .setColor(0x66ff66)
 
-.setAuthor(`Bot info`, client.user.avatarURL())
-.addField(`Dueño`, client.user.tag, true)
-.addField(`Version`, `1.0.0`, true)
+.setAuthor(`Pancho del rancho`, client.user.avatarURL())
+.addField(`PDR`, client.user.tag, true)
+.addField(`Version`, version, true)
 .addField(`Libreria`, `Discord ^12.0.2 (Js)`, true)
 
-.addField(`Memoria`, `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`, true)
+      .addField(`Memoria`, `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`, true)
+    .addField(`actividad`, actividad)
 
 
 
