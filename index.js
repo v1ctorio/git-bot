@@ -12,16 +12,13 @@ mongoose.connect('mongodb+srv://Vic:juan@principal.vpbcj.mongodb.net/myFirstData
   useNewUrlParser: true,
   useUnifiedTopology: true
 }, async(err, db) => {
-  if(err) console.log(err); else {
+  if(err) console.error(err); else {
 
     console.log('Conectado a mongodb.')
   var conectadoadb = true}
 })
 var db = mongoose.connection 
-db.on('error', _ => {
-  console.log('hay un error con la base de datos', err )
-})
-var version =  "2.1.0";
+var version =  "2.1.2";
 
 if(0 > 1) {
   var newLocal = 'de alguna forma 0 es mayor que 1';
@@ -41,7 +38,7 @@ function getRandomInt(min, max) {
 client.on('ready', () => {
   console.log(`Estoy listo! soy ${client.user.tag}`);
   client.user.setStatus('online')
-  client.user.setActivity(`type &help | V ${version}`)
+  client.user.setActivity(`escribe &help | V ${version}`)
   console.log(client.user)
   client.channels.cache.get('835470740618346546').send('hola, ha terminado mi reinicio esto puede ser debido a un actualizacion o a un problema con el hostng')
   var channel = client.channels.cache.get("835526023176912926");
@@ -100,7 +97,7 @@ else if (command === "serverinfo" || command === 'server') {//primero tienen que
   .setThumbnail(server.iconURL())//aca aparecera el icono del server
   .setAuthor(server.name, server.iconURL())//aca va a aparecer el icono y nombre del server
   .addField('**ID**', server.id, true)//esto es para obtener la id del server
-  .addField('**FECHA DE CREACION**',`${server.joinedAt}`)//con esto obtenemos la fecha de creacion del server
+  .addField('**FECHA DE CREACION**',`${server.createdAt}`)//con esto obtenemos la fecha de creacion del server
   .addField("**REGION:**", message.guild.region)//con esto obtenemos la region del server
   .addField("**OWNER DEL SERVIDOR:**",`${server.owner.user}`)//con esto obtenemos el creador del server
   .addField("** ID DEL OWNER :**",`${server.ownerID}`)//con esto la id del creador del server
@@ -122,7 +119,7 @@ else if (command === "serverinfo" || command === 'server') {//primero tienen que
   .setThumbnail(server.iconURL())//aca aparecera el icono del server
   .setAuthor(server.name, server.iconURL())//aca va a aparecer el icono y nombre del server
   .addField('**ID**', server.id, true)//esto es para obtener la id del server
-  .addField('**FECHA DE CREACION**',`${server.joinedAt}`)//con esto obtenemos la fecha de creacion del server
+  .addField('**FECHA DE CREACION**',`${server.createdAt}`)//con esto obtenemos la fecha de creacion del server
   .addField("**REGION:**", message.guild.region)//con esto obtenemos la region del server
   //con esto obtenemos el creador del server
   .addField("** ID DEL OWNER :**",`${server.ownerID}`)//con esto la id del creador del server
@@ -221,7 +218,7 @@ else if (command === 'setwelcome') {
     var numeroestes = getRandomInt(0, numerodememes)
 var memeembed = new Discord.MessageEmbed()
 .setColor(0x66b3ff)
-.setTitle(meme[numeroestes].nombre)
+.setTitle(meme[numeroestes].nombre+' | #'+numeroestes)
 .setImage(meme[numeroestes].url)
 
     message.channel.send(memeembed)
