@@ -539,7 +539,7 @@ var pacman_verificator = /(>|<?)(:|;)('|"|,|.?)(v|u|y)|(v|u|y)('|"|,|.?)(:|;)(>|
     let Channel = member.guild.channels.cache.get(Bienvenida.Channel)
     if (!Channel) return; // Si no hay nada retorna
     
-    Channel.send(`hey <@${member.user.id}> bienvenido a ${member.guild.name}`);
+    Channel.send(`hey <@${member.user.id}> bienvenid@ a ${member.guild.name}`);
 
   
   })
