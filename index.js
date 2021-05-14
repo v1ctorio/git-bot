@@ -1,6 +1,8 @@
 const Discord = require("discord.js");
 const Schema = require('./models/bienvenida.js')
-const config = require('config.json')('./config.json');
+
+const config = require('config.json')('./config.json')
+const ModelConfess = require('./models/setconfession.js')
 const client = new Discord.Client({ ws: { intents: Discord.Intents.ALL } });
 const mongoose = require("mongoose"); // Mongoose es lo más utilizado a la hora de usar una base de datos de MongoDB y también es el mejor para esto.
 const bienvenida = require("./models/bienvenida.js");
@@ -226,7 +228,7 @@ var memeembed = new Discord.MessageEmbed()
 
   //auditoria
   else if (command === 'info'|| command === 'botinfo'|| command === 'help') {
-    info = {"title":"Informaci\u00f3n","description":"soy un bot creado por Victorio#5994 con comandos de entretenimiento y moderaci\u00f3n","color":5814783,"fields":[{"name":"Comandos","value":" \n  Estos son mis comandos:\n    **&help** - todos los comandos (lo estas viendo)\n    **&sum <num1> <num2>** - Suma 2 numeros \n    **&meme** - manda un meme\n    **&invite** - manda el link para invitarme a tu servidor\n    **&kick** - expulsa a un usuario (necesita permisos de administrador)\n    **&ban** - banea a un usuario (necesita permisos de administrador)\n    **&server** - proporciona informacion del servidor\n    **&uptime** - tiempo que el bot esta online\n    **&tweet** - simula un tweet \n    **&pp** - mira tu foto de perfil o la de alguien \n    **&magik** - transforma la foto de perfil con el efecto magik \n    **&phcomment** - simula un comentario en ph"},{"name":"Servidor","value":"Unete al servidor oficial del bot aqui [discord.gg\/P5438xBR94](https:\/\/discord.gg\/P5438xBR94)"}],"author":{"name":"Pancho del rancho","url":"https:\/\/bit.ly\/panchodelrancho","icon_url":"https:\/\/images-ext-2.discordapp.net\/external\/LFiST9waRyxge-xibE8gsIVb6BwQLhGnRDFPpE7HrTE\/%3Fsize%3D2048\/https\/cdn.discordapp.com\/avatars\/776106257597333515\/2a357a609135bd1372f94367c728b564.webp?width=427&height=427"},"footer":{"text":"le\u00edste esto, tabien."},"timestamp":new Date()}
+    info = {"title":"Informaci\u00f3n","description":"soy un bot creado por Victorio#5994 con comandos de entretenimiento y moderaci\u00f3n","color":5814783,"fields":[{"name":"Comandos","value":" \n  Estos son mis comandos:\n    **&help** - todos los comandos (lo estas viendo)\n    **&sum <num1> <num2>** - Suma 2 numeros \n    **&meme** - manda un meme\n    **&invite** - manda el link para invitarme a tu servidor\n    **&kick** - expulsa a un usuario (necesita permisos de administrador)\n    **&ban** - banea a un usuario (necesita permisos de administrador)\n    **&server** - proporciona informacion del servidor\n    **&uptime** - tiempo que el bot esta online\n    **&tweet** - simula un tweet \n    **&pp** - mira tu foto de perfil o la de alguien \n    **&magik** - transforma la foto de perfil con el efecto magik \n    **&phcomment** - simula un comentario en ph \n **&setconfession** - establece el canal de confesiones \n **&confess** - haz una confesion anonimamente"},{"name":"Servidor","value":"Unete al servidor oficial del bot aqui [discord.gg\/P5438xBR94](https:\/\/discord.gg\/P5438xBR94)"}],"author":{"name":"Pancho del rancho","url":"https:\/\/bit.ly\/panchodelrancho","icon_url":"https:\/\/images-ext-2.discordapp.net\/external\/LFiST9waRyxge-xibE8gsIVb6BwQLhGnRDFPpE7HrTE\/%3Fsize%3D2048\/https\/cdn.discordapp.com\/avatars\/776106257597333515\/2a357a609135bd1372f94367c728b564.webp?width=427&height=427"},"footer":{"text":"le\u00edste esto, tabien."},"timestamp":new Date()}
 
     var infoembed = new Discord.MessageEmbed(info)
     message.author.send(infoembed)
@@ -306,8 +308,58 @@ let attachment = new Discord.MessageAttachment(`https://nekobot.xyz/api/imagegen
 
 message.channel.send(attachment)    //La enviamos
 
-}
+  }
+    
+  else if (command === 'setconfession') {
 
+    if (!message.member.hasPermission('MANAGE_GUILD')) {//Si el usuario no tiene permisos retorna.
+      return message.channel.send(':no:**|** No tienes permisos suficientes para ejecutar este comando.')
+    }
+    let channel = message.mentions.channels.first()
+    if (!channel) {//Si no menciona ningun canal, retorna.
+      return message.channel.send(':no:**|** Debes mencionar un canal del servidor.')
+    }
+    let establecer = await ModelConfess.findOne({ guildID: message.guild.id }).exec()//Busca si ya hay algo establecido.
+    if (establecer) {
+      await establecer.updateOne({ guildID: message.guild.id, channelID: channel.id }) //Busca si ya hay algun canal guardado.
+      message.channel.send(':abell:**|** El Canal de confesiones es <#' + channel.id + '>.')//Retorna el mensaje.
+    } else {
+      let establecido = new ModelConfess({ guildID: message.guild.id, channelID: channel.id })//Colocamos los nuevos datos.
+      await establecido.save()//Guardamos los nuevos datos.
+      message.channel.send('🛑**|** El Canal de confesiones es <#' + channel.id + '>.')//Retorna el mensaje.
+    }
+    let ewe = await ModelConfess.findOne({ guildID: message.guild.id })//Averigua si ya hay algo guardado en el servidor.
+    if (!ewe) {
+      return message.channel.send('❌**|** No hay ningun canal configurado.')//Si no hay canal, retorna.
+    }
+    let channel2 = message.guild.channels.cache.get(ewe.channelID)//Busca el canal de confesiones.
+    channel2.send("🛑**|** Este es el nuevo canal de confesiones.")//Retorna mandando un mensaje al canal.
+  }
+
+  else if (command === "confess") {
+    let canal = await ModelConfess.findOne({ guildID: message.guild.id })//Busca si ya hay algun canal establecido en el servidor.
+    if (!canal) return message.channel.send("❌**|** El canal de confesiones no fue definido en este servidor.") //Retorna si no hay.
+    let confesar = args.join(" ")//Argumentos para realizar la confesión.
+    if (!confesar) return message.channel.send("❌**|** No has argumentando tu confesión.")//Si no hay, retorna.
+    let confesar2 = confesar.length > 10 //Opcional.
+    if (!confesar2) return message.channel.send("❌**|** Tu confesión necesita minimo `10` letras.")//Si en los argumentos el texto no supera las 10 letras retorna el mensaje.
+    message.delete({ timeout: 0 })//Borra el mensaje con los argumentos.
+    let filtro = message.guild.channels.cache.get(canal.channelID)//Busca el canal con la id de la db.
+
+    const anonimo = {
+      color: "#f7ffa0",
+      author: {
+        name: "Confesión anonima",
+        icon_url: "https://cdn.discordapp.com/attachments/763585345207795752/779440547403268156/incognito.png",
+      },
+      description: confesar,
+      timestamp: new Date(),
+      footer: {
+        text: "Confesiones",
+      }
+    }
+    filtro.send({ embed: anonimo })
+  }
 else if (command === 'ship') {
 
   message.channel.send('aun nada')
