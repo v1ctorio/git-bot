@@ -1,9 +1,9 @@
 const Discord = require("discord.js");
-const Schema = require('./models/bienvenida.js');
-
+const Schema = require('./models/bienvenida.js')
 const config = require('config.json')('./config.json');
 const client = new Discord.Client({ ws: { intents: Discord.Intents.ALL } });
 const mongoose = require("mongoose"); // Mongoose es lo más utilizado a la hora de usar una base de datos de MongoDB y también es el mejor para esto.
+const bienvenida = require("./models/bienvenida.js");
 //let prefixes = require('./models/prefixes.js')
 //A
 
@@ -533,13 +533,14 @@ var pacman_verificator = /(>|<?)(:|;)('|"|,|.?)(v|u|y)|(v|u|y)('|"|,|.?)(:|;)(>|
   )
 
   client.on('guildMemberAdd', async (member) => {
-  
+  let servidor = await member.guild
     let Bienvenida = await Schema.findOne({ Guild: member.guild.id });
     if (!Bienvenida) return; // Si no hay nada retorna
     let Channel = member.guild.channels.cache.get(Bienvenida.Channel)
     if (!Channel) return; // Si no hay nada retorna
     
     Channel.send(`hey <@${member.user.id}> bienvenid@ a ${member.guild.name}`);
+    
 
   
   })
