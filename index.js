@@ -407,6 +407,14 @@ let persona = message.mentions.users.first() || message.author;//esto nos sirve 
   else if (command === 'invite') {
     message.channel.send ('con esto podras invitarme a tu servidor <https://bit.ly/panchodelrancho>')
   }
+  else if (command === 'editaloquedigas') {
+    message.channel.send('si, ya lo hago').then((msg) => {
+      setTimeout(() => {
+        msg.edit(`ya esta`)
+      }, 1000);
+    })
+
+     } 
 else if (command === 'stats') {
   
 
@@ -549,9 +557,7 @@ if (message.content === `c:`) {
 if (message.content === 'sisos') {
   message.reply('sies')
 }
-if (message.content === 'こんにちは')　{
-if (getRandomInt(0 ,1) > 0) { message.reply('おはよございます') }else message.channel.send('こばなんは')
-}
+
 if (message.content === ':v'|| message.content === ':V') {
 var elejido = getRandomInt(1,10)
 if (elejido > 8) {
