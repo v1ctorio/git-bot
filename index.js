@@ -415,6 +415,34 @@ let persona = message.mentions.users.first() || message.author;//esto nos sirve 
     })
 
      } 
+
+  else if (command === 'lock') {
+    var permisosLock = message.member.hasPermission('MANAGE_GUILD'); //creamos una variable de permisos
+    if (!permisosLock) return message.channel.send('❌ | No tienes permisos para ejecutar este comando.'); //si no tienes permisos, retorna
+
+    let channelLock = message.mentions.channels.first() || message.channel;
+    let everyone = message.guild.roles.cache.find(aus => aus.name === '@everyone')
+    channelLock.updateOverwrite(everyone, { //actualizamos los permisos del canal para @everyone
+      READ_MESSAGE_HISTORY: true,
+      SEND_MESSAGES: false,
+      ADD_REACTIONS: false
+    });
+    message.channel.send('canal bloqueado correctamente')
+  }
+  else if (command === 'unlock') {
+    var permisosLock = message.member.hasPermission('MANAGE_GUILD'); //creamos una variable de permisos
+    if (!permisosLock) return message.channel.send('❌ | No tienes permisos para ejecutar este comando.'); //si no tienes permisos, retorna
+
+    let channelLock = message.mentions.channels.first() || message.channel;
+    let everyone = message.guild.roles.cache.find(aus => aus.name === '@everyone')
+    channelLock.updateOverwrite(everyone, { //actualizamos los permisos del canal para @everyone
+      READ_MESSAGE_HISTORY: true,
+      SEND_MESSAGES: true,
+      ADD_REACTIONS: true
+    })
+    message.channel.send('canal desbloqueado correctamente')
+  }
+    
 else if (command === 'stats') {
   
 
