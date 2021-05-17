@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 const Schema = require('./models/bienvenida.js')
-
+const ModelSuggest = require('./models/setsuggest.js')
 const config = require('config.json')('./config.json')
 const ModelConfess = require('./models/setconfession.js')
 const client = new Discord.Client({ ws: { intents: Discord.Intents.ALL } });
@@ -182,6 +182,11 @@ var Aceptenmeloplis = new Discord.MessageEmbed() //Definimos el embed.
 
 message.channel.send(attachment2);
 }
+
+    
+    
+    
+
 else if (command === 'setwelcome') {
   
   let Canal = message.guild.channels.cache.find(canal => canal.id == args[0]) || message.mentions.channels.first();
@@ -415,6 +420,8 @@ let persona = message.mentions.users.first() || message.author;//esto nos sirve 
     })
 
      } 
+
+    
 
   else if (command === 'lock') {
     var permisosLock = message.member.hasPermission('MANAGE_GUILD'); //creamos una variable de permisos
