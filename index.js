@@ -1,4 +1,5 @@
 const Discord = require("discord.js");
+const dog = require('dog-img')
 const Schema = require('./models/bienvenida.js')
 const ModelSuggest = require('./models/setsuggest.js')
 const config = require('config.json')('./config.json')
@@ -95,7 +96,16 @@ if (command === "reset") {
 //nose
 
 
-
+  if (command === 'edit') {
+    if (!args[0]) return message.channel.send('no pusiste nada')
+    if (args[0] > 1000) return message.channel.send('el tiempo que pusiste es muy largo')
+    message.channel.send(`vale editaré esto en ${args[0]} ms`).then((m) => {
+      setTimeout(() => {
+        m.edit('editado')
+      }, args[0]);
+    }
+       )
+}
 
 if (command === "serverinfo" || command === 'server') {//primero tienen que tener command y args definidos
   var server = message.guild;//definimos server
