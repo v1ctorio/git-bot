@@ -66,18 +66,18 @@ client.on("message", async function(message) {
   }
   //ping y pong
 
-  else if (command === "sum") {
+  if (command === "sum") {
     var numArgs = args.map(x => parseFloat(x));
     var sum = numArgs.reduce((counter, x) => counter += x);
     message.reply(`la suma de todos los numeros dados da ${sum}!`);
     //comando de suma
   }
-  else if (command === "piola") {
+  if (command === "piola") {
   message.reply(`repiola`);
   //piola
   }
 
-  else if (command === 'cat') {
+  if (command === 'cat') {
     message.channel.send('buscando gatos...').then((m) => {
       
       meow().then((url) => {
@@ -85,7 +85,7 @@ client.on("message", async function(message) {
       })
     })
 }
-else if (command === "reset") {
+if (command === "reset") {
     if (message.author.id !== "688476559019212805") return
     message.reply("Resetting...");
   process.exit()
@@ -97,7 +97,7 @@ else if (command === "reset") {
 
 
 
-else if (command === "serverinfo" || command === 'server') {//primero tienen que tener command y args definidos
+if (command === "serverinfo" || command === 'server') {//primero tienen que tener command y args definidos
   var server = message.guild;//definimos server
   if (server.owner) {
 
@@ -148,25 +148,25 @@ else if (command === "serverinfo" || command === 'server') {//primero tienen que
 
 
 
-  else if (command === "a") {
+  if (command === "a") {
   message.reply(`si a`);
   //a
   }
-  else if (command === "tu") {
+  if (command === "tu") {
     message.reply(`preguntaste por mi o que si preeguntas por mi soy pancho del rencho y estoy en beta gracias por preguntar ${message.author}`)
   }
 
 
-else if (command === 'join') {
+if (command === 'join') {
   client.emit('guildMemberAdd', message.member); 
  } 
-  else if (command === 'id') {
+  if (command === 'id') {
     var usuario2 = message.mentions.users.first()
     if(!usuario2) {return message.reply (`tu id es ${message.author.id}`)
    } else message.reply(`la id de ${usuario2.tag} es ${usuario2.id}`)
   }
 
-  else if (command === `say`) {
+  if (command === `say`) {
     if(!args) return message.channel.send(`debe escribir un mensaje a enviar.`);
 
 	message.delete()
@@ -176,7 +176,7 @@ message.channel.send(mensjaesay, {allowedMentions:{parse:[]}});
   }
 
 
-else if (command === 'clyde') {
+if (command === 'clyde') {
 
 
 let mensaje = args.join(' '); //Esto hara que cada espacio de la oracion se cambie a %20, no lo cambies, o sino no funciona.
@@ -195,7 +195,7 @@ message.channel.send(attachment2);
     
     
 
-else if (command === 'setwelcome') {
+if (command === 'setwelcome') {
   
   let Canal = message.guild.channels.cache.find(canal => canal.id == args[0]) || message.mentions.channels.first();
   let Bienvenida = await Schema.findOne({ Guild: message.guild.id }).exec();
@@ -226,7 +226,7 @@ else if (command === 'setwelcome') {
   
   }
   }
-  else if (command === 'meme') {
+  if (command === 'meme') {
 
     var meme = config.memes
     var numerodememes = meme.length
@@ -240,7 +240,7 @@ var memeembed = new Discord.MessageEmbed()
     }
 
   //auditoria
-  else if (command === 'info'|| command === 'botinfo'|| command === 'help') {
+  if (command === 'info'|| command === 'botinfo'|| command === 'help') {
     info = {"title":"Informaci\u00f3n","description":"soy un bot creado por Victorio#5994 con comandos de entretenimiento y moderaci\u00f3n","color":5814783,"fields":[{"name":"Comandos","value":" \n  Estos son mis comandos:\n    **&help** - todos los comandos (lo estas viendo)\n    **&sum <num1> <num2>** - Suma 2 numeros \n    **&meme** - manda un meme\n    **&invite** - manda el link para invitarme a tu servidor\n    **&kick** - expulsa a un usuario (necesita permisos de administrador)\n    **&ban** - banea a un usuario (necesita permisos de administrador)\n    **&server** - proporciona informacion del servidor\n    **&uptime** - tiempo que el bot esta online\n    **&tweet** - simula un tweet \n    **&pp** - mira tu foto de perfil o la de alguien \n    **&magik** - transforma la foto de perfil con el efecto magik \n    **&phcomment** - simula un comentario en ph \n **&setconfession** - establece el canal de confesiones \n **&confess** - haz una confesion anonimamente \n **&cat** - busca una imagen de un gato"},{"name":"Servidor","value":"Unete al servidor oficial del bot aqui [discord.gg\/P5438xBR94](https:\/\/discord.gg\/P5438xBR94)"}],"author":{"name":"Pancho del rancho","url":"https:\/\/bit.ly\/panchodelrancho","icon_url":"https:\/\/images-ext-2.discordapp.net\/external\/LFiST9waRyxge-xibE8gsIVb6BwQLhGnRDFPpE7HrTE\/%3Fsize%3D2048\/https\/cdn.discordapp.com\/avatars\/776106257597333515\/2a357a609135bd1372f94367c728b564.webp?width=427&height=427"},"footer":{"text":"le\u00edste esto, tabien."},"timestamp":new Date()}
 
     var infoembed = new Discord.MessageEmbed(info)
@@ -248,7 +248,7 @@ var memeembed = new Discord.MessageEmbed()
     message.react('✅')
   }
 
-else if (command === 'pp') {
+if (command === 'pp') {
  let miembro = message.mentions.users.first()
 if (!miembro) {
     var embed = new Discord.MessageEmbed()
@@ -269,12 +269,12 @@ if (!miembro) {
 
 }
 
-  else if (command === "yo") {
+  if (command === "yo") {
     message.channel.send(`tu eres  ${message.author}`);
     //help
     }
 
-    else if (command === 'tweet') {
+    if (command === 'tweet') {
       
 
 message.delete()
@@ -303,7 +303,7 @@ message.channel.stopTyping()
         
     }
 
-else if (command === "phcomment"){ //Creamos el comando (esto lo adaptan a su codigo, claro)
+if (command === "phcomment"){ //Creamos el comando (esto lo adaptan a su codigo, claro)
 
 message.delete() //Esto es opcional. Es para borrar el mensaje que nosotros coloquemos como comando. si no lo quieren, borrenlo
 
@@ -323,7 +323,7 @@ message.channel.send(attachment)    //La enviamos
 
   }
     
-  else if (command === 'setconfession') {
+  if (command === 'setconfession') {
 
     if (!message.member.hasPermission('MANAGE_GUILD')) {//Si el usuario no tiene permisos retorna.
       return message.channel.send(':no:**|** No tienes permisos suficientes para ejecutar este comando.')
@@ -349,7 +349,7 @@ message.channel.send(attachment)    //La enviamos
     channel2.send("🛑**|** Este es el nuevo canal de confesiones.")//Retorna mandando un mensaje al canal.
   }
 
-  else if (command === "confess") {
+  if (command === "confess") {
     let canal = await ModelConfess.findOne({ guildID: message.guild.id })//Busca si ya hay algun canal establecido en el servidor.
     if (!canal) return message.channel.send("❌**|** El canal de confesiones no fue definido en este servidor.") //Retorna si no hay.
     let confesar = args.join(" ")//Argumentos para realizar la confesión.
@@ -373,13 +373,13 @@ message.channel.send(attachment)    //La enviamos
     }
     filtro.send({ embed: anonimo })
   }
-else if (command === 'ship') {
+if (command === 'ship') {
 
   message.channel.send('aun nada')
 
 }
 
-else if (command === 'servers') {
+if (command === 'servers') {
   if (!message.author.id === '688476559019212805') return
   let embed = new Discord.MessageEmbed() //declaramos embed
       .setTitle(`Estoy en ${client.guilds.cache.size} Servers !`)
@@ -391,7 +391,7 @@ else if (command === 'servers') {
 //Seleccionamos un color, en este caso random
     message.author.send(embed)
 }
-else if (command === 'magik') {//abrimos cmd
+if (command === 'magik') {//abrimos cmd
 
 
 let persona = message.mentions.users.first() || message.author;//esto nos sirve por si pones el comando tu mismo o mencionas a alguien
@@ -413,14 +413,14 @@ let persona = message.mentions.users.first() || message.author;//esto nos sirve 
 }//cerramos cmd
 
 
-    else if (command === "el") {
+    if (command === "el") {
       message.channel.send(`a si el es ${message.mentions.members}  aparte de eso no sirve para nada el comando `)
     }
 
-  else if (command === 'invite') {
+  if (command === 'invite') {
     message.channel.send ('con esto podras invitarme a tu servidor <https://bit.ly/panchodelrancho>')
   }
-  else if (command === 'editaloquedigas') {
+  if (command === 'editaloquedigas') {
     message.channel.send('si, ya lo hago').then((msg) => {
       setTimeout(() => {
         msg.edit(`ya esta`)
@@ -431,7 +431,7 @@ let persona = message.mentions.users.first() || message.author;//esto nos sirve 
 
     
 
-  else if (command === 'lock') {
+  if (command === 'lock') {
     var permisosLock = message.member.hasPermission('MANAGE_GUILD'); //creamos una variable de permisos
     if (!permisosLock) return message.channel.send('❌ | No tienes permisos para ejecutar este comando.'); //si no tienes permisos, retorna
 
@@ -444,7 +444,7 @@ let persona = message.mentions.users.first() || message.author;//esto nos sirve 
     });
     message.channel.send('canal bloqueado correctamente')
   }
-  else if (command === 'unlock') {
+  if (command === 'unlock') {
     var permisosLock = message.member.hasPermission('MANAGE_GUILD'); //creamos una variable de permisos
     if (!permisosLock) return message.channel.send('❌ | No tienes permisos para ejecutar este comando.'); //si no tienes permisos, retorna
 
@@ -458,7 +458,7 @@ let persona = message.mentions.users.first() || message.author;//esto nos sirve 
     message.channel.send('canal desbloqueado correctamente')
   }
     
-else if (command === 'stats') {
+if (command === 'stats') {
   
 
 const moment = require("moment");
@@ -483,7 +483,7 @@ const embed = new Discord.MessageEmbed()
 message.channel.send(embed);
 }
 // moderacion
-  else if (command === "kick") {
+  if (command === "kick") {
     /*
 kick a un usuario mencionado usando member().kick()
 incluye razón para los registros de auditoría-log
@@ -507,7 +507,7 @@ message.guild.member(user).kick(razon);
 message.channel.send(`**${user.username}**, fue pateado del servidor, razón: ${razon}.`);
 
 }
-else if (command === "uptime") {
+if (command === "uptime") {
   let totalSeconds = (client.uptime / 1000);
   let days = Math.floor(totalSeconds / 86400);
   let hours = Math.floor(totalSeconds / 3600);
@@ -517,7 +517,7 @@ else if (command === "uptime") {
   message.channel.send(`:low_brightness: **Uptime:** ${days} dias, ${hours} horas y ${minutes} minutos`)
 }
 
-else if (command === "ban") {
+if (command === "ban") {
   /*
 expulsar a un usuario mencionado usando member().ban()
 incluye razón para los registros de auditoría-log
