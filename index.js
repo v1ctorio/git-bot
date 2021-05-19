@@ -317,7 +317,7 @@ if (command === "phcomment"){ //Creamos el comando (esto lo adaptan a su codigo,
 message.delete() //Esto es opcional. Es para borrar el mensaje que nosotros coloquemos como comando. si no lo quieren, borrenlo
 
 let txt = args.join('%20');  //Argumentos
-
+if (text.length > 40) return message.channel.send('el texto que pusiste es muy largo')
 if (!txt) return message.channel.send("Olvidaste colocar los argumentos.") //Si no hay argumentos...
 
 let autor = message.author; //Definimos autor
