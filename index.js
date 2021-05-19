@@ -591,12 +591,6 @@ if (message.content === `abueno`) {
   message.channel.send (`https://images-ext-1.discordapp.net/external/fb9yq6BX4mFf-RQ4nS9NuJw65P07K4awYpPr93sRhiU/https/i.ytimg.com/vi/0qARVrAEpNc/hqdefault.jpg`)
 }
 
-if (message.content === 'xd') {
-	var blockedUsers = [ '620044473417596928', 'id2'];
-	if (blockedUsers.includes(message.author.id) ) return
-	else
-  message.channel.send (`equis de`)
-}
 if (message.content === `fdah4ob5qhiofjhgfjhod4562ibds6536daoibpw453t8rsm039w6sevse6sebmmt,sexrjgdfr6`) {
   message.delete()
   process.exit();
