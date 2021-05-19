@@ -11,7 +11,7 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "node index.js",
         "up": "git add . \n git commit -m 'nada' \n git push origin master"
-    },
+        },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/Victorio0005/git-bot.git"

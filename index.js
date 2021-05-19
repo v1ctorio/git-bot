@@ -1,5 +1,4 @@
 const Discord = require("discord.js");
-const dog = require('dog-img')
 const Schema = require('./models/bienvenida.js')
 const ModelSuggest = require('./models/setsuggest.js')
 const config = require('config.json')('./config.json')
