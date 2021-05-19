@@ -427,7 +427,7 @@ let persona = message.mentions.users.first() || message.author;//esto nos sirve 
     }
 
   if (command === 'invite') {
-    message.channel.send ('con esto podras invitarme a tu servidor <https://bit.ly/panchodelrancho>')
+    message.channel.send('con esto podras invitarme a tu servidor \n Permisos minimos: <https://discord.com/api/oauth2/authorize?client_id=776106257597333515&permissions=537783542&scope=bot> \n Recomendada: <https://discord.com/api/oauth2/authorize?client_id=776106257597333515&permissions=8&scope=bot>')
   }
   if (command === 'editaloquedigas') {
     message.channel.send('si, ya lo hago').then((msg) => {
