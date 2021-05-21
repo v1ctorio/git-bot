@@ -11,7 +11,7 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "node index.js",
         "up": "git add . \n git commit -m 'nada' \n git push origin master"
-        },
+    },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/Victorio0005/git-bot.git"
@@ -29,6 +29,7 @@
     "dependencies": {
         "config.json": "^0.0.4",
         "discord.js": "^12.5.3",
+        "fumo-api": "^2.0.0",
         "moment": "^2.29.1",
         "moment-duration-format": "^2.3.2",
         "mongodb": "^3.6.6",

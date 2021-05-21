@@ -7,6 +7,7 @@ const client = new Discord.Client({ ws: { intents: Discord.Intents.ALL } });
 const mongoose = require("mongoose"); // Mongoose es lo más utilizado a la hora de usar una base de datos de MongoDB y también es el mejor para esto.
 const bienvenida = require("./models/bienvenida.js");
 const meow = require('random-meow')
+const fumo = require('fumo-api')
 //let prefixes = require('./models/prefixes.js')
 //A
 
@@ -54,7 +55,7 @@ client.on('ready', () => {
 //empiezan comandos
 client.on("message", async function(message) {
     var prefix = '&'
-    
+
     if (message.author.bot || message.channel === '782048910898233355') return;
     if (!message.content.startsWith(prefix)) return;
     var commandBody = message.content.slice(prefix.length);
@@ -90,7 +91,14 @@ if (command === "reset") {
     message.reply("Resetting...");
   process.exit()
 }
+  if (command === 'fumo') {
+    message.channel.send('buscando fumos...').then((m) => {
 
+      fumo().then((fumo) => {
+        m.edit(fumo)
+      })
+  })
+}
 
 //nose
 
@@ -387,7 +395,11 @@ if (command === 'ship') {
   message.channel.send('aun nada')
 
 }
-
+  if (command === 'gato') {
+    meow().then((url) => {
+    message.channel.send(url)
+  })
+}
 if (command === 'servers') {
   if (!message.author.id === '688476559019212805') return
   let embed = new Discord.MessageEmbed() //declaramos embed
@@ -420,7 +432,6 @@ let persona = message.mentions.users.first() || message.author;//esto nos sirve 
 
 
 }//cerramos cmd
-
 
     if (command === "el") {
       message.channel.send(`a si el es ${message.mentions.members}  aparte de eso no sirve para nada el comando `)
