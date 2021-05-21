@@ -22,7 +22,7 @@ mongoose.connect('mongodb+srv://Vic:juan@principal.vpbcj.mongodb.net/myFirstData
   var conectadoadb = true}
 })
 var db = mongoose.connection 
-var version =  "2.1.2";
+var version =  "2.3.2";
 
 if(0 > 1) {
   var newLocal = 'de alguna forma 0 es mayor que 1';
@@ -258,7 +258,7 @@ var memeembed = new Discord.MessageEmbed()
 
   //auditoria
   if (command === 'info'|| command === 'botinfo'|| command === 'help') {
-    info = {"title":"Informaci\u00f3n","description":"soy un bot creado por Victorio#5994 con comandos de entretenimiento y moderaci\u00f3n","color":5814783,"fields":[{"name":"Comandos","value":" \n  Estos son mis comandos:\n    **&help** - todos los comandos (lo estas viendo)\n    **&sum <num1> <num2>** - Suma 2 numeros \n    **&meme** - manda un meme\n    **&invite** - manda el link para invitarme a tu servidor\n    **&kick** - expulsa a un usuario (necesita permisos de administrador)\n    **&ban** - banea a un usuario (necesita permisos de administrador)\n    **&server** - proporciona informacion del servidor\n    **&uptime** - tiempo que el bot esta online\n    **&tweet** - simula un tweet \n    **&pp** - mira tu foto de perfil o la de alguien \n    **&magik** - transforma la foto de perfil con el efecto magik \n    **&phcomment** - simula un comentario en ph \n **&setconfession** - establece el canal de confesiones \n **&confess** - haz una confesion anonimamente \n **&cat** - busca una imagen de un gato"},{"name":"Servidor","value":"Unete al servidor oficial del bot aqui [discord.gg\/P5438xBR94](https:\/\/discord.gg\/P5438xBR94)"}],"author":{"name":"Pancho del rancho","url":"https:\/\/bit.ly\/panchodelrancho","icon_url":"https:\/\/images-ext-2.discordapp.net\/external\/LFiST9waRyxge-xibE8gsIVb6BwQLhGnRDFPpE7HrTE\/%3Fsize%3D2048\/https\/cdn.discordapp.com\/avatars\/776106257597333515\/2a357a609135bd1372f94367c728b564.webp?width=427&height=427"},"footer":{"text":"le\u00edste esto, tabien."},"timestamp":new Date()}
+    info = {"title":"Informaci\u00f3n","description":"soy un bot creado por Victorio#5994 con comandos de entretenimiento y moderaci\u00f3n","color":5814783,"fields":[{"name":"Comandos","value":" \n  Estos son mis comandos:\n    **&help** - todos los comandos (lo estas viendo)\n    **&sum <num1> <num2>** - Suma 2 numeros \n    **&meme** - manda un meme\n    **&invite** - manda el link para invitarme a tu servidor\n    **&kick** - expulsa a un usuario (necesita permisos de administrador)\n    **&ban** - banea a un usuario (necesita permisos de administrador)\n    **&server** - proporciona informacion del servidor\n    **&uptime** - tiempo que el bot esta online\n    **&tweet** - simula un tweet \n    **&pp** - mira tu foto de perfil o la de alguien \n    **&magik** - transforma la foto de perfil con el efecto magik \n    **&phcomment** - simula un comentario en ph \n **&setconfession** - establece el canal de confesiones \n **&confess** - haz una confesion anonimamente \n **&cat** - busca una imagen de un gato \n &fumo - busca una imagen de un fumo"},{"name":"Servidor","value":"Unete al servidor oficial del bot aqui [discord.gg\/P5438xBR94](https:\/\/discord.gg\/P5438xBR94)"}],"author":{"name":"Pancho del rancho","url":"https:\/\/bit.ly\/panchodelrancho","icon_url":"https:\/\/images-ext-2.discordapp.net\/external\/LFiST9waRyxge-xibE8gsIVb6BwQLhGnRDFPpE7HrTE\/%3Fsize%3D2048\/https\/cdn.discordapp.com\/avatars\/776106257597333515\/2a357a609135bd1372f94367c728b564.webp?width=427&height=427"},"footer":{"text":"le\u00edste esto, tabien."},"timestamp":new Date()}
 
     var infoembed = new Discord.MessageEmbed(info)
     message.author.send(infoembed)
@@ -438,7 +438,31 @@ let persona = message.mentions.users.first() || message.author;//esto nos sirve 
     }
 
   if (command === 'invite') {
-    message.channel.send('con esto podras invitarme a tu servidor \n Permisos minimos: <https://discord.com/api/oauth2/authorize?client_id=776106257597333515&permissions=537783542&scope=bot> \n Recomendada: <https://discord.com/api/oauth2/authorize?client_id=776106257597333515&permissions=8&scope=bot>')
+    var invitejson = {
+      "title": "Invites",
+      "description": "Invitame a tu servidor usando estos links",
+      "color": 2407951,
+      "fields": [
+        {
+          "name": "Permisos mínimos",
+          "value": "https://discord.com/api/oauth2/authorize?client_id=776106257597333515&permissions=537783542&scope="
+        },
+        {
+          "name": "Permisos administrador (recomendada)",
+          "value": "https://discord.com/api/oauth2/authorize?client_id=776106257597333515&permissions=8&scope=bot"
+        }
+      ],
+      "author": {
+        "name": "Pancho del rancho",
+        "icon_url": "https://images-ext-2.discordapp.net/external/LFiST9waRyxge-xibE8gsIVb6BwQLhGnRDFPpE7HrTE/%3Fsize%3D2048/https/cdn.discordapp.com/avatars/776106257597333515/2a357a609135bd1372f94367c728b564.webp?width=427&height=427"
+      },
+      "footer": {
+        "text": "Invite"
+      },
+      "timestamp": new Date()
+    }
+    var inviteembed = new Discord.MessageEmbed(invitejson)
+message.channel.send(inviteembed)
   }
   if (command === 'editaloquedigas') {
     message.channel.send('si, ya lo hago').then((msg) => {
