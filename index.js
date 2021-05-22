@@ -1,6 +1,5 @@
 const Discord = require("discord.js");
 const Schema = require('./models/bienvenida.js')
-const ModelSuggest = require('./models/setsuggest.js')
 const config = require('config.json')('./config.json')
 const ModelConfess = require('./models/setconfession.js')
 const client = new Discord.Client({ ws: { intents: Discord.Intents.ALL } });
@@ -9,7 +8,6 @@ const bienvenida = require("./models/bienvenida.js");
 const meow = require('random-meow')
 const fumo = require('fumo-api')
 //let prefixes = require('./models/prefixes.js')
-//A
 
 // Conectamos la base:
 mongoose.connect('mongodb+srv://Vic:juan@principal.vpbcj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {
@@ -258,7 +256,7 @@ var memeembed = new Discord.MessageEmbed()
 
   //auditoria
   if (command === 'info'|| command === 'botinfo'|| command === 'help') {
-    info = {"title":"Informaci\u00f3n","description":"soy un bot creado por Victorio#5994 con comandos de entretenimiento y moderaci\u00f3n","color":5814783,"fields":[{"name":"Comandos","value":" \n  Estos son mis comandos:\n    **&help** - todos los comandos (lo estas viendo)\n    **&sum <num1> <num2>** - Suma 2 numeros \n    **&meme** - manda un meme\n    **&invite** - manda el link para invitarme a tu servidor\n    **&kick** - expulsa a un usuario (necesita permisos de administrador)\n    **&ban** - banea a un usuario (necesita permisos de administrador)\n    **&server** - proporciona informacion del servidor\n    **&uptime** - tiempo que el bot esta online\n    **&tweet** - simula un tweet \n    **&pp** - mira tu foto de perfil o la de alguien \n    **&magik** - transforma la foto de perfil con el efecto magik \n    **&phcomment** - simula un comentario en ph \n **&setconfession** - establece el canal de confesiones \n **&confess** - haz una confesion anonimamente \n **&cat** - busca una imagen de un gato \n &fumo - busca una imagen de un fumo"},{"name":"Servidor","value":"Unete al servidor oficial del bot aqui [discord.gg\/P5438xBR94](https:\/\/discord.gg\/P5438xBR94)"}],"author":{"name":"Pancho del rancho","url":"https:\/\/bit.ly\/panchodelrancho","icon_url":"https:\/\/images-ext-2.discordapp.net\/external\/LFiST9waRyxge-xibE8gsIVb6BwQLhGnRDFPpE7HrTE\/%3Fsize%3D2048\/https\/cdn.discordapp.com\/avatars\/776106257597333515\/2a357a609135bd1372f94367c728b564.webp?width=427&height=427"},"footer":{"text":"le\u00edste esto, tabien."},"timestamp":new Date()}
+    info = {"title":"Informaci\u00f3n","description":"soy un bot creado por Victorio#5994 con comandos de entretenimiento y moderaci\u00f3n","color":5814783,"fields":[{"name":"Comandos","value":" \n  Estos son mis comandos:\n    **&help** - todos los comandos (lo estas viendo)\n    **&sum <num1> <num2>** - Suma 2 numeros \n **&credits** - creditos \n   **&meme** - manda un meme\n    **&invite** - manda el link para invitarme a tu servidor\n    **&kick** - expulsa a un usuario (necesita permisos de administrador)\n    **&ban** - banea a un usuario (necesita permisos de administrador)\n    **&server** - proporciona informacion del servidor\n    **&uptime** - tiempo que el bot esta online\n    **&tweet** - simula un tweet \n    **&pp** - mira tu foto de perfil o la de alguien \n    **&magik** - transforma la foto de perfil con el efecto magik \n    **&phcomment** - simula un comentario en ph \n **&setconfession** - establece el canal de confesiones \n **&confess** - haz una confesion anonimamente \n **&cat** - busca una imagen de un gato \n &fumo - busca una imagen de un fumo"},{"name":"Servidor","value":"Unete al servidor oficial del bot aqui [discord.gg\/P5438xBR94](https:\/\/discord.gg\/P5438xBR94)"}],"author":{"name":"Pancho del rancho","url":"https:\/\/bit.ly\/panchodelrancho","icon_url":"https:\/\/images-ext-2.discordapp.net\/external\/LFiST9waRyxge-xibE8gsIVb6BwQLhGnRDFPpE7HrTE\/%3Fsize%3D2048\/https\/cdn.discordapp.com\/avatars\/776106257597333515\/2a357a609135bd1372f94367c728b564.webp?width=427&height=427"},"footer":{"text":"le\u00edste esto, tabien."},"timestamp":new Date()}
 
     var infoembed = new Discord.MessageEmbed(info)
     message.author.send(infoembed)
@@ -436,7 +434,35 @@ let persona = message.mentions.users.first() || message.author;//esto nos sirve 
     if (command === "el") {
       message.channel.send(`a si el es ${message.mentions.members}  aparte de eso no sirve para nada el comando `)
     }
-
+  if (command = 'credits') {
+    var creditjson = {
+      "title": "Créditos",
+      "description": "Aquí dejo los créditos a todas las packages/webs/personas que han ayudado  a este proyecto.",
+      "color": null,
+      "fields": [
+        {
+          "name": "Principal",
+          "value": "· [**node.js**](https://nodejs.org/en/) - Lenguaje de programación basado en JavaScript principalmente para aplicaciones de consola y con soporte para packages.\n· [**Heroku**](https://heroku.com) - VPS principalmente destinado para web host.\n· [**NPM**](https://www.npmjs.com/) - Sistema de packages para nodejs."
+        },
+        {
+          "name": "Packages",
+          "value": "[**config.json**](https://www.npmjs.com/package/config.json) - Sistema para guardar variables o objetos en un archivo externo.\n[**discord.js**](https://www.npmjs.com/package/discord.js) - Librería para desarrollo de bots de discord en node.js.\n**[mongodb](https://www.npmjs.com/package/mongodb)|[mongoose](https://www.npmjs.com/package/mongoose)** - Base de datos con host externo disponible para varios lenguajes  [web oficial](https://www.mongodb.com/).\n[**random-meow**](https://www.npmjs.com/package/random-meow) - Npm package para conseguir fotos de gatos de [random.cat](https://random.cat/).\n[**fumo-api**](https://www.npmjs.com/package/fumo-api) - Package para conseguir fotos aleatorias de fumos."
+        },
+        {
+          "name": "Guias",
+          "value": "[**Discord.js Guide**](https://discordjs.guide/) - Guia de discord.js en ingles que recoge casi todos los apartados que necesites para el desarrollo de tu bot con discord.js\n[**Portal mybot**](https://portalmybot.com/) - Portal en español para ayudar a la creación de bots con diferentes apartados como un servidor de soporte y una guia en español bastante útil."
+        }
+      ],
+      "author": {
+        "name": "Pancho del rancho",
+        "url": "https://discord.com/api/oauth2/authorize?client_id=776106257597333515&permissions=537783542&scope=bot",
+        "icon_url": "https://images-ext-2.discordapp.net/external/LFiST9waRyxge-xibE8gsIVb6BwQLhGnRDFPpE7HrTE/%3Fsize%3D2048/https/cdn.discordapp.com/avatars/776106257597333515/2a357a609135bd1372f94367c728b564.webp?width=300&height=300"
+      }
+    }
+    var creditembed = new Discord.MessageEmbed(creditjson)
+    message.author.send(creditembed)
+    message.react('✅')
+}
   if (command === 'invite') {
     var invitejson = {
       "title": "Invites",
@@ -445,7 +471,7 @@ let persona = message.mentions.users.first() || message.author;//esto nos sirve 
       "fields": [
         {
           "name": "Permisos mínimos",
-          "value": "https://discord.com/api/oauth2/authorize?client_id=776106257597333515&permissions=537783542&scope="
+          "value": "https://discord.com/api/oauth2/authorize?client_id=776106257597333515&permissions=537783542&scope=bot"
         },
         {
           "name": "Permisos administrador (recomendada)",
@@ -631,9 +657,6 @@ if (message.content === `c:`) {
   message.channel.send(`https://cdn-3.expansion.mx/dims4/default/c6aba79/2147483647/strip/true/crop/240x126+0+27/resize/1200x630!/quality/90/?url=https%3A%2F%2Fcdn-3.expansion.mx%2Fphotos%2F2007%2F07%2F01%2Fla-nueva-campana-mostrara-a-actores-hablando-sobre-por-que-vuelven-a-wal-mart-en-busca-de-precios-mas-bajos-y-no-la-carita-feliz-reuters.2007-07-23.6291503003.jpg`)
 
 }
-if (message.content === 'sisos') {
-  message.reply('sies')
-}
 
 if (message.content === ':v'|| message.content === ':V') {
 var elejido = getRandomInt(1,10)
@@ -667,7 +690,5 @@ var pacman_verificator = /(>|<?)(:|;)('|"|,|.?)(v|u|y)|(v|u|y)('|"|,|.?)(:|;)(>|
   })
   
 
-
-
 //terminan los comandos
-client.login(config.BOT_TOKEN);
+client.login(config.BOT_TOKEN)
