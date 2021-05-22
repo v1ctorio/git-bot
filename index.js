@@ -611,9 +611,7 @@ message.guild.members.ban(persona, {
     else
 
    
-if (message.content === 'f' || message.content === `F`) {
-  message.channel.send ('efe')
-}
+
 if (message.content === `prefix`) {
   message.reply(`el prefix es &`)
 }
@@ -622,9 +620,7 @@ if (message.content === `:c`) {
   message.channel.send (`${message.author.username} esta triste:c `)
   message.channel.send ('https://media.discordapp.net/attachments/776484805880971295/786636533641248828/blue-monday.png')
 }
-if (message.content === `abueno`) {
-  message.channel.send (`https://images-ext-1.discordapp.net/external/fb9yq6BX4mFf-RQ4nS9NuJw65P07K4awYpPr93sRhiU/https/i.ytimg.com/vi/0qARVrAEpNc/hqdefault.jpg`)
-}
+
 
 if (message.content === `fdah4ob5qhiofjhgfjhod4562ibds6536daoibpw453t8rsm039w6sevse6sebmmt,sexrjgdfr6`) {
   message.delete()
@@ -644,21 +640,7 @@ var elejido = getRandomInt(1,10)
 if (elejido > 8) {
   var elegido = true
 }
-if (message.content === 'que?' || message.content === 'que') {
 
-  message.channel.send('so').then(() => {
-    var filter = m => message.author.id === m.author.id;
-
-    message.channel.awaitMessages(filter, { time: 60000, max: 1, errors: ['time'] })
-      .then(messages => {
-        if(messages.first().content == 'pa')
-        message.channel.send(`to`);
-      })
-      .catch(() => {
-        console.log('You did not enter any input!');
-      });
-  });
-}
 attachment23 = new Discord.MessageAttachment('https://images-ext-2.discordapp.net/external/xitugu5chFLjGkDYYThIaqtLlt794ZraCuzhMsPIMXg/%3Fcb%3D20201224065056%26path-prefix%3Des/https/static.wikia.nocookie.net/memes-pedia/images/8/8f/Empanycal_3.jpg/revision/latest/scale-to-width-down/177','grasa.png')
 if(elegido) message.channel.send(`<@${message.author.id}>`,attachment23)
 }
