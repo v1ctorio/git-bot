@@ -54,7 +54,7 @@ client.on('ready', () => {
 client.on("message", async function(message) {
     var prefix = '&'
 
-  if (message.guild.me.hasPermission('SEND_MESSAGES')) return 
+  if (!message.guild.me.hasPermission('SEND_MESSAGES')) return 
     if (message.author.bot || message.channel === '782048910898233355') return;
     if (!message.content.startsWith(prefix)) return;
     var commandBody = message.content.slice(prefix.length);
