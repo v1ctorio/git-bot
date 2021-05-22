@@ -434,7 +434,7 @@ let persona = message.mentions.users.first() || message.author;//esto nos sirve 
     if (command === "el") {
       message.channel.send(`a si el es ${message.mentions.members}  aparte de eso no sirve para nada el comando `)
     }
-  if (command = 'credits') {
+  if (command === 'credits') {
     var creditjson = {
       "title": "Créditos",
       "description": "Aquí dejo los créditos a todas las packages/webs/personas que han ayudado  a este proyecto.",
