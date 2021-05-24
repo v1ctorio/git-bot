@@ -221,10 +221,11 @@ if (command === 'setwelcome') {
   
   if (!message.member.hasPermission('MANAGE_GUILD')) return message.channel.send('Permisos insuficientes\nPermisos necesarios: `Gestionar Servidor`');
   
-  
+  if (Canal.type !== 'text') return message.channel.send('debe de ser un canal de texto')
+  if (Canal.guild.id !== message.channel.guild.id) return message.channel.send('debe ser un canal en este servidor')
   if (Bienvenida) {
   
-    await Bienvenida.updateOne({ Guild: message.guild.id, Channel: Canal.id });
+   await Bienvenida.updateOne({ Guild: message.guild.id, Channel: Canal.id });
    
     
     message.channel.send(new Discord.MessageEmbed()
@@ -342,16 +343,18 @@ message.channel.send(attachment)    //La enviamos
   if (command === 'setconfession') {
 
     if (!message.member.hasPermission('MANAGE_GUILD')) {//Si el usuario no tiene permisos retorna.
-      return message.channel.send(':no:**|** No tienes permisos suficientes para ejecutar este comando.')
+      return message.channel.send('❌**|** No tienes permisos suficientes para ejecutar este comando.')
     }
     let channel = message.mentions.channels.first()
     if (!channel) {//Si no menciona ningun canal, retorna.
-      return message.channel.send(':no:**|** Debes mencionar un canal del servidor.')
+      return message.channel.send('❌**|** Debes mencionar un canal del servidor.')
     }
+    if (channel.type !== 'text') return message.channel.send('❌**|** No puedes establecer un canal de voz como canal de confesiones ')
+    if (!channel.guild.id === message.channel.guild.id) return message.channel.send('❌**|** El canal debe de estar en este servidor')
     let establecer = await ModelConfess.findOne({ guildID: message.guild.id }).exec()//Busca si ya hay algo establecido.
     if (establecer) {
       await establecer.updateOne({ guildID: message.guild.id, channelID: channel.id }) //Busca si ya hay algun canal guardado.
-      message.channel.send(':abell:**|** El Canal de confesiones es <#' + channel.id + '>.')//Retorna el mensaje.
+      message.channel.send('🛑**|** El Canal de confesiones es <#' + channel.id + '>.')//Retorna el mensaje.
     } else {
       let establecido = new ModelConfess({ guildID: message.guild.id, channelID: channel.id })//Colocamos los nuevos datos.
       await establecido.save()//Guardamos los nuevos datos.
@@ -430,8 +433,8 @@ let persona = message.mentions.users.first() || message.author;//esto nos sirve 
 
 
 
-}//cerramos cmd
-
+  }//cerramos cmd
+  
     if (command === "el") {
       message.channel.send(`a si el es ${message.mentions.members}  aparte de eso no sirve para nada el comando `)
     }
@@ -452,6 +455,10 @@ let persona = message.mentions.users.first() || message.author;//esto nos sirve 
         {
           "name": "Guias",
           "value": "[**Discord.js Guide**](https://discordjs.guide/) - Guia de discord.js en ingles que recoge casi todos los apartados que necesites para el desarrollo de tu bot con discord.js\n[**Portal mybot**](https://portalmybot.com/) - Portal en español para ayudar a la creación de bots con diferentes apartados como un servidor de soporte y una guia en español bastante útil."
+        },
+        {
+          "name": "Extra",
+          "value": "*****"
         }
       ],
       "author": {
