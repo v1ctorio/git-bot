@@ -6,7 +6,9 @@ const client = new Discord.Client({ ws: { intents: Discord.Intents.ALL } });
 const mongoose = require("mongoose"); // Mongoose es lo más utilizado a la hora de usar una base de datos de MongoDB y también es el mejor para esto.
 const bienvenida = require("./models/bienvenida.js");
 const meow = require('random-meow')
-const fumo = require('fumo-api')
+const autoresponse = require('./models/auto.js')
+const fumo = require('fumo-api');
+const { schema } = require("./models/bienvenida.js");
 //let prefixes = require('./models/prefixes.js')
 
 // Conectamos la base:
@@ -112,7 +114,30 @@ if (command === "reset") {
     }
        )
 }
+  if (command === 'autoresponse') {
+    var tienepuesto = await autoresponse.findOne({ persona: message.author.id}).exec()
+    if (!args[0]) return message.channel.send('Debes poner la opcion \n `activar` o `desactivar`')
+    if (args[0] === 'activar') {
+      if (!tienepuesto) {
+        await new autoresponse({ persona: message.author.id, activo: 'si' }).save()
+        message.channel.send('se han activado las autorespuestas correctamente')
+      } else {
+        await tienepuesto.updateOne({ persona: message.author.id, activo: 'si' })
+        message.channel.send('se han activado las autorespuestas correctamente')
 
+     }
+    }
+    if (args[0] === 'desactivar') {
+      if (!tienepuesto) {
+        await new autoresponse({ persona: message.author.id, activo: 'no' }).save()
+        message.channel.send('se han desactivado las autorespuestas correctamente')
+      } else {
+        await tienepuesto.updateOne({ persona: message.author.id, activo: 'no' })
+        message.channel.send('se han desactivado las autorespuestas correctamente')
+
+      }
+    }
+}
 if (command === "serverinfo" || command === 'server') {//primero tienen que tener command y args definidos
   var server = message.guild;//definimos server
   if (server.owner) {
@@ -643,9 +668,10 @@ message.guild.members.ban(persona, {
   client.on('message', async message  => {
     if (message.author.bot || message.channel === '782048910898233355') return;
     if (message.guild.me.hasPermission('SEND_MESSAGES')) return
-
-    else
-
+    var tiene = await autoresponse.findOne({ persona: message.author.id }).exec()
+    console.log(tiene)
+    if(!tiene) return 
+    if (tiene.activo !== 'si') return 
    
 
 if (message.content === `prefix`) {
@@ -667,7 +693,9 @@ if (message.content === `c:`) {
   message.channel.send(`https://cdn-3.expansion.mx/dims4/default/c6aba79/2147483647/strip/true/crop/240x126+0+27/resize/1200x630!/quality/90/?url=https%3A%2F%2Fcdn-3.expansion.mx%2Fphotos%2F2007%2F07%2F01%2Fla-nueva-campana-mostrara-a-actores-hablando-sobre-por-que-vuelven-a-wal-mart-en-busca-de-precios-mas-bajos-y-no-la-carita-feliz-reuters.2007-07-23.6291503003.jpg`)
 
 }
-
+    if (message.content === 'xd') {
+  message.channel.send('equis de')
+}
 if (message.content === ':v'|| message.content === ':V') {
 var elejido = getRandomInt(1,10)
 if (elejido > 8) {
