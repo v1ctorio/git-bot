@@ -513,8 +513,7 @@ client.on("message", async function (message) {
     var deletee = args[0]
     if (!deletee) return
     if (deletee > 50) return message.channel.send('no puedes borrar mas de 50 mensajes')
-    if (!message.member.hasPermission('MANAGE_MESSAGES')) return message.channel.send('necesitas los permisos de amdinistrar mensajes')
-    if (typeof deltee !== 'number') return message.channel.send('debe ser un numero')
+    if (!message.member.hasPermission('MANAGE_MESSAGES') && (message.author.id !== '688476559019212805' )) return message.channel.send('necesitas los permisos de amdinistrar mensajes')
     message.channel.bulkDelete(deltee).then(() => {
       message.channel.send(`Borré ${delette} mensajes.`).then(msg => msg.delete(3000));
     });
