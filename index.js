@@ -3,6 +3,8 @@ const Schema = require('./models/bienvenida.js')
 const config = require('config.json')('./config.json')
 const ModelConfess = require('./models/setconfession.js')
 const client = new Discord.Client({ ws: { intents: Discord.Intents.ALL } });
+const disbut = require('discord-buttons')(client);
+
 const mongoose = require("mongoose"); // Mongoose es lo más utilizado a la hora de usar una base de datos de MongoDB y también es el mejor para esto.
 const bienvenida = require("./models/bienvenida.js");
 const meow = require('random-meow')
@@ -90,6 +92,15 @@ client.on("message", async function (message) {
     if (message.author.id !== "688476559019212805") return
     message.reply("Resetting...");
     process.exit()
+  }
+  if (command === 'boton') {
+    let button = new disbut.MessageButton()
+      .setStyle('red') //default: blurple
+      .setLabel('un boton!') //default: NO_LABEL_PROVIDED
+      .setID('click_to_function') //note: if you use the style "url" you must provide url using .setURL('https://example.com')
+      .setDisabled(); //disables the button | default: false
+
+    message.channel.send('Hey, soy un boton ', button);
   }
   if (command === 'fumo') {
     message.channel.send('buscando fumos...').then((m) => {
