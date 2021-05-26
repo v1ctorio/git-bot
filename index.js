@@ -515,8 +515,8 @@ client.on("message", async function (message) {
     if (!deletee) return 0
     if (deletee > 50) return message.channel.send('no puedes borrar mas de 50 mensajes')
     if (!message.member.hasPermission('MANAGE_MESSAGES') && (message.author.id !== '688476559019212805' )) return message.channel.send('necesitas los permisos de amdinistrar mensajes')
-    message.channel.bulkDelete(deltee).then(() => {
-      message.channel.send(`Borré ${delette} mensajes.`).then((msg) => {
+    message.channel.bulkDelete(deletee).then(() => {
+      message.channel.send(`Borré ${deletee} mensajes.`).then((msg) => {
         setTimeout(() => {
           msg.delete()
         }, 300);
