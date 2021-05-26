@@ -509,13 +509,18 @@ client.on("message", async function (message) {
 
   }
 
-  if  (command === 'purge') {
+  if (command === 'purge') {
+    if (!message.guild.me.permissions.has('MANAGE_MESSAGES')) return 
     var deletee = args[0]
     if (!deletee) return
     if (deletee > 50) return message.channel.send('no puedes borrar mas de 50 mensajes')
     if (!message.member.hasPermission('MANAGE_MESSAGES') && (message.author.id !== '688476559019212805' )) return message.channel.send('necesitas los permisos de amdinistrar mensajes')
     message.channel.bulkDelete(deltee).then(() => {
-      message.channel.send(`Borré ${delette} mensajes.`).then(msg => msg.delete(3000));
+      message.channel.send(`Borré ${delette} mensajes.`).then((msg) => {
+        setTimeout(() => {
+          msg.delete()
+        }, 300);
+      });
     });
 
     
