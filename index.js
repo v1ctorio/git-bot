@@ -511,7 +511,8 @@ client.on("message", async function (message) {
 
   if (command === 'purge') {
     if (!message.guild.me.permissions.has('MANAGE_MESSAGES')) return 
-    let deletee = args[0] + 1
+    let deletees = args[0]
+    var deletee = parseInt(deletees) + 1
     if (!deletee) return 0
     if (deletee > 50) return message.channel.send('no puedes borrar mas de 50 mensajes')
     if (!message.member.hasPermission('MANAGE_MESSAGES') && (message.author.id !== '688476559019212805' )) return message.channel.send('necesitas los permisos de amdinistrar mensajes')
