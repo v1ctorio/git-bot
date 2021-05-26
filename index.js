@@ -6,27 +6,26 @@ const client = new Discord.Client({ ws: { intents: Discord.Intents.ALL } });
 const mongoose = require("mongoose"); // Mongoose es lo más utilizado a la hora de usar una base de datos de MongoDB y también es el mejor para esto.
 const bienvenida = require("./models/bienvenida.js");
 const meow = require('random-meow')
-const autoresponse = require('./models/auto.js')
-const fumo = require('fumo-api');
-const { schema } = require("./models/bienvenida.js");
+const fumo = require('fumo-api')
 //let prefixes = require('./models/prefixes.js')
 
 // Conectamos la base:
 mongoose.connect('mongodb+srv://Vic:juan@principal.vpbcj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {
   useNewUrlParser: true,
   useUnifiedTopology: true
-}, async(err, db) => {
-  if(err) console.error(err); else {
+}, async (err, db) => {
+  if (err) console.error(err); else {
 
     console.log('Conectado a mongodb.')
-  var conectadoadb = true}
+    var conectadoadb = true
+  }
 })
-var db = mongoose.connection 
-var version =  "2.3.2";
+var db = mongoose.connection
+var version = "2.3.2";
 
-if(0 > 1) {
+if (0 > 1) {
   var newLocal = 'de alguna forma 0 es mayor que 1';
-}{
+} {
   console.log('0 es menos que uno, todo bien ');
 };
 
@@ -53,13 +52,13 @@ client.on('ready', () => {
 });
 
 //empiezan comandos
-client.on("message", async function(message) {
-    var prefix = '&'
+client.on("message", async function (message) {
+  var prefix = '&'
 
-  if (!message.guild.me.hasPermission('SEND_MESSAGES')) return 
-    if (message.author.bot || message.channel === '782048910898233355') return;
-    if (!message.content.startsWith(prefix)) return;
-    var commandBody = message.content.slice(prefix.length);
+  if (!message.guild.me.hasPermission('SEND_MESSAGES')) return
+  if (message.author.bot || message.channel === '782048910898233355') return;
+  if (!message.content.startsWith(prefix)) return;
+  var commandBody = message.content.slice(prefix.length);
   var args = commandBody.split(' ');
   var command = args.shift().toLowerCase();
   if (command === "ping") {
@@ -75,33 +74,33 @@ client.on("message", async function(message) {
     //comando de suma
   }
   if (command === "piola") {
-  message.reply(`repiola`);
-  //piola
+    message.reply(`repiola`);
+    //piola
   }
 
   if (command === 'cat') {
     message.channel.send('buscando gatos...').then((m) => {
-      
+
       meow().then((url) => {
         m.edit(url)
       })
     })
-}
-if (command === "reset") {
+  }
+  if (command === "reset") {
     if (message.author.id !== "688476559019212805") return
     message.reply("Resetting...");
-  process.exit()
-}
+    process.exit()
+  }
   if (command === 'fumo') {
     message.channel.send('buscando fumos...').then((m) => {
 
       fumo().then((fumo) => {
         m.edit(fumo)
       })
-  })
-}
+    })
+  }
 
-//nose
+  //nose
 
 
   if (command === 'edit') {
@@ -112,259 +111,237 @@ if (command === "reset") {
         m.edit('editado')
       }, args[0]);
     }
-       )
-}
-  if (command === 'autoresponse') {
-    var tienepuesto = await autoresponse.findOne({ persona: message.author.id}).exec()
-    if (!args[0]) return message.channel.send('Debes poner la opcion \n `activar` o `desactivar`')
-    if (args[0] === 'activar') {
-      if (!tienepuesto) {
-        await new autoresponse({ persona: message.author.id, activo: 'si' }).save()
-        message.channel.send('se han activado las autorespuestas correctamente')
-      } else {
-        await tienepuesto.updateOne({ persona: message.author.id, activo: 'si' })
-        message.channel.send('se han activado las autorespuestas correctamente')
-
-     }
-    }
-    if (args[0] === 'desactivar') {
-      if (!tienepuesto) {
-        await new autoresponse({ persona: message.author.id, activo: 'no' }).save()
-        message.channel.send('se han desactivado las autorespuestas correctamente')
-      } else {
-        await tienepuesto.updateOne({ persona: message.author.id, activo: 'no' })
-        message.channel.send('se han desactivado las autorespuestas correctamente')
-
-      }
-    }
-}
-if (command === "serverinfo" || command === 'server') {//primero tienen que tener command y args definidos
-  var server = message.guild;//definimos server
-  if (server.owner) {
-
-  var embed = new Discord.MessageEmbed()//creamos un embed
-  .setTitle("**SERVERINFO**")//establecemos titulo
-  .setDescription("**INFORMACION ACTUAL DEL SERVIDOR**")//establecemos descripcion
-  .setThumbnail(server.iconURL())//aca aparecera el icono del server
-  .setAuthor(server.name, server.iconURL())//aca va a aparecer el icono y nombre del server
-  .addField('**ID**', server.id, true)//esto es para obtener la id del server
-  .addField('**FECHA DE CREACION**',`${server.createdAt}`)//con esto obtenemos la fecha de creacion del server
-  .addField("**REGION:**", message.guild.region)//con esto obtenemos la region del server
-  .addField("**OWNER DEL SERVIDOR:**",`${server.owner.user}`)//con esto obtenemos el creador del server
-  .addField("** ID DEL OWNER :**",`${server.ownerID}`)//con esto la id del creador del server
-  .addField(`**CANALES** [${server.channels.cache.size}]ㅤㅤ`, `Categoria: ${server.channels.cache.filter(x => x.type === "category").size} texto: ${server.channels.cache.filter(x => x.type === "text").size} voz: ${server.channels.cache.filter(x => x.type === "voice").size}`, true)
-  //con esto todos los canales del servidor
-  .addField('**MIEMBROS**', server.memberCount, true)//con esto obtenemos los miembros que hay en el server
-  .addField("**BOTS**",`${message.guild.members.cache.filter(m => m.user.bot).size}`)//con esto obtenemos los bots del server
-  .addField('**EMOJIS**',message.guild.emojis.cache.size)//con esto todos los emojis del server
-  .addField('**BOOSTER**',message.guild.premiumSubscriptionCount.toString())// con esto el numero de booster del server
-  .addField('**NIVEL DE VERIFICACION**',`${server.verificationLevel}`)//con esto obtenemos el nivel de verificacion del server
-  .addField('**ROLES**', server.roles.cache.size,true)//con esto la cantidad de roles
-  .setColor("RANDOM")//establecemos el color  yo puse random para que salga diferente color
-  message.channel.send(embed);//enviamos el embed
+    )
   }
-  if (!server.owner) {
-    var embed = new Discord.MessageEmbed()//creamos un embed
-  .setTitle("**SERVERINFO**")//establecemos titulo
-  .setDescription("**INFORMACION ACTUAL DEL SERVIDOR**")//establecemos descripcion
-  .setThumbnail(server.iconURL())//aca aparecera el icono del server
-  .setAuthor(server.name, server.iconURL())//aca va a aparecer el icono y nombre del server
-  .addField('**ID**', server.id, true)//esto es para obtener la id del server
-  .addField('**FECHA DE CREACION**',`${server.createdAt}`)//con esto obtenemos la fecha de creacion del server
-  .addField("**REGION:**", message.guild.region)//con esto obtenemos la region del server
-  //con esto obtenemos el creador del server
-  .addField("** ID DEL OWNER :**",`${server.ownerID}`)//con esto la id del creador del server
-  .addField(`**CANALES** [${server.channels.cache.size}]ㅤㅤ`, `Categoria: ${server.channels.cache.filter(x => x.type === "category").size} texto: ${server.channels.cache.filter(x => x.type === "text").size} voz: ${server.channels.cache.filter(x => x.type === "voice").size}`, true)
-  //con esto todos los canales del servidor
-  .addField('**MIEMBROS**', server.memberCount, true)//con esto obtenemos los miembros que hay en el server
-  .addField("**BOTS**",`${message.guild.members.cache.filter(m => m.user.bot).size}`)//con esto obtenemos los bots del server
-  .addField('**EMOJIS**',message.guild.emojis.cache.size)//con esto todos los emojis del server
-  .addField('**BOOSTER**',message.guild.premiumSubscriptionCount.toString())// con esto el numero de booster del server
-  .addField('**NIVEL DE VERIFICACION**',`${server.verificationLevel}`)//con esto obtenemos el nivel de verificacion del server
-  .addField('**ROLES**', server.roles.cache.size,true)//con esto la cantidad de roles
-  .setColor("RANDOM")//establecemos el color  yo puse random para que salga diferente color
-  message.channel.send(embed);//enviamos el embed
-  }
+
+  if (command === "serverinfo" || command === 'server') {//primero tienen que tener command y args definidos
+    var server = message.guild;//definimos server
+    if (server.owner) {
+
+      var embed = new Discord.MessageEmbed()//creamos un embed
+        .setTitle("**SERVERINFO**")//establecemos titulo
+        .setDescription("**INFORMACION ACTUAL DEL SERVIDOR**")//establecemos descripcion
+        .setThumbnail(server.iconURL())//aca aparecera el icono del server
+        .setAuthor(server.name, server.iconURL())//aca va a aparecer el icono y nombre del server
+        .addField('**ID**', server.id, true)//esto es para obtener la id del server
+        .addField('**FECHA DE CREACION**', `${server.createdAt}`)//con esto obtenemos la fecha de creacion del server
+        .addField("**REGION:**", message.guild.region)//con esto obtenemos la region del server
+        .addField("**OWNER DEL SERVIDOR:**", `${server.owner.user}`)//con esto obtenemos el creador del server
+        .addField("** ID DEL OWNER :**", `${server.ownerID}`)//con esto la id del creador del server
+        .addField(`**CANALES** [${server.channels.cache.size}]ㅤㅤ`, `Categoria: ${server.channels.cache.filter(x => x.type === "category").size} texto: ${server.channels.cache.filter(x => x.type === "text").size} voz: ${server.channels.cache.filter(x => x.type === "voice").size}`, true)
+        //con esto todos los canales del servidor
+        .addField('**MIEMBROS**', server.memberCount, true)//con esto obtenemos los miembros que hay en el server
+        .addField("**BOTS**", `${message.guild.members.cache.filter(m => m.user.bot).size}`)//con esto obtenemos los bots del server
+        .addField('**EMOJIS**', message.guild.emojis.cache.size)//con esto todos los emojis del server
+        .addField('**BOOSTER**', message.guild.premiumSubscriptionCount.toString())// con esto el numero de booster del server
+        .addField('**NIVEL DE VERIFICACION**', `${server.verificationLevel}`)//con esto obtenemos el nivel de verificacion del server
+        .addField('**ROLES**', server.roles.cache.size, true)//con esto la cantidad de roles
+        .setColor("RANDOM")//establecemos el color  yo puse random para que salga diferente color
+      message.channel.send(embed);//enviamos el embed
+    }
+    if (!server.owner) {
+      var embed = new Discord.MessageEmbed()//creamos un embed
+        .setTitle("**SERVERINFO**")//establecemos titulo
+        .setDescription("**INFORMACION ACTUAL DEL SERVIDOR**")//establecemos descripcion
+        .setThumbnail(server.iconURL())//aca aparecera el icono del server
+        .setAuthor(server.name, server.iconURL())//aca va a aparecer el icono y nombre del server
+        .addField('**ID**', server.id, true)//esto es para obtener la id del server
+        .addField('**FECHA DE CREACION**', `${server.createdAt}`)//con esto obtenemos la fecha de creacion del server
+        .addField("**REGION:**", message.guild.region)//con esto obtenemos la region del server
+        //con esto obtenemos el creador del server
+        .addField("** ID DEL OWNER :**", `${server.ownerID}`)//con esto la id del creador del server
+        .addField(`**CANALES** [${server.channels.cache.size}]ㅤㅤ`, `Categoria: ${server.channels.cache.filter(x => x.type === "category").size} texto: ${server.channels.cache.filter(x => x.type === "text").size} voz: ${server.channels.cache.filter(x => x.type === "voice").size}`, true)
+        //con esto todos los canales del servidor
+        .addField('**MIEMBROS**', server.memberCount, true)//con esto obtenemos los miembros que hay en el server
+        .addField("**BOTS**", `${message.guild.members.cache.filter(m => m.user.bot).size}`)//con esto obtenemos los bots del server
+        .addField('**EMOJIS**', message.guild.emojis.cache.size)//con esto todos los emojis del server
+        .addField('**BOOSTER**', message.guild.premiumSubscriptionCount.toString())// con esto el numero de booster del server
+        .addField('**NIVEL DE VERIFICACION**', `${server.verificationLevel}`)//con esto obtenemos el nivel de verificacion del server
+        .addField('**ROLES**', server.roles.cache.size, true)//con esto la cantidad de roles
+        .setColor("RANDOM")//establecemos el color  yo puse random para que salga diferente color
+      message.channel.send(embed);//enviamos el embed
+    }
   }//cerramos y finnn
 
 
 
   if (command === "a") {
-  message.reply(`si a`);
-  //a
+    message.reply(`si a`);
+    //a
   }
   if (command === "tu") {
     message.reply(`preguntaste por mi o que si preeguntas por mi soy pancho del rencho y estoy en beta gracias por preguntar ${message.author}`)
   }
 
 
-if (command === 'join') {
-  client.emit('guildMemberAdd', message.member); 
- } 
+  if (command === 'join') {
+    client.emit('guildMemberAdd', message.member);
+  }
   if (command === 'id') {
     var usuario2 = message.mentions.users.first()
-    if(!usuario2) {return message.reply (`tu id es ${message.author.id}`)
-   } else message.reply(`la id de ${usuario2.tag} es ${usuario2.id}`)
+    if (!usuario2) {
+      return message.reply(`tu id es ${message.author.id}`)
+    } else message.reply(`la id de ${usuario2.tag} es ${usuario2.id}`)
   }
 
   if (command === `say`) {
-    if(!args) return message.channel.send(`debe escribir un mensaje a enviar.`);
+    if (!args) return message.channel.send(`debe escribir un mensaje a enviar.`);
 
-	message.delete()
-	var mensjaesay = args.join(" ")
-message.channel.send(mensjaesay, {allowedMentions:{parse:[]}});
+    message.delete()
+    var mensjaesay = args.join(" ")
+    message.channel.send(mensjaesay, { allowedMentions: { parse: [] } });
 
   }
 
 
-if (command === 'clyde') {
+  if (command === 'clyde') {
 
 
-let mensaje = args.join(' '); //Esto hara que cada espacio de la oracion se cambie a %20, no lo cambies, o sino no funciona.
+    let mensaje = args.join(' '); //Esto hara que cada espacio de la oracion se cambie a %20, no lo cambies, o sino no funciona.
 
-let api = `https://ctk-api.herokuapp.com/clyde/${mensaje}`//Aca pondremos la API que usaremos, tampoco lo cambien o sino no funciona.
-attachment2 = new Discord.MessageAttachment(api,'clyde.png')
+    let api = `https://ctk-api.herokuapp.com/clyde/${mensaje}`//Aca pondremos la API que usaremos, tampoco lo cambien o sino no funciona.
+    attachment2 = new Discord.MessageAttachment(api, 'clyde.png')
 
-var Aceptenmeloplis = new Discord.MessageEmbed() //Definimos el embed.
-.setImage(api)//Haremos que mande una imagen, lo cual sera la api con el texto.
-.setColor('RANDOM')//Definimos el color del embed (opcional)
+    var Aceptenmeloplis = new Discord.MessageEmbed() //Definimos el embed.
+      .setImage(api)//Haremos que mande una imagen, lo cual sera la api con el texto.
+      .setColor('RANDOM')//Definimos el color del embed (opcional)
 
-message.channel.send(attachment2);
-}
-
-    
-    
-    
-
-if (command === 'setwelcome') {
-  
-  let Canal = message.guild.channels.cache.find(canal => canal.id == args[0]) || message.mentions.channels.first();
-  let Bienvenida = await Schema.findOne({ Guild: message.guild.id }).exec();
-  
-  
-  if (!Canal) return message.channel.send('Menciona o ingresa la ID de un canal donde irán las bienvenidas');
-  
-  if (!message.member.hasPermission('MANAGE_GUILD')) return message.channel.send('Permisos insuficientes\nPermisos necesarios: `Gestionar Servidor`');
-  
-  if (Canal.type !== 'text') return message.channel.send('debe de ser un canal de texto')
-  if (Canal.guild.id !== message.channel.guild.id) return message.channel.send('debe ser un canal en este servidor')
-  if (Bienvenida) {
-  
-   await Bienvenida.updateOne({ Guild: message.guild.id, Channel: Canal.id });
-   
-    
-    message.channel.send(new Discord.MessageEmbed()
-    .setDescription(`El canal de bienvenidas ahora es `+ Canal.toString())
-    .setColor('RANDOM')
-    );
-  
-  } else {
-    await new Schema({ Guild: message.guild.id, Channel: Canal.id }).save();
-  
-  
-    message.channel.send(new Discord.MessageEmbed()
-    .setDescription(`El canal de bienvenidas es `+ Canal.toString())
-    );
-  
+    message.channel.send(attachment2);
   }
+
+
+
+
+
+  if (command === 'setwelcome') {
+
+    let Canal = message.guild.channels.cache.find(canal => canal.id == args[0]) || message.mentions.channels.first();
+    let Bienvenida = await Schema.findOne({ Guild: message.guild.id }).exec();
+
+
+    if (!Canal) return message.channel.send('Menciona o ingresa la ID de un canal donde irán las bienvenidas');
+
+    if (!message.member.hasPermission('MANAGE_GUILD')) return message.channel.send('Permisos insuficientes\nPermisos necesarios: `Gestionar Servidor`');
+
+    if (Canal.type !== 'text') return message.channel.send('debe de ser un canal de texto')
+    if (Canal.guild.id !== message.channel.guild.id) return message.channel.send('debe ser un canal en este servidor')
+    if (Bienvenida) {
+
+      await Bienvenida.updateOne({ Guild: message.guild.id, Channel: Canal.id });
+
+
+      message.channel.send(new Discord.MessageEmbed()
+        .setDescription(`El canal de bienvenidas ahora es ` + Canal.toString())
+        .setColor('RANDOM')
+      );
+
+    } else {
+      await new Schema({ Guild: message.guild.id, Channel: Canal.id }).save();
+
+
+      message.channel.send(new Discord.MessageEmbed()
+        .setDescription(`El canal de bienvenidas es ` + Canal.toString())
+      );
+
+    }
   }
   if (command === 'meme') {
 
     var meme = config.memes
     var numerodememes = meme.length
     var numeroestes = getRandomInt(0, numerodememes)
-var memeembed = new Discord.MessageEmbed()
-.setColor(0x66b3ff)
-.setTitle(meme[numeroestes].nombre+' | #'+numeroestes)
-.setImage(meme[numeroestes].url)
+    var memeembed = new Discord.MessageEmbed()
+      .setColor(0x66b3ff)
+      .setTitle(meme[numeroestes].nombre + ' | #' + numeroestes)
+      .setImage(meme[numeroestes].url)
 
     message.channel.send(memeembed)
-    }
+  }
 
   //auditoria
-  if (command === 'info'|| command === 'botinfo'|| command === 'help') {
-    info = {"title":"Informaci\u00f3n","description":"soy un bot creado por Victorio#5994 con comandos de entretenimiento y moderaci\u00f3n","color":5814783,"fields":[{"name":"Comandos","value":" \n  Estos son mis comandos:\n    **&help** - todos los comandos (lo estas viendo)\n    **&sum <num1> <num2>** - Suma 2 numeros \n **&credits** - creditos \n   **&meme** - manda un meme\n    **&invite** - manda el link para invitarme a tu servidor\n    **&kick** - expulsa a un usuario (necesita permisos de administrador)\n    **&ban** - banea a un usuario (necesita permisos de administrador)\n    **&server** - proporciona informacion del servidor\n    **&uptime** - tiempo que el bot esta online\n    **&tweet** - simula un tweet \n    **&pp** - mira tu foto de perfil o la de alguien \n    **&magik** - transforma la foto de perfil con el efecto magik \n    **&phcomment** - simula un comentario en ph \n **&setconfession** - establece el canal de confesiones \n **&confess** - haz una confesion anonimamente \n **&cat** - busca una imagen de un gato \n &fumo - busca una imagen de un fumo"},{"name":"Servidor","value":"Unete al servidor oficial del bot aqui [discord.gg\/P5438xBR94](https:\/\/discord.gg\/P5438xBR94)"}],"author":{"name":"Pancho del rancho","url":"https:\/\/bit.ly\/panchodelrancho","icon_url":"https:\/\/images-ext-2.discordapp.net\/external\/LFiST9waRyxge-xibE8gsIVb6BwQLhGnRDFPpE7HrTE\/%3Fsize%3D2048\/https\/cdn.discordapp.com\/avatars\/776106257597333515\/2a357a609135bd1372f94367c728b564.webp?width=427&height=427"},"footer":{"text":"le\u00edste esto, tabien."},"timestamp":new Date()}
+  if (command === 'info' || command === 'botinfo' || command === 'help') {
+    info = { "title": "Informaci\u00f3n", "description": "soy un bot creado por Victorio#5994 con comandos de entretenimiento y moderaci\u00f3n", "color": 5814783, "fields": [{ "name": "Comandos", "value": " \n  Estos son mis comandos:\n    **&help** - todos los comandos (lo estas viendo)\n    **&sum <num1> <num2>** - Suma 2 numeros \n **&credits** - creditos \n   **&meme** - manda un meme\n    **&invite** - manda el link para invitarme a tu servidor\n    **&kick** - expulsa a un usuario (necesita permisos de administrador)\n    **&ban** - banea a un usuario (necesita permisos de administrador)\n    **&server** - proporciona informacion del servidor\n    **&uptime** - tiempo que el bot esta online\n    **&tweet** - simula un tweet \n    **&pp** - mira tu foto de perfil o la de alguien \n    **&magik** - transforma la foto de perfil con el efecto magik \n    **&phcomment** - simula un comentario en ph \n **&setconfession** - establece el canal de confesiones \n **&confess** - haz una confesion anonimamente \n **&cat** - busca una imagen de un gato \n &fumo - busca una imagen de un fumo" }, { "name": "Servidor", "value": "Unete al servidor oficial del bot aqui [discord.gg\/P5438xBR94](https:\/\/discord.gg\/P5438xBR94)" }], "author": { "name": "Pancho del rancho", "url": "https:\/\/bit.ly\/panchodelrancho", "icon_url": "https:\/\/images-ext-2.discordapp.net\/external\/LFiST9waRyxge-xibE8gsIVb6BwQLhGnRDFPpE7HrTE\/%3Fsize%3D2048\/https\/cdn.discordapp.com\/avatars\/776106257597333515\/2a357a609135bd1372f94367c728b564.webp?width=427&height=427" }, "footer": { "text": "le\u00edste esto, tabien." }, "timestamp": new Date() }
 
     var infoembed = new Discord.MessageEmbed(info)
     message.author.send(infoembed)
     message.react('✅')
   }
 
-if (command === 'pp') {
- let miembro = message.mentions.users.first()
-if (!miembro) {
-    var embed = new Discord.MessageEmbed()
-        .setImage(`${message.author.displayAvatarURL({size: 2048})}`)
+  if (command === 'pp') {
+    let miembro = message.mentions.users.first()
+    if (!miembro) {
+      var embed = new Discord.MessageEmbed()
+        .setImage(`${message.author.displayAvatarURL({ size: 2048 })}`)
         .setColor(0x66b3ff)
         .setFooter(`Avatar de ${message.author.tag}`);
-    message.channel.send(embed);
+      message.channel.send(embed);
 
-} else {
-    var embed = new Discord.MessageEmbed()
-        .setImage(`${miembro.displayAvatarURL({size: 2048})}`)
+    } else {
+      var embed = new Discord.MessageEmbed()
+        .setImage(`${miembro.displayAvatarURL({ size: 2048 })}`)
         .setColor(0x66b3ff)
         .setFooter(`Avatar de ${miembro.tag}`);
 
-    message.channel.send(embed);
+      message.channel.send(embed);
 
-};
+    };
 
-}
+  }
 
   if (command === "yo") {
     message.channel.send(`tu eres  ${message.author}`);
     //help
-    }
+  }
 
-    if (command === 'tweet') {
-      
-
-message.delete()
-        let txt = args.join('%20'); 
-        var embed2 = new Discord.MessageEmbed() 
-        .setTitle(`ERROR`)
-        .setDescription(`No has colocado ningun texto.`)
-        .setColor(`RED`)
-        .setThumbnail("https://weakwifisolutions.com/wp-content/uploads/2019/08/error-red-cross-1.png?ezimgfmt=rs:372x372/rscb2/ng:webp/ngcb2")
+  if (command === 'tweet') {
 
 
-        if (!txt) return message.channel.send(embed2) //Si no hay argumentos se enviara esto
+    message.delete()
+    let txt = args.join('%20');
+    var embed2 = new Discord.MessageEmbed()
+      .setTitle(`ERROR`)
+      .setDescription(`No has colocado ningun texto.`)
+      .setColor(`RED`)
+      .setThumbnail("https://weakwifisolutions.com/wp-content/uploads/2019/08/error-red-cross-1.png?ezimgfmt=rs:372x372/rscb2/ng:webp/ngcb2")
 
 
-        let autor = message.author; //Definiremos autor
-
-        let attachment = new Discord.MessageAttachment(`https://nekobot.xyz/api/imagegen?type=tweet&username=${autor.username}&text=${txt}&raw=1`,'logo.png')
-
-        //Creamos el attachment reemplazando los valores por el nombre del autor y los argumentos por el texto
-message.channel.startTyping()
-setTimeout(() => {
-  message.channel.send(attachment)	// Enviamos el attachment
-message.channel.stopTyping()
-}, 3000);
-
-        
-    }
-
-if (command === "phcomment"){ //Creamos el comando (esto lo adaptan a su codigo, claro)
-
-message.delete() //Esto es opcional. Es para borrar el mensaje que nosotros coloquemos como comando. si no lo quieren, borrenlo
-
-let txt = args.join('%20');  //Argumentos
-if (text.length > 40) return message.channel.send('el texto que pusiste es muy largo')
-if (!txt) return message.channel.send("Olvidaste colocar los argumentos.") //Si no hay argumentos...
-
-let autor = message.author; //Definimos autor
+    if (!txt) return message.channel.send(embed2) //Si no hay argumentos se enviara esto
 
 
+    let autor = message.author; //Definiremos autor
 
-let attachment = new Discord.MessageAttachment(`https://nekobot.xyz/api/imagegen?type=phcomment&image=${message.author.displayAvatarURL()}&text=${txt}&username=${autor.username}&raw=1`,'logo.png') //Pedimos la imagen
+    let attachment = new Discord.MessageAttachment(`https://nekobot.xyz/api/imagegen?type=tweet&username=${autor.username}&text=${txt}&raw=1`, 'logo.png')
 
+    //Creamos el attachment reemplazando los valores por el nombre del autor y los argumentos por el texto
+    message.channel.startTyping()
+    setTimeout(() => {
+      message.channel.send(attachment)	// Enviamos el attachment
+      message.channel.stopTyping()
+    }, 3000);
 
-
-message.channel.send(attachment)    //La enviamos
 
   }
-    
+
+  if (command === "phcomment") { //Creamos el comando (esto lo adaptan a su codigo, claro)
+
+    message.delete() //Esto es opcional. Es para borrar el mensaje que nosotros coloquemos como comando. si no lo quieren, borrenlo
+
+    let txt = args.join('%20');  //Argumentos
+    if (text.length > 40) return message.channel.send('el texto que pusiste es muy largo')
+    if (!txt) return message.channel.send("Olvidaste colocar los argumentos.") //Si no hay argumentos...
+
+    let autor = message.author; //Definimos autor
+
+
+
+    let attachment = new Discord.MessageAttachment(`https://nekobot.xyz/api/imagegen?type=phcomment&image=${message.author.displayAvatarURL()}&text=${txt}&username=${autor.username}&raw=1`, 'logo.png') //Pedimos la imagen
+
+
+
+    message.channel.send(attachment)    //La enviamos
+
+  }
+
   if (command === 'setconfession') {
 
     if (!message.member.hasPermission('MANAGE_GUILD')) {//Si el usuario no tiene permisos retorna.
@@ -417,32 +394,32 @@ message.channel.send(attachment)    //La enviamos
     }
     filtro.send({ embed: anonimo })
   }
-if (command === 'ship') {
+  if (command === 'ship') {
 
-  message.channel.send('aun nada')
+    message.channel.send('aun nada')
 
-}
+  }
   if (command === 'gato') {
     meow().then((url) => {
-    message.channel.send(url)
-  })
-}
-if (command === 'servers') {
-  if (!message.author.id === '688476559019212805') return
-  let embed = new Discord.MessageEmbed() //declaramos embed
+      message.channel.send(url)
+    })
+  }
+  if (command === 'servers') {
+    if (!message.author.id === '688476559019212805') return
+    let embed = new Discord.MessageEmbed() //declaramos embed
       .setTitle(`Estoy en ${client.guilds.cache.size} Servers !`)
-//escribimos un titulo (la funcion de ${client.guilds.cache.size} es mostrar la cantidad de servidores en los que se encuentra el bot
-      .setDescription(`${client.guilds.cache.map(r => r.name).join(". \n\n")+'\n comando solo del owner'}`)
+      //escribimos un titulo (la funcion de ${client.guilds.cache.size} es mostrar la cantidad de servidores en los que se encuentra el bot
+      .setDescription(`${client.guilds.cache.map(r => r.name).join(". \n\n") + '\n comando solo del owner'}`)
 
-//Buscamos un MAP, el cual nos mostrara los nombres de los servidores
+      //Buscamos un MAP, el cual nos mostrara los nombres de los servidores
       .setColor("RANDOM")
-//Seleccionamos un color, en este caso random
+    //Seleccionamos un color, en este caso random
     message.author.send(embed)
-}
-if (command === 'magik') {//abrimos cmd
+  }
+  if (command === 'magik') {//abrimos cmd
 
 
-let persona = message.mentions.users.first() || message.author;//esto nos sirve por si pones el comando tu mismo o mencionas a alguien
+    let persona = message.mentions.users.first() || message.author;//esto nos sirve por si pones el comando tu mismo o mencionas a alguien
 
     if (!persona) persona = message.author;
 
@@ -450,19 +427,19 @@ let persona = message.mentions.users.first() || message.author;//esto nos sirve 
 
     let embed = new Discord.MessageEmbed()//en caso de que uses la version v11 cambia MessageEmbed por RichEmbed
 
-        .setImage(link)
-        .setColor("#ff0092")//aqui colocas el color que quieras jejeje
-        .setTitle('jajant esto no funciona')
+      .setImage(link)
+      .setColor("#ff0092")//aqui colocas el color que quieras jejeje
+      .setTitle('jajant esto no funciona')
 
- message.channel.send(embed)
+    message.channel.send(embed)
 
 
 
   }//cerramos cmd
-  
-    if (command === "el") {
-      message.channel.send(`a si el es ${message.mentions.members}  aparte de eso no sirve para nada el comando `)
-    }
+
+  if (command === "el") {
+    message.channel.send(`a si el es ${message.mentions.members}  aparte de eso no sirve para nada el comando `)
+  }
   if (command === 'credits') {
     var creditjson = {
       "title": "Créditos",
@@ -495,7 +472,7 @@ let persona = message.mentions.users.first() || message.author;//esto nos sirve 
     var creditembed = new Discord.MessageEmbed(creditjson)
     message.author.send(creditembed)
     message.react('✅')
-}
+  }
   if (command === 'invite') {
     var invitejson = {
       "title": "Invites",
@@ -521,7 +498,7 @@ let persona = message.mentions.users.first() || message.author;//esto nos sirve 
       "timestamp": new Date()
     }
     var inviteembed = new Discord.MessageEmbed(invitejson)
-message.channel.send(inviteembed)
+    message.channel.send(inviteembed)
   }
   if (command === 'editaloquedigas') {
     message.channel.send('si, ya lo hago').then((msg) => {
@@ -530,9 +507,9 @@ message.channel.send(inviteembed)
       }, 1000);
     })
 
-     } 
+  }
 
-    
+
 
   if (command === 'lock') {
     var permisosLock = message.member.hasPermission('MANAGE_GUILD'); //creamos una variable de permisos
@@ -560,32 +537,32 @@ message.channel.send(inviteembed)
     })
     message.channel.send('canal desbloqueado correctamente')
   }
-    
-if (command === 'stats') {
-  
 
-const moment = require("moment");
-require('moment-duration-format');
+  if (command === 'stats') {
 
-const actividad = moment.duration(client.uptime).format(" D [dias], H [hrs], m [mins], s [secs]");
-    
-    
-const embed = new Discord.MessageEmbed()
-.setColor(0x66ff66)
 
-.setAuthor(`Pancho del rancho`, client.user.avatarURL())
-.addField(`PDR`, client.user.tag, true)
-.addField(`Version`, version, true)
-.addField(`Libreria`, `Discord ^12.0.2 (Js)`, true)
+    const moment = require("moment");
+    require('moment-duration-format');
+
+    const actividad = moment.duration(client.uptime).format(" D [dias], H [hrs], m [mins], s [secs]");
+
+
+    const embed = new Discord.MessageEmbed()
+      .setColor(0x66ff66)
+
+      .setAuthor(`Pancho del rancho`, client.user.avatarURL())
+      .addField(`PDR`, client.user.tag, true)
+      .addField(`Version`, version, true)
+      .addField(`Libreria`, `Discord ^12.0.2 (Js)`, true)
 
       .addField(`Memoria`, `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`, true)
-    .addField(`actividad`, actividad)
+      .addField(`actividad`, actividad)
 
 
 
-message.channel.send(embed);
-}
-// moderacion
+    message.channel.send(embed);
+  }
+  // moderacion
   if (command === "kick") {
     /*
 kick a un usuario mencionado usando member().kick()
@@ -593,140 +570,137 @@ incluye razón para los registros de auditoría-log
 */
 
 
-let user = message.mentions.users.first();
-let razon = args.slice(1).join(' ');
+    let user = message.mentions.users.first();
+    let razon = args.slice(1).join(' ');
 
-var perms = message.member.hasPermission("KICK_MEMBERS");
+    var perms = message.member.hasPermission("KICK_MEMBERS");
 
-if(!perms) return message.channel.send("`Error` `|` No tienes Permisos para usar este comando.");
-if (message.mentions.users.size < 1) return message.reply('Debe mencionar a alguien.').catch(console.error);
- if (persona.roles.highest.comparePositionTo(message.member.roles.highest) > 0) {
-  return message.channel.send('Esta persona esta en la misma o mayor nivel de jerarquia que tu, no puedes banearlo')
-}
-if (!razon) return message.channel.send('Escriba una razón, `&kick @username [razón]`');
-if (!message.guild.member(user).kickable) return message.reply('No puedo expulsar al usuario mencionado.');
+    if (!perms) return message.channel.send("`Error` `|` No tienes Permisos para usar este comando.");
+    if (message.mentions.users.size < 1) return message.reply('Debe mencionar a alguien.').catch(console.error);
+    if (persona.roles.highest.comparePositionTo(message.member.roles.highest) > 0) {
+      return message.channel.send('Esta persona esta en la misma o mayor nivel de jerarquia que tu, no puedes banearlo')
+    }
+    if (!razon) return message.channel.send('Escriba una razón, `&kick @username [razón]`');
+    if (!message.guild.member(user).kickable) return message.reply('No puedo expulsar al usuario mencionado.');
 
-message.guild.member(user).kick(razon);
-message.channel.send(`**${user.username}**, fue pateado del servidor, razón: ${razon}.`);
+    message.guild.member(user).kick(razon);
+    message.channel.send(`**${user.username}**, fue pateado del servidor, razón: ${razon}.`);
 
-}
-if (command === "uptime") {
-  let totalSeconds = (client.uptime / 1000);
-  let days = Math.floor(totalSeconds / 86400);
-  let hours = Math.floor(totalSeconds / 3600);
-  totalSeconds %= 3600;
-  let minutes = Math.floor(totalSeconds / 60);
-  let seconds = totalSeconds / 60;
-  message.channel.send(`:low_brightness: **Uptime:** ${days} dias, ${hours} horas y ${minutes} minutos`)
-}
+  }
+  if (command === "uptime") {
+    let totalSeconds = (client.uptime / 1000);
+    let days = Math.floor(totalSeconds / 86400);
+    let hours = Math.floor(totalSeconds / 3600);
+    totalSeconds %= 3600;
+    let minutes = Math.floor(totalSeconds / 60);
+    let seconds = totalSeconds / 60;
+    message.channel.send(`:low_brightness: **Uptime:** ${days} dias, ${hours} horas y ${minutes} minutos`)
+  }
 
-if (command === "ban") {
-  /*
-expulsar a un usuario mencionado usando member().ban()
-incluye razón para los registros de auditoría-log
-*/
-if (!message.guild.me.permissions.has('BAN_MEMBERS')) {
-  return message.channel.send('No tengo permisos para banear personas')
-}
+  if (command === "ban") {
+    /*
+  expulsar a un usuario mencionado usando member().ban()
+  incluye razón para los registros de auditoría-log
+  */
+    if (!message.guild.me.permissions.has('BAN_MEMBERS')) {
+      return message.channel.send('No tengo permisos para banear personas')
+    }
 
-if (!message.member.permissions.has('BAN_MEMBERS')) {
-  return message.channel.send('Perdon, pero no tienes el permiso para banear personas')
-}
+    if (!message.member.permissions.has('BAN_MEMBERS')) {
+      return message.channel.send('Perdon, pero no tienes el permiso para banear personas')
+    }
 
-let persona = message.mentions.members.first() ||
-  message.guild.members.resolve(args[0])
+    let persona = message.mentions.members.first() ||
+      message.guild.members.resolve(args[0])
 
-if (!persona) {
-  return message.channel.send('Debe mencionar a alguien para banear')
-} else if(!persona.bannable){
-  return message.channel.send('No puedo banear a esta persona')
-}else if (persona.roles.highest.comparePositionTo(message.member.roles.highest) > 0) {
-  return message.channel.send('Esta persona esta en la misma o mayor nivel de jerarquia que tu, no puedes banearlo')
-}
+    if (!persona) {
+      return message.channel.send('Debe mencionar a alguien para banear')
+    } else if (!persona.bannable) {
+      return message.channel.send('No puedo banear a esta persona')
+    } else if (persona.roles.highest.comparePositionTo(message.member.roles.highest) > 0) {
+      return message.channel.send('Esta persona esta en la misma o mayor nivel de jerarquia que tu, no puedes banearlo')
+    }
 
-var razon = args.slice(1).join(' ')
-if (!razon) {
-  razon = 'Razon no especificada'
-}
+    var razon = args.slice(1).join(' ')
+    if (!razon) {
+      razon = 'Razon no especificada'
+    }
 
-razon += `, Baneado por ${message.author.tag}`
+    razon += `, Baneado por ${message.author.tag}`
 
-message.guild.members.ban(persona, {
-  reason: razon
-})
-  .catch(e => message.reply('Ocurrio un **error** desconocido'))
-  .then(() => {
-    message.channel.send(`Listo, banee a **${persona.user.tag}**`)
-  })
+    message.guild.members.ban(persona, {
+      reason: razon
+    })
+      .catch(e => message.reply('Ocurrio un **error** desconocido'))
+      .then(() => {
+        message.channel.send(`Listo, banee a **${persona.user.tag}**`)
+      })
 
-// Propuesto por: Fabricio-191#8051
+    // Propuesto por: Fabricio-191#8051
     //prueba
-}
+  }
   // invitcaion de bot https://discord.com/oauth2/authorize?client_id=%20776106257597333515&scope=bot&permissions=8
 
-  });
-  client.on('message', async message  => {
-    if (message.author.bot || message.channel === '782048910898233355') return;
-    if (message.guild.me.hasPermission('SEND_MESSAGES')) return
-    var tiene = await autoresponse.findOne({ persona: message.author.id }).exec()
-    console.log(tiene)
-    if(!tiene) return 
-    if (tiene.activo !== 'si') return 
-   
+});
+client.on('message', async message => {
+  if (message.author.bot || message.channel === '782048910898233355') return;
+  if (message.guild.me.hasPermission('SEND_MESSAGES')) return
 
-if (message.content === `prefix`) {
-  message.reply(`el prefix es &`)
-}
-//`💎Server Booster💎  * se vería al booster entrando épicamente al chat *
-if (message.content === `:c`) {
-  message.channel.send (`${message.author.username} esta triste:c `)
-  message.channel.send ('https://media.discordapp.net/attachments/776484805880971295/786636533641248828/blue-monday.png')
-}
+  else
 
 
-if (message.content === `fdah4ob5qhiofjhgfjhod4562ibds6536daoibpw453t8rsm039w6sevse6sebmmt,sexrjgdfr6`) {
-  message.delete()
-  process.exit();
-}
-if (message.content === `c:`) {
-  message.channel.send (`${message.author.username} esta feliz c:`)
-  message.channel.send(`https://cdn-3.expansion.mx/dims4/default/c6aba79/2147483647/strip/true/crop/240x126+0+27/resize/1200x630!/quality/90/?url=https%3A%2F%2Fcdn-3.expansion.mx%2Fphotos%2F2007%2F07%2F01%2Fla-nueva-campana-mostrara-a-actores-hablando-sobre-por-que-vuelven-a-wal-mart-en-busca-de-precios-mas-bajos-y-no-la-carita-feliz-reuters.2007-07-23.6291503003.jpg`)
 
-}
-    if (message.content === 'xd') {
-  message.channel.send('equis de')
-}
-if (message.content === ':v'|| message.content === ':V') {
-var elejido = getRandomInt(1,10)
-if (elejido > 8) {
-  var elegido = true
-}
-
-attachment23 = new Discord.MessageAttachment('https://images-ext-2.discordapp.net/external/xitugu5chFLjGkDYYThIaqtLlt794ZraCuzhMsPIMXg/%3Fcb%3D20201224065056%26path-prefix%3Des/https/static.wikia.nocookie.net/memes-pedia/images/8/8f/Empanycal_3.jpg/revision/latest/scale-to-width-down/177','grasa.png')
-if(elegido) message.channel.send(`<@${message.author.id}>`,attachment23)
-}
-
-
-var pacman_verificator = /(>|<?)(:|;)('|"|,|.?)(v|u|y)|(v|u|y)('|"|,|.?)(:|;)(>|<?)/gi
-
-
-  
+    if (message.content === `prefix`) {
+      message.reply(`el prefix es &`)
+    }
+  //`💎Server Booster💎  * se vería al booster entrando épicamente al chat *
+  if (message.content === `:c`) {
+    message.channel.send(`${message.author.username} esta triste:c `)
+    message.channel.send('https://media.discordapp.net/attachments/776484805880971295/786636533641248828/blue-monday.png')
   }
-  )
 
-  client.on('guildMemberAdd', async (member) => {
+
+  if (message.content === `fdah4ob5qhiofjhgfjhod4562ibds6536daoibpw453t8rsm039w6sevse6sebmmt,sexrjgdfr6`) {
+    message.delete()
+    process.exit();
+  }
+  if (message.content === `c:`) {
+    message.channel.send(`${message.author.username} esta feliz c:`)
+    message.channel.send(`https://cdn-3.expansion.mx/dims4/default/c6aba79/2147483647/strip/true/crop/240x126+0+27/resize/1200x630!/quality/90/?url=https%3A%2F%2Fcdn-3.expansion.mx%2Fphotos%2F2007%2F07%2F01%2Fla-nueva-campana-mostrara-a-actores-hablando-sobre-por-que-vuelven-a-wal-mart-en-busca-de-precios-mas-bajos-y-no-la-carita-feliz-reuters.2007-07-23.6291503003.jpg`)
+
+  }
+
+  if (message.content === ':v' || message.content === ':V') {
+    var elejido = getRandomInt(1, 10)
+    if (elejido > 8) {
+      var elegido = true
+    }
+
+    attachment23 = new Discord.MessageAttachment('https://images-ext-2.discordapp.net/external/xitugu5chFLjGkDYYThIaqtLlt794ZraCuzhMsPIMXg/%3Fcb%3D20201224065056%26path-prefix%3Des/https/static.wikia.nocookie.net/memes-pedia/images/8/8f/Empanycal_3.jpg/revision/latest/scale-to-width-down/177', 'grasa.png')
+    if (elegido) message.channel.send(`<@${message.author.id}>`, attachment23)
+  }
+
+
+  var pacman_verificator = /(>|<?)(:|;)('|"|,|.?)(v|u|y)|(v|u|y)('|"|,|.?)(:|;)(>|<?)/gi
+
+
+
+}
+)
+
+client.on('guildMemberAdd', async (member) => {
   let servidor = await member.guild
-    let Bienvenida = await Schema.findOne({ Guild: member.guild.id });
-    if (!Bienvenida) return; // Si no hay nada retorna
-    let Channel = member.guild.channels.cache.get(Bienvenida.Channel)
-    if (!Channel) return; // Si no hay nada retorna
-    
-    Channel.send(`hey <@${member.user.id}> bienvenid@ a ${member.guild.name}`);
-    
+  let Bienvenida = await Schema.findOne({ Guild: member.guild.id });
+  if (!Bienvenida) return; // Si no hay nada retorna
+  let Channel = member.guild.channels.cache.get(Bienvenida.Channel)
+  if (!Channel) return; // Si no hay nada retorna
 
-  
-  })
-  
+  Channel.send(`hey <@${member.user.id}> bienvenid@ a ${member.guild.name}`);
+
+
+
+})
+
 
 //terminan los comandos
 client.login(config.BOT_TOKEN)
