@@ -618,7 +618,15 @@ incluye razón para los registros de auditoría-log
     message.guild.member(user).kick(razon);
     message.channel.send(`**${user.username}**, fue pateado del servidor, razón: ${razon}.`);
 
+    
   }
+  if (command === 'contar') {
+    var botondecontar = new MessageButton()
+      .setID('contar')
+      .setLabel('pulsa para añadir uno mas')
+    message.channel.send('0', botondecontar) 
+    
+}
   if (command === "uptime") {
     let totalSeconds = (client.uptime / 1000);
     let days = Math.floor(totalSeconds / 86400);
@@ -734,6 +742,13 @@ client.on('guildMemberAdd', async (member) => {
 })
 
 client.on('clickButton', async (button) => {
+  if (button.id === 'contar') {
+    var nuerooo = parseInt(button.message.args[0])
+    var nuevonumeroo = numerooo + 1
+    button.message.edit(nuevonumeroo)
+
+    
+  }
   if (button.id === 'click_to_function') {
     await button.reply.send('Felicidades pulsaste el boton', true)
   }
