@@ -626,7 +626,7 @@ incluye razón para los registros de auditoría-log
 
       .setID('contar')
       .setLabel('pulsa para añadir uno mas')
-    .setStyle('blue')
+
     message.channel.send('0', botondecontar) 
     
 }
