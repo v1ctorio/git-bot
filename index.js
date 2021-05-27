@@ -98,7 +98,7 @@ client.on("message", async function (message) {
       .setStyle('red') //default: blurple
       .setLabel('un boton!') //default: NO_LABEL_PROVIDED
       .setID('click_to_function') //note: if you use the style "url" you must provide url using .setURL('https://example.com')
-      .setDisabled(); //disables the button | default: false
+      // . setDisabled(); //disables the button | default: false
 
     message.channel.send('Hey, soy un boton ', button);
   }
@@ -728,6 +728,11 @@ client.on('guildMemberAdd', async (member) => {
 
 })
 
+client.on('clickButton', async (button) => {
+  if (button.id === 'click_to_function') {
+    button.channel.send(`${button.clicker.user.tag} pulsó un boton!`);
+  }
+});
 
 //terminan los comandos
 client.login(config.BOT_TOKEN)
