@@ -8,7 +8,8 @@ const disbut = require('discord-buttons')(client);
 const mongoose = require("mongoose"); // Mongoose es lo más utilizado a la hora de usar una base de datos de MongoDB y también es el mejor para esto.
 const bienvenida = require("./models/bienvenida.js");
 const meow = require('random-meow')
-const fumo = require('fumo-api')
+const fumo = require('fumo-api');
+const { MessageButton } = require("discord-buttons");
 //let prefixes = require('./models/prefixes.js')
 
 // Conectamos la base:
@@ -509,7 +510,11 @@ client.on("message", async function (message) {
       "timestamp": new Date()
     }
     var inviteembed = new Discord.MessageEmbed(invitejson)
-    message.channel.send(inviteembed)
+    var botoninvite = new disbut.MessageButton()
+      .setStyle('blue')
+      .setURL('https://discord.com/api/oauth2/authorize?client_id=776106257597333515&permissions=8&scope=bot')
+    .setLabel('Invite de admin ¡¡pero en boton!!')
+    message.channel.send(inviteembed, botoninvite)
   }
   if (command === 'editaloquedigas') {
     message.channel.send('si, ya lo hago').then((msg) => {
