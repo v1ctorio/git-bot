@@ -620,14 +620,7 @@ incluye razón para los registros de auditoría-log
 
     
   }
-  if (command === 'contar') {
-    var botondecontar = new MessageButton()
-      .setStyle('red') //default: blurple
 
-      .setID('contar')
-      .setLabel('pulsa para añadir uno mas')
-
-    message.channel.send('0', botondecontar) 
     
 }
   if (command === "uptime") {
