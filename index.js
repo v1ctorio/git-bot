@@ -624,6 +624,7 @@ incluye razón para los registros de auditoría-log
     var botondecontar = new MessageButton()
       .setID('contar')
       .setLabel('pulsa para añadir uno mas')
+    .setStyle('blue')
     message.channel.send('0', botondecontar) 
     
 }
