@@ -514,7 +514,7 @@ client.on("message", async function (message) {
       .setStyle('blue')
       .setURL('https://discord.com/api/oauth2/authorize?client_id=776106257597333515&permissions=8&scope=bot')
     .setLabel('Invite de admin ¡¡pero en boton!!')
-    message.channel.send({ button: botoninvite, embed: inviteembed})
+    message.channel.send(inviteembed)
   }
   if (command === 'editaloquedigas') {
     message.channel.send('si, ya lo hago').then((msg) => {
@@ -735,7 +735,6 @@ client.on('guildMemberAdd', async (member) => {
 
 client.on('clickButton', async (button) => {
   if (button.id === 'click_to_function') {
-    button.channel.send(`${button.clicker.user.tag} pulsó un boton!`);
     await button.reply.send('Felicidades pulsaste el boton', true)
   }
 });
