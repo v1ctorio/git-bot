@@ -99,7 +99,7 @@ client.on("message", async function (message) {
       .setStyle('red') //default: blurple
       .setLabel('un boton!') //default: NO_LABEL_PROVIDED
       .setID('click_to_function') //note: if you use the style "url" you must provide url using .setURL('https://example.com')
-      // . setDisabled(); //disables the button | default: false
+    // . setDisabled(); //disables the button | default: false
 
     message.channel.send('Hey, soy un boton ', button);
   }
@@ -186,9 +186,7 @@ client.on("message", async function (message) {
   }
 
 
-  if (command === 'join') {
-    client.emit('guildMemberAdd', message.member);
-  }
+
   if (command === 'id') {
     var usuario2 = message.mentions.users.first()
     if (!usuario2) {
@@ -510,6 +508,7 @@ client.on("message", async function (message) {
       "timestamp": new Date()
     }
     var inviteembed = new Discord.MessageEmbed(invitejson)
+
     message.channel.send(inviteembed)
   }
   if (command === 'editaloquedigas') {
@@ -592,6 +591,7 @@ client.on("message", async function (message) {
   }
   // moderacion
   if (command === "kick") {
+    if (!message.guild.me.permissions.has('KICK_MEMBERS')) return
     /*
 kick a un usuario mencionado usando member().kick()
 incluye razón para los registros de auditoría-log
@@ -599,9 +599,9 @@ incluye razón para los registros de auditoría-log
 
 
     let user = message.mentions.users.first();
-    let razon = args.slice(1).join(' ');
+    let razon = args.join(' ');
 
-    var perms = message.member.hasPermission("KICK_MEMBERS");
+    var perms = message.member.permissions.has("KICK_MEMBERS");
 
     if (!perms) return message.channel.send("`Error` `|` No tienes Permisos para usar este comando.");
     if (message.mentions.users.size < 1) return message.reply('Debe mencionar a alguien.').catch(console.error);
@@ -618,7 +618,6 @@ incluye razón para los registros de auditoría-log
   }
 
     
-}
   if (command === "uptime") {
     let totalSeconds = (client.uptime / 1000);
     let days = Math.floor(totalSeconds / 86400);
