@@ -510,10 +510,6 @@ client.on("message", async function (message) {
       "timestamp": new Date()
     }
     var inviteembed = new Discord.MessageEmbed(invitejson)
-    var botoninvite = new disbut.MessageButton()
-      .setStyle('blue')
-      .setURL('https://discord.com/api/oauth2/authorize?client_id=776106257597333515&permissions=8&scope=bot')
-    .setLabel('Invite de admin ¡¡pero en boton!!')
     message.channel.send(inviteembed)
   }
   if (command === 'editaloquedigas') {
