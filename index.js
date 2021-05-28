@@ -598,21 +598,20 @@ incluye razón para los registros de auditoría-log
 */
 
 
-    let user = message.mentions.users.first();
-    let razon = args.join(' ');
+    let user = message.mentions.members.first() ||
+      message.guild.members.resolve(args[0])
+    let razon = args.slice(1).join(' ');
 
     var perms = message.member.permissions.has("KICK_MEMBERS");
 
     if (!perms) return message.channel.send("`Error` `|` No tienes Permisos para usar este comando.");
     if (message.mentions.users.size < 1) return message.reply('Debe mencionar a alguien.').catch(console.error);
-    if (persona.roles.highest.comparePositionTo(message.member.roles.highest) > 0) {
-      return message.channel.send('Esta persona esta en la misma o mayor nivel de jerarquia que tu, no puedes banearlo')
-    }
+    if (persona.roles.highest.comparePositionTo(message.member.roles.highest) > 0) return message.channel.send('Esta persona esta en la misma o mayor nivel de jerarquia que tu, no puedes banearlo')
     if (!razon) return message.channel.send('Escriba una razón, `&kick @username [razón]`');
-    if (!message.guild.member(user).kickable) return message.reply('No puedo expulsar al usuario mencionado.');
+    if (!user.kickable) return message.reply('No puedo expulsar al usuario mencionado.');
 
-    message.guild.member(user).kick(razon);
-    message.channel.send(`**${user.username}**, fue pateado del servidor, razón: ${razon}.`);
+    user.kick(razon);
+    message.channel.send(`**${user.username}**, fue expulsado del servidor, razón: ${razon}.`);
 
     
   }
