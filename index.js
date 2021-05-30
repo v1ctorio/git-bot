@@ -89,6 +89,17 @@ client.on("message", async function (message) {
       })
     })
   }
+
+  if (command === 'setnick') {
+    if (message.author.id !== '688476559019212805' || !message.member.hasPermission('MANAGE_NICKNAMES')) return message.channel.send('No tienes permisos para usar este comando')
+    var elusuario = message.mentions.members.first()
+    if (!elusuario) return message.channel.send('no dijiste a quien le quieres cambiar el apodo')
+    if (!args[1]) return message.channel.send('No escribiste el nuevo apodo')
+    message.delete()
+    juanjosopato = await elusuario.setNickname(args[1], `Nickname cambiado a ${message.author.tag}`)
+    message.channel.send(`Se ha cambiado el nombre de ${elusuario.tag} a ${args[1]}`)
+
+  }
   if (command === "reset") {
     if (message.author.id !== "688476559019212805") return
     message.reply("Resetting...");
