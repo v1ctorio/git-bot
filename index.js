@@ -91,7 +91,8 @@ client.on("message", async function (message) {
   }
 
   if (command === 'setnick') {
-    if (message.author.id !== '688476559019212805' || !message.member.hasPermission('MANAGE_NICKNAMES')) return message.channel.send('No tienes permisos para usar este comando')
+    if (!message.guild.me.permissions.has('MANAGE_NICKNAMES')) return message.channel.send('no tengo los permisos necesarios')
+    if (!message.member.hasPermission('MANAGE_NICKNAMES') && (message.author.id !== '688476559019212805')) return message.channel.send('No tienes permisos para usar este comando')
     var elusuario = message.mentions.members.first()
     if (!elusuario) return message.channel.send('no dijiste a quien le quieres cambiar el apodo')
     if (!args[1]) return message.channel.send('No escribiste el nuevo apodo')
