@@ -97,8 +97,9 @@ client.on("message", async function (message) {
     if (!elusuario) return message.channel.send('no dijiste a quien le quieres cambiar el apodo')
     if (!args[1]) return message.channel.send('No escribiste el nuevo apodo')
     message.delete()
-    juanjosopato = await elusuario.setNickname(args[1], `Nickname cambiado a ${message.author.tag}`)
-    message.channel.send(`Se ha cambiado el nombre de ${elusuario.tag} a ${args[1]}`)
+    elusuario.setNickname(args[1], `Nickname cambiado a ${message.author.tag}`).then(() => { 
+    message.channel.send(`Se ha cambiado el nombre de ${message.mentions.users.first().tag} a ${args[1]}`)
+  })
 
   }
   if (command === "reset") {
