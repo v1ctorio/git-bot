@@ -10,7 +10,6 @@ const bienvenida = require("./models/bienvenida.js");
 const meow = require('random-meow')
 const fumo = require('fumo-api');
 const { MessageButton } = require("discord-buttons");
-require('./respuestas.js')
 /**
  * @param {String} reply poner message.reply('juan', { mention: false })
  */
