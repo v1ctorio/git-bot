@@ -10,6 +10,10 @@ const bienvenida = require("./models/bienvenida.js");
 const meow = require('random-meow')
 const fumo = require('fumo-api');
 const { MessageButton } = require("discord-buttons");
+require('./respuestas.js')
+/**
+ * @param {String} reply poner message.reply('juan', { mention: false })
+ */
 //let prefixes = require('./models/prefixes.js')
 
 // Conectamos la base:
@@ -116,6 +120,16 @@ client.on("message", async function (message) {
 
     message.channel.send('Hey, soy un boton ', button);
   }
+
+  /**
+   * @param {string} messag el mensaje
+   */
+
+  async function so(messag) {
+         console.log(messag)
+  }
+  
+
   if (command === 'fumo') {
     message.channel.send('buscando fumos...').then((m) => {
 
