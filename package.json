@@ -34,7 +34,7 @@
         "moment": "^2.29.1",
         "moment-duration-format": "^2.3.2",
         "mongodb": "^3.6.8",
-        "mongoose": "^5.12.11",
+        "mongoose": "^5.12.12",
         "npm": "^7.14.0",
         "random-meow": "^3.9.1"
     }
