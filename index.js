@@ -4,7 +4,8 @@ const config = require('config.json')('./config.json')
 const ModelConfess = require('./models/setconfession.js')
 const client = new Discord.Client({ ws: { intents: Discord.Intents.ALL } });
 const disbut = require('discord-buttons')(client);
-
+const { NekoBot } = require('nekobot-api')
+const nekoapi = new NekoBot()
 const mongoose = require("mongoose"); // Mongoose es lo más utilizado a la hora de usar una base de datos de MongoDB y también es el mejor para esto.
 const bienvenida = require("./models/bienvenida.js");
 const meow = require('random-meow')
@@ -13,7 +14,6 @@ const { MessageButton } = require("discord-buttons");
 /**
  * @param {String} reply poner message.reply('juan', { mention: false })
  */
-//let prefixes = require('./models/prefixes.js')
 
 // Conectamos la base:
 mongoose.connect('mongodb+srv://Vic:juan@principal.vpbcj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {
@@ -47,7 +47,7 @@ function getRandomInt(min, max) {
 client.on('ready', () => {
   console.log(`Estoy listo! soy ${client.user.tag}`);
   client.user.setStatus('online')
-  client.user.setActivity(`escribe &help | V ${version}`)
+  client.user.setActivity(`escribe &help | V ${version} | Develop by: ビクトリア`)
   console.log(client.user)
   client.channels.cache.get('835470740618346546').send('hola, ha terminado mi reinicio esto puede ser debido a un actualizacion o a un problema con el hostng')
   var channel = client.channels.cache.get("835526023176912926");
@@ -83,7 +83,12 @@ client.on("message", async function (message) {
     message.reply(`repiola`);
     //piola
   }
-
+  if (command === 'magik') {
+    nekoapi.generate("magik", {
+      image: message.author.avatarURL()
+      
+  })
+}
   if (command === 'cat') {
     message.channel.send('buscando gatos...').then((m) => {
 
@@ -94,16 +99,19 @@ client.on("message", async function (message) {
   }
 
   if (command === 'setnick') {
+    
+  
     if (!message.guild.me.permissions.has('MANAGE_NICKNAMES')) return message.channel.send('no tengo los permisos necesarios')
     if (!message.member.hasPermission('MANAGE_NICKNAMES') && (message.author.id !== '688476559019212805')) return message.channel.send('No tienes permisos para usar este comando')
     var elusuario = message.mentions.members.first()
     if (!elusuario) return message.channel.send('no dijiste a quien le quieres cambiar el apodo')
     if (!args[1]) return message.channel.send('No escribiste el nuevo apodo')
     message.delete()
-    elusuario.setNickname(args[1], `Nickname cambiado a ${message.author.tag}`).then(() => { 
-    message.channel.send(`Se ha cambiado el nombre de ${message.mentions.users.first().tag} a ${args[1]}`)
+      elusuario.setNickname(args[1], `Nickname cambiado a ${message.author.tag}`).then(() => {
+        message.channel.send(`Se ha cambiado el nombre de ${message.mentions.users.first().tag} a ${args[1]}`)
+        
   })
-
+    
   }
   if (command === "reset") {
     if (message.author.id !== "688476559019212805") return
@@ -701,7 +709,7 @@ incluye razón para los registros de auditoría-log
 client.on('message', async message => {
   if (message.author.bot || message.channel === '782048910898233355') return;
   if (message.guild.me.hasPermission('SEND_MESSAGES')) return
-
+  
   else
 
 
