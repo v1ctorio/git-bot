@@ -30,7 +30,7 @@
         "config.json": "^0.0.4",
         "discord-buttons": "^2.4.1",
         "discord.js": "^12.5.3",
-        "fumo-api": "^2.0.0",
+        "fumo-api": "^2.0.2",
         "moment": "^2.29.1",
         "moment-duration-format": "^2.3.2",
         "mongodb": "^3.6.8",
