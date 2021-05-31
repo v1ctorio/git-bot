@@ -87,6 +87,8 @@ client.on("message", async function (message) {
     nekoapi.generate("magik", {
       image: message.author.avatarURL()
       
+    }).then((eso) => {
+    message.channel.send(eso)
   })
 }
   if (command === 'cat') {
