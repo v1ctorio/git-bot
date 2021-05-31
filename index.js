@@ -4,8 +4,7 @@ const config = require('config.json')('./config.json')
 const ModelConfess = require('./models/setconfession.js')
 const client = new Discord.Client({ ws: { intents: Discord.Intents.ALL } });
 const disbut = require('discord-buttons')(client);
-const { NekoBot } = require('nekobot-api')
-const nekoapi = new NekoBot()
+
 const mongoose = require("mongoose"); // Mongoose es lo más utilizado a la hora de usar una base de datos de MongoDB y también es el mejor para esto.
 const bienvenida = require("./models/bienvenida.js");
 const meow = require('random-meow')
@@ -83,14 +82,6 @@ client.on("message", async function (message) {
     message.reply(`repiola`);
     //piola
   }
-  if (command === 'magik') {
-    nekoapi.generate("magik", {
-      image: message.author.avatarURL()
-      
-    }).then((eso) => {
-    message.channel.send(eso)
-  })
-}
   if (command === 'cat') {
     message.channel.send('buscando gatos...').then((m) => {
 
@@ -312,6 +303,11 @@ client.on("message", async function (message) {
     message.author.send(infoembed)
     message.react('✅')
   }
+  if (command === 'magik') {
+    var urlmagik = `https://nekobot.xyz/api/iagengen?type=magik&image=${message.author.displayAvatarURL()}raw=1`
+    var juanjoselolo = new Discord.MessageAttachment(urlmagik, 'magik.png')
+    message.reply(juanjoselolo)
+  }
 
   if (command === 'pp') {
     let miembro = message.mentions.users.first()
@@ -353,10 +349,10 @@ client.on("message", async function (message) {
 
     if (!txt) return message.channel.send(embed2) //Si no hay argumentos se enviara esto
 
-
+    var urltweet = `https://nekobot.xyz/api/imagegen?type=tweet&username=${autor.username}&text=${txt}&raw=1`
     let autor = message.author; //Definiremos autor
-
-    let attachment = new Discord.MessageAttachment(`https://nekobot.xyz/api/imagegen?type=tweet&username=${autor.username}&text=${txt}&raw=1`, 'logo.png')
+    
+    let attachment = new Discord.MessageAttachment(urltweet, 'logo.png')
 
     //Creamos el attachment reemplazando los valores por el nombre del autor y los argumentos por el texto
     message.channel.startTyping()
@@ -370,21 +366,19 @@ client.on("message", async function (message) {
 
   if (command === "phcomment") { //Creamos el comando (esto lo adaptan a su codigo, claro)
 
-    message.delete() //Esto es opcional. Es para borrar el mensaje que nosotros coloquemos como comando. si no lo quieren, borrenlo
 
-    let txt = args.join('%20');  //Argumentos
+    var txt = args.join('%20');  //Argumentos
     if (text.length > 40) return message.channel.send('el texto que pusiste es muy largo')
-    if (!txt) return message.channel.send("Olvidaste colocar los argumentos.") //Si no hay argumentos...
+    if (!txt) return message.channel.send("Olvidaste colocar los argumentos xdn't") 
 
-    let autor = message.author; //Definimos autor
-
+    let autor = message.author 
 
 
     let attachment = new Discord.MessageAttachment(`https://nekobot.xyz/api/imagegen?type=phcomment&image=${message.author.displayAvatarURL()}&text=${txt}&username=${autor.username}&raw=1`, 'logo.png') //Pedimos la imagen
 
 
 
-    message.channel.send(attachment)    //La enviamos
+    message.channel.send(attachment)    
 
   }
 
