@@ -12,7 +12,6 @@ const bienvenida = require("./models/bienvenida.js");
 const meow = require('random-meow')
 const fumo = require('fumo-api');
 const { MessageButton } = require("discord-buttons");
-require('./respuestas')
 var urlmon = 'mongodb+srv://Vic:juan@principal.vpbcj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 /**
  * @param {String} reply poner message.reply('juan', { mention: false })
@@ -323,7 +322,7 @@ client.on("message", async function (message) {
       .addField('Redes', '**Github:** [github.com/Nosesisaid](https://www.github.com/nosesisaid)')
       .addField('Contacto', '[nosesisaid/contacto](https://:www.github.com/nosesisaid/contacto)')
       .setThumbnail('images/nosesisaid.gif')
-    message.inlineReply(nosesisaidembed)
+    message.channel.send(nosesisaidembed)
   }
 
   if (command === 'pp') {
