@@ -304,7 +304,7 @@ client.on("message", async function (message) {
     message.react('✅')
   }
   if (command === 'magik') {
-    var urlmagik = `https://nekobot.xyz/api/iagengen?type=magik&image=${message.author.displayAvatarURL()}raw=1`
+    var urlmagik = `https://nekobot.xyz/api/imagegen?type=magik&image=${message.author.displayAvatarURL()}raw=1`
     var juanjoselolo = new Discord.MessageAttachment(urlmagik, 'magik.png')
     message.reply(juanjoselolo)
   }
