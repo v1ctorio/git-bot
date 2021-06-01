@@ -321,7 +321,6 @@ client.on("message", async function (message) {
       .setDescription('Nosesisaid es una pequeña organización de programadores, con experiencia en varios lenguajes de programacióny APIs')
       .addField('Redes', '**Github:** [github.com/Nosesisaid](https://www.github.com/nosesisaid)')
       .addField('Contacto', '[nosesisaid/contacto](https://:www.github.com/nosesisaid/contacto)')
-      .setThumbnail('images/nosesisaid.gif')
     message.channel.send(nosesisaidembed)
   }
 
