@@ -33,7 +33,7 @@
         "fumo-api": "^2.0.2",
         "moment": "^2.29.1",
         "moment-duration-format": "^2.3.2",
-        "mongodb": "^3.6.8",
+        "mongodb": "^3.6.9",
         "mongoose": "^5.12.11",
         "npm": "^7.15.0",
 
