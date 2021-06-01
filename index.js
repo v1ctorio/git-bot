@@ -320,7 +320,7 @@ client.on("message", async function (message) {
       .setFooter('Un miembro de nosesisaid es la persona que me programa, Nosesisaid es una orgnaización.')
       .setDescription('Nosesisaid es una pequeña organización de programadores, con experiencia en varios lenguajes de programacióny APIs')
       .addField('Redes', '**Github:** [github.com/Nosesisaid](https://www.github.com/nosesisaid)')
-      .addField('Contacto', '[nosesisaid/contacto](https://:www.github.com/nosesisaid/contacto)')
+      .addField('Contacto', '[nosesisaid/contacto](https://www.github.com/nosesisaid/contacto)')
     message.channel.send(nosesisaidembed)
   }
 
@@ -744,6 +744,9 @@ client.on('message', async message => {
 )
 
 client.on('guildMemberAdd', async (member) => {
+  const canalgu = client.channels.cache.get("756628041693921381");
+  if (member.guild.id === '756292333019856977') return canalgu.send(`Hey <@${member.user.id}> Bienvenid@ a Glitch Up`)
+  
   let servidor = await member.guild
   let Bienvenida = await Schema.findOne({ Guild: member.guild.id });
   if (!Bienvenida) return; // Si no hay nada retorna
