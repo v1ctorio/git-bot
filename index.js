@@ -2,14 +2,17 @@ const Discord = require("discord.js");
 const Schema = require('./models/bienvenida.js')
 const config = require('config.json')('./config.json')
 const ModelConfess = require('./models/setconfession.js')
-const client = new Discord.Client({ ws: { intents: Discord.Intents.ALL } });
+const client = new Discord.Client({
+  ws: { intents: Discord.Intents.ALL },
+  allowedMentions: { repliedUser: true }
+});
 const disbut = require('discord-buttons')(client);
-
 const mongoose = require("mongoose"); // Mongoose es lo más utilizado a la hora de usar una base de datos de MongoDB y también es el mejor para esto.
 const bienvenida = require("./models/bienvenida.js");
 const meow = require('random-meow')
 const fumo = require('fumo-api');
 const { MessageButton } = require("discord-buttons");
+require('./respuestas')
 /**
  * @param {String} reply poner message.reply('juan', { mention: false })
  */
@@ -25,11 +28,10 @@ mongoose.connect('mongodb+srv://Vic:juan@principal.vpbcj.mongodb.net/myFirstData
     var conectadoadb = true
   }
 })
-var db = mongoose.connection
 var version = "2.3.2";
 
 if (0 > 1) {
-  var newLocal = 'de alguna forma 0 es mayor que 1';
+  console.log('de alguna forma 0 es mayor que 1');
 } {
   console.log('0 es menos que uno, todo bien ');
 };
@@ -306,7 +308,24 @@ client.on("message", async function (message) {
   if (command === 'magik') {
     var urlmagik = `https://nekobot.xyz/api/imagegen?type=magik&image=${message.author.displayAvatarURL()}raw=1`
     var juanjoselolo = new Discord.MessageAttachment(urlmagik, 'magik.png')
-    message.reply(juanjoselolo)
+    message.channel.send(juanjoselolo)
+  }
+
+
+
+  if (command === 'nosesisaid') {
+
+    const nosesisaidembed = new Discord.MessageEmbed()
+      .setAuthor('Nosesisaid', 'https://avatars.githubusercontent.com/u/81916154?s=200&v=4')
+      .setColor('blue')
+      .setTimestamp(new Date())
+      .setTitle('Nosesisaid')
+      .setFooter('Un miembro de nosesisaid es la persona que me programa, Nosesisaid es una orgnaización.')
+      .setDescription('Nosesisaid es una pequeña organización de programadores, con experiencia en varios lenguajes de programacióny APIs')
+      .addField('Redes', '**Github:** [github.com/Nosesisaid](https://www.github.com/nosesisaid)')
+      .addField('Contacto', '[nosesisaid/contacto](https://:www.github.com/nosesisaid/contacto)')
+      .setThumbnail('images/nosesisaid.gif')
+    message.inlineReply(nosesisaidembed)
   }
 
   if (command === 'pp') {
