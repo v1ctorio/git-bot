@@ -175,7 +175,7 @@ client.on("message", async function (message) {
         .addField('**NIVEL DE VERIFICACION**', `${server.verificationLevel}`)//con esto obtenemos el nivel de verificacion del server
         .addField('**ROLES**', server.roles.cache.size, true)//con esto la cantidad de roles
         .setColor("RANDOM")//establecemos el color  yo puse random para que salga diferente color
-      message.channel.send(embed);//enviamos el embed
+      message.channel.send(embed)
     }
     if (!server.owner) {
       var embed = new Discord.MessageEmbed()//creamos un embed
@@ -199,7 +199,7 @@ client.on("message", async function (message) {
         .setColor("RANDOM")//establecemos el color  yo puse random para que salga diferente color
       message.channel.send(embed);//enviamos el embed
     }
-  }//cerramos y finnn
+  }
 
 
 
@@ -324,11 +324,11 @@ client.on("message", async function (message) {
     message.channel.send(nosesisaidembed)
   }
 
-  if (command === 'pp') {
+  if (command === 'pp' || command === 'avatar') {
     let miembro = message.mentions.users.first()
     if (!miembro) {
       var embed = new Discord.MessageEmbed()
-        .setImage(`${message.author.displayAvatarURL({ size: 2048 })}`)
+        .setImage(`${message.author.displayAvatarURL({ size: 2048, format: 'jpg' })}`)
         .setColor(0x66b3ff)
         .setFooter(`Avatar de ${message.author.tag}`);
       message.channel.send(embed);
@@ -745,6 +745,7 @@ client.on('message', async message => {
 
 client.on('guildMemberAdd', async (member) => {
   const canalgu = client.channels.cache.get("756628041693921381");
+  
   if (member.guild.id === '756292333019856977') return canalgu.send(`Hey <@${member.user.id}> Bienvenid@ a Glitch Up`)
   
   let servidor = await member.guild
