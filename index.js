@@ -831,5 +831,22 @@ client.on('antiflood-infraccion', async (message, infraccion) => {
 })
 
 
+client.on('messageReactionAdd', async (reaction, user) => {
+  // Verificamos que la reaccion sea en un servidor
+  if (!reaction.message.channel.guild) return;
+  // Verificamos que la reaccion solo sea de miembros y no por bots
+  if (user.bot) return;
+  // Obtenemos los datos del mensaje donde se agrego la reacción
+  let message = reaction.message;
+  // Obtener los datos del servidor donde se hiso la reacción
+  let guild = message.guild;
+  // Obtenemos los datos del canal donde se hiso la reacción
+  let channel = message.channel;
+  // Obtenemos el nombre del emoji de la reacción
+  let emoji = reaction.emoji.name
+  let ticketa = await ticket.findOne({ Mensaje: message.id, Channel: channel.id, Guild: guild.id })
+  if (!ticketa) return})
+ 
+
 //terminan los comandos
 client.login(config.BOT_TOKEN)
