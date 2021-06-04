@@ -9,6 +9,35 @@ const disbut = require('discord-buttons')(client);
 const mongoose = require("mongoose"); // Mongoose es lo más utilizado a la hora de usar una base de datos de MongoDB y también es el mejor para esto.
 const bienvenida = require("./models/bienvenida.js");
 const meow = require('random-meow')
+const antiFlood = require('discord-antiflood');
+antiFloodAjustes = {
+  debug: true,
+  ignorarBots: true,
+  usuariosIgnorados: [
+    '688476559019212805'
+  ],
+  servidoresIgnorados: [
+
+  ],
+  canalesIgnorados: [
+
+  ],
+  permisosIgnorados: [
+    "MANAGE_MESSAGES",
+    "MANAGE_GUILD"
+  ],
+  infracciones: [
+    {
+      id: "warn",
+      mensajes: 5,
+      tiempo: 5000,
+      args: {
+        nombre2: "Advertencia"
+      }
+    }
+  ]
+}
+antiFlood(client, antiFloodAjustes);
 const fumo = require('fumo-api');
 const { MessageButton } = require("discord-buttons");
 var urlmon = 'mongodb+srv://Vic:juan@principal.vpbcj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
@@ -785,6 +814,22 @@ client.on('clickButton', async (button) => {
     await button.clicker.user.send('s')
   }
 });
+
+
+
+
+
+
+
+
+client.on('antiflood-infraccion', async (message, infraccion) => {
+  if (message.channel.guild.id !== '756628041693921381') return 
+  console.log(message, infraccion);
+  if (infraccion.id === 'warn') {
+    message.channel.send(`Hey <@${message.author.id}> deja el flood por favor`)
+  }
+})
+
 
 //terminan los comandos
 client.login(config.BOT_TOKEN)
