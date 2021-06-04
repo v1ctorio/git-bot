@@ -18,7 +18,7 @@ var urlmon = 'mongodb+srv://Vic:juan@principal.vpbcj.mongodb.net/myFirstDatabase
  */
 
 // Conectamos la base:
-mongoose.connect(urlmon, {
+mongoose.connect('mongodb+srv://Vic:juan@principal.vpbcj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
@@ -731,6 +731,9 @@ client.on('message', async message => {
     message.channel.send('https://media.discordapp.net/attachments/776484805880971295/786636533641248828/blue-monday.png')
   }
 
+  if (message.content === '&join') {
+    client.emit('guildMemberAdd', message.member);
+  }
 
   if (message.content === `fdah4ob5qhiofjhgfjhod4562ibds6536daoibpw453t8rsm039w6sevse6sebmmt,sexrjgdfr6`) {
     message.delete()
