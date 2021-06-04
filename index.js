@@ -3,9 +3,8 @@ const Schema = require('./models/bienvenida.js')
 const config = require('config.json')('./config.json')
 const ModelConfess = require('./models/setconfession.js')
 const client = new Discord.Client({
-  ws: { intents: Discord.Intents.ALL },
-  allowedMentions: { repliedUser: true }
-});
+  ws: { intents: Discord.Intents.ALL }
+})
 const disbut = require('discord-buttons')(client);
 const mongoose = require("mongoose"); // Mongoose es lo más utilizado a la hora de usar una base de datos de MongoDB y también es el mejor para esto.
 const bienvenida = require("./models/bienvenida.js");
@@ -39,9 +38,7 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
-//slash commands no prueba
 
-//fin slash commands no prueba
 client.on('ready', () => {
   console.log(`Estoy listo! soy ${client.user.tag}`);
   client.user.setStatus('online')
@@ -323,7 +320,20 @@ client.on("message", async function (message) {
       .addField('Contacto', '[nosesisaid/contacto](https://www.github.com/nosesisaid/contacto)')
     message.channel.send(nosesisaidembed)
   }
+  if (command === 'eval') {
+    if (message.author.id !== '688476559019212805') return;
+    try {
+      const code = args.join(" ");
+      let evaled = eval(code);
 
+      if (typeof evaled !== "string")
+        evaled = require("util").inspect(evaled);
+
+      message.channel.send(clean(evaled), { code: "xl" });
+    } catch (err) {
+      message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
+    }
+}
   if (command === 'pp' || command === 'avatar') {
     let miembro = message.mentions.users.first()
     if (!miembro) {
@@ -614,6 +624,12 @@ client.on("message", async function (message) {
 
     message.channel.send(embed);
   }
+  if (commmand === 'helpbutton') {
+    var botonayuda = new MessageButton()
+      .setLabel('Help')
+      .setStyle('red')
+    .setID('help')
+  }
   // moderacion
   if (command === "kick") {
     if (!message.guild.me.permissions.has('KICK_MEMBERS')) return
@@ -680,7 +696,7 @@ incluye razón para los registros de auditoría-log
     if (!razon) {
       razon = 'Razon no especificada'
     }
-
+  
     razon += `, Baneado por ${message.author.tag}`
 
     message.guild.members.ban(persona, {
@@ -691,8 +707,8 @@ incluye razón para los registros de auditoría-log
         message.channel.send(`Listo, banee a **${persona.user.tag}**`)
       })
 
-    // Propuesto por: Fabricio-191#8051
-    //prueba
+    
+    
   }
   // invitcaion de bot https://discord.com/oauth2/authorize?client_id=%20776106257597333515&scope=bot&permissions=8
 
@@ -745,8 +761,8 @@ client.on('message', async message => {
 
 client.on('guildMemberAdd', async (member) => {
   const canalgu = client.channels.cache.get("756628041693921381");
-  
-  if (member.guild.id === '756292333019856977') return canalgu.send(`Hey <@${member.user.id}> Bienvenid@ a Glitch Up`)
+      let mimebrogu = await member.user
+  if (member.guild.id === '756292333019856977') return canalgu.send(`Hey <@${mimebrogu.id}> Bienvenid@ a Glitch Up`)
   
   let servidor = await member.guild
   let Bienvenida = await Schema.findOne({ Guild: member.guild.id });
@@ -761,15 +777,12 @@ client.on('guildMemberAdd', async (member) => {
 })
 
 client.on('clickButton', async (button) => {
-  if (button.id === 'contar') {
-    var nuerooo = parseInt(button.message.args[0])
-    var nuevonumeroo = numerooo + 1
-    button.message.edit(nuevonumeroo)
 
-    
-  }
   if (button.id === 'click_to_function') {
     await button.reply.send('Felicidades pulsaste el boton', true)
+  }
+  if (button.id === 'help') {
+    await button.clicker.user.send('s')
   }
 });
 
