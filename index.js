@@ -809,8 +809,8 @@ client.on('messageReactionAdd', async (reaction, user) => {
   let channel = message.channel;
   // Obtenemos el nombre del emoji de la reacción
   let emoji = reaction.emoji.name
- 
- 
+}
+)
 
 //terminan los comandos
 client.login(config.BOT_TOKEN)
