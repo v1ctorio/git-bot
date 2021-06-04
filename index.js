@@ -12,13 +12,13 @@ const meow = require('random-meow')
 
 const fumo = require('fumo-api');
 const { MessageButton } = require("discord-buttons");
-var urlmon = 'mongodb+srv://Vic:juan@principal.vpbcj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+var urlmon = 'mongodb+srv://vic:juan@principal.vpbcj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 /**
  * @param {String} reply poner message.reply('juan', { mention: false })
  */
 
 // Conectamos la base:
-mongoose.connect('mongodb+srv://Vic:juan@principal.vpbcj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {
+mongoose.connect(urlmon, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
