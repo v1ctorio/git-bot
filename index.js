@@ -69,6 +69,7 @@ client.on("message", async function (message) {
   var commandBody = message.content.slice(prefix.length);
   var args = commandBody.split(' ');
   var command = args.shift().toLowerCase();
+  
   if (command === "ping") {
     var timeTaken = Date.now() - message.createdTimestamp;
     message.reply(`Pong! Este mensaje tiene la latencia de  ${timeTaken}ms.`);
