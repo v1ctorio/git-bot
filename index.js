@@ -71,7 +71,7 @@ client.on("message", async function (message) {
   if (!message.content.startsWith(prefix)) return;
   var commandBody = message.content.slice(prefix.length);
   var args = commandBody.split(' ');
-  var command = args.shift().toLowerCase();
+  const command = args.shift().toLowerCase();
 
   if (command === "ping") {
     var timeTaken = Date.now() - message.createdTimestamp;
@@ -635,12 +635,8 @@ client.on("message", async function (message) {
 
     message.channel.send(embed);
   }
-  if (commmand === 'helpbutton') {
-    var botonayuda = new MessageButton()
-      .setLabel('Help')
-      .setStyle('red')
-    .setID('help')
-  }
+
+
   // moderacion
   if (command === "kick") {
     if (!message.guild.me.permissions.has('KICK_MEMBERS')) return
