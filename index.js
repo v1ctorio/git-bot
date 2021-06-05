@@ -18,14 +18,15 @@ var urlmon = 'mongodb+srv://vic:juan@principal.vpbcj.mongodb.net/myFirstDatabase
  */
 
 // Conectamos la base:
+mongoose.connect(urlmon, {
+  
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+const db = mongoose.connection
+db.on('error', error => console.error(error))
+db.once('open', MONGO_URI => console.log('Connected to Database'))
 
-  mongoose.connect(urlmon, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  })
-var database = mongoose.connection
-database.on('error', error => console.error(error))
-database.once('open', MONGO_URI => console.log('Connected to Database'))
 var version = "2.3.2";
 
 if (0 > 1) {
