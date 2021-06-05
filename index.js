@@ -1,5 +1,7 @@
 const Discord = require("discord.js");
 const Schema = require('./models/bienvenida.js')
+const Zeew = require("zeew");
+
 const config = require('config.json')('./config.json')
 const ModelConfess = require('./models/setconfession.js')
 var zeewtoken = '609ab9e6b6ed254021b84286'
@@ -65,7 +67,7 @@ client.on("message", async function (message) {
   var prefix = '&'
 
   if (!message.guild.me.hasPermission('SEND_MESSAGES')) return
-  if (message.author.bot || message.channel === '782048910898233355') return;
+  if (message.author.bot) return;
   if (!message.content.startsWith(prefix)) return;
   var commandBody = message.content.slice(prefix.length);
   var args = commandBody.split(' ');
@@ -774,7 +776,6 @@ client.on('message', async message => {
 client.on('guildMemberAdd', async (member) => {
   const canalgu = client.channels.cache.get("756628041693921381");
       let mimebrogu = await member.user
-  const Zeew = require("zeew");
 
   let wel = new Zeew.Bienvenida()
     .token(zeewtoken) // pide tu token
