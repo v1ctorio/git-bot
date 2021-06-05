@@ -2,6 +2,7 @@ const Discord = require("discord.js");
 const Schema = require('./models/bienvenida.js')
 const config = require('config.json')('./config.json')
 const ModelConfess = require('./models/setconfession.js')
+var zeewtoken = '609ab9e6b6ed254021b84286'
 const client = new Discord.Client({
   ws: { intents: Discord.Intents.ALL }
 })
@@ -69,7 +70,7 @@ client.on("message", async function (message) {
   var commandBody = message.content.slice(prefix.length);
   var args = commandBody.split(' ');
   var command = args.shift().toLowerCase();
-  
+
   if (command === "ping") {
     var timeTaken = Date.now() - message.createdTimestamp;
     message.reply(`Pong! Este mensaje tiene la latencia de  ${timeTaken}ms.`);
@@ -773,7 +774,21 @@ client.on('message', async message => {
 client.on('guildMemberAdd', async (member) => {
   const canalgu = client.channels.cache.get("756628041693921381");
       let mimebrogu = await member.user
-  if (member.guild.id === '756292333019856977') return canalgu.send(`Hey <@${mimebrogu.id}> Bienvenid@ a Glitch Up`)
+  const Zeew = require("zeew");
+
+  let wel = new Zeew.Bienvenida()
+    .token(zeewtoken) // pide tu token
+    .estilo("classic")
+    .avatar(member.user.displayAvatarURL({ format: "png" }))
+    .fondo("https://i.ytimg.com/vi/ESyrppXB8U8/maxresdefault.jpg")
+    .colorTit("#FFFFFF")
+    .titulo("Bienvenid@")
+    .colorDesc("#FFFFFF")
+    .descripcion(`Hola, bienvenid@ a Glitch Up`);
+  /*Esto sirve para crear la imagen con los dato proporcionados*/
+  let img = await Zeew.WelcomeZeew(wel);
+const attachmentgu = new Discord.MessageAttachment(img, 'bienvenida.png')
+  if (member.guild.id === '756292333019856977') return canalgu.send('<@'+mimebrogu.id+'>',attachmentgu)
   
   let servidor = await member.guild
   let Bienvenida = await Schema.findOne({ Guild: member.guild.id });
