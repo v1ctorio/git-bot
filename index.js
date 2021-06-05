@@ -332,6 +332,13 @@ client.on("message", async function (message) {
     message.channel.send(nosesisaidembed)
   }
   if (command === 'eval') {
+    function clean(text) {
+      if (typeof (text) === "string")
+        return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
+      else
+        return text;
+    }
+
     if (message.author.id !== '688476559019212805') return message.channel.send('necesitas los permisos de developer')
     try {
       const code = args.join(" ");
