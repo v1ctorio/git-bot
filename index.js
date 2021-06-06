@@ -796,7 +796,7 @@ client.on('guildMemberAdd', async (member) => {
   const canvas = Canvas.createCanvas(700, 250);
   const context = canvas.getContext('2d');
 
-  const background = await Canvas.loadImage('./wallpaper.jpg');
+  const background = await Canvas.loadImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSVzDJArc1HRHcwb4IiSehflWhcqq3S074yg&usqp=CAU');
   context.drawImage(background, 0, 0, canvas.width, canvas.height);
 
   context.strokeStyle = '#74037b';
