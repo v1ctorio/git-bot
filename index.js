@@ -793,34 +793,11 @@ client.on('message', async message => {
 client.on('guildMemberAdd', async (member) => {
   const canalgu = client.channels.cache.get("756628041693921381");
       let mimebrogu = await member.user
-  const canvas = Canvas.createCanvas(700, 250);
-  const context = canvas.getContext('2d');
-
-  const background = await Canvas.loadImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSVzDJArc1HRHcwb4IiSehflWhcqq3S074yg&usqp=CAU');
-  context.drawImage(background, 0, 0, canvas.width, canvas.height);
-
-  context.strokeStyle = '#74037b';
-  context.strokeRect(0, 0, canvas.width, canvas.height);
-
-  context.font = '28px sans-serif';
-  context.fillStyle = '#ffffff';
-  context.fillText('Welcome to the server,', canvas.width / 2.5, canvas.height / 3.5);
-
-  context.font = applyText(canvas, `${member.displayName}!`);
-  context.fillStyle = '#ffffff';
-  context.fillText(`${member.displayName}!`, canvas.width / 2.5, canvas.height / 1.8);
-
-  context.beginPath();
-  context.arc(125, 125, 100, 0, Math.PI * 2, true);
-  context.closePath();
-  context.clip();
 
   const avatar = await Canvas.loadImage(member.user.displayAvatarURL({ format: 'jpg' }));
-  context.drawImage(avatar, 25, 25, 200, 200);
 
-  const attachmentgu = new Discord.MessageAttachment(canvas.toBuffer(), 'welcome-image.png');
 
-  if (member.guild.id === '756292333019856977') return canalgu.send(member.toString(),attachmentgu)
+  if (member.guild.id === '756292333019856977') return canalgu.send(` Hey ${member.toString()} beinvenid@ a  Glitch Up`)
   
   let servidor = await member.guild
   let Bienvenida = await Schema.findOne({ Guild: member.guild.id });
