@@ -1,6 +1,5 @@
 const Discord = require("discord.js");
 const Schema = require('./models/bienvenida.js')
-const Zeew = require("zeew");
 const config = require('config.json')('./config.json')
 const ModelConfess = require('./models/setconfession.js')
 var zeewtoken = '609ab9e6b6ed254021b84286'
