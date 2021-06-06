@@ -26,6 +26,7 @@
     },
     "homepage": "https://github.com/synicalsyntax/discord.js-heroku#readme",
     "dependencies": {
+        "canvas": "^2.8.0",
         "config.json": "^0.0.4",
         "discord-antiflood": "^2.1.1",
         "discord-buttons": "^2.4.1",
@@ -37,7 +38,6 @@
         "mongoose": "^5.12.13",
         "npm": "^7.15.0",
         "random-meow": "^3.9.1",
-        "util": "^0.12.4",
-        "zeew": "^0.1.11"
+        "util": "^0.12.4"
     }
 }

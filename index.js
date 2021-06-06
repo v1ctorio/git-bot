@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const Schema = require('./models/bienvenida.js')
 const Zeew = require("zeew");
-
+const Canvas = require('canvas')
 const config = require('config.json')('./config.json')
 const ModelConfess = require('./models/setconfession.js')
 var zeewtoken = '609ab9e6b6ed254021b84286'
@@ -12,10 +12,22 @@ const disbut = require('discord-buttons')(client);
 const mongoose = require("mongoose"); // Mongoose es lo más utilizado a la hora de usar una base de datos de MongoDB y también es el mejor para esto.
 const bienvenida = require("./models/bienvenida.js");
 const meow = require('random-meow')
-
 const fumo = require('fumo-api');
 const { MessageButton } = require("discord-buttons");
 var urlmon = 'mongodb+srv://vic:juan@principal.vpbcj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+
+//CANVAS COSA ESTA
+const applyText = (canvas, text) => {
+  const context = canvas.getContext('2d');
+  let fontSize = 70;
+
+  do {
+    context.font = `${fontSize -= 10}px sans-serif`;
+  } while (context.measureText(text).width > canvas.width - 300);
+
+  return context.font;
+};
+//fin de la cosa esta 
 /**
  * @param {String} reply poner message.reply('juan', { mention: false })
  */
@@ -30,7 +42,7 @@ var opciones = {
 
 mongoose
   .createConnection(urlmon, opciones)
-  .then(() => console.log("MongoDB Connected..."))
+  .then(() => console.log("Conectado a la db"))
   .catch(err => console.log(err));
 
 
@@ -252,7 +264,9 @@ client.on("message", async function (message) {
 
     message.channel.send(attachment2);
   }
-
+  if (command === 'join') {
+    client.emit('guildMemberAdd', message.member);
+}
 
 
 
@@ -779,20 +793,34 @@ client.on('message', async message => {
 client.on('guildMemberAdd', async (member) => {
   const canalgu = client.channels.cache.get("756628041693921381");
       let mimebrogu = await member.user
+  const canvas = Canvas.createCanvas(700, 250);
+  const context = canvas.getContext('2d');
 
-  let wel = new Zeew.Bienvenida()
-    .token(zeewtoken) // pide tu token
-    .estilo("classic")
-    .avatar(member.user.displayAvatarURL({ format: "png" }))
-    .fondo("https://i.ytimg.com/vi/ESyrppXB8U8/maxresdefault.jpg")
-    .colorTit("#FFFFFF")
-    .titulo("Bienvenid@")
-    .colorDesc("#FFFFFF")
-    .descripcion(`Hola, bienvenid@ a Glitch Up`);
-  /*Esto sirve para crear la imagen con los dato proporcionados*/
-  let img = await Zeew.WelcomeZeew(wel);
-const attachmentgu = new Discord.MessageAttachment(img, 'bienvenida.png')
-  if (member.guild.id === '756292333019856977') return canalgu.send('<@'+mimebrogu.id+'>',attachmentgu)
+  const background = await Canvas.loadImage('./wallpaper.jpg');
+  context.drawImage(background, 0, 0, canvas.width, canvas.height);
+
+  context.strokeStyle = '#74037b';
+  context.strokeRect(0, 0, canvas.width, canvas.height);
+
+  context.font = '28px sans-serif';
+  context.fillStyle = '#ffffff';
+  context.fillText('Welcome to the server,', canvas.width / 2.5, canvas.height / 3.5);
+
+  context.font = applyText(canvas, `${member.displayName}!`);
+  context.fillStyle = '#ffffff';
+  context.fillText(`${member.displayName}!`, canvas.width / 2.5, canvas.height / 1.8);
+
+  context.beginPath();
+  context.arc(125, 125, 100, 0, Math.PI * 2, true);
+  context.closePath();
+  context.clip();
+
+  const avatar = await Canvas.loadImage(member.user.displayAvatarURL({ format: 'jpg' }));
+  context.drawImage(avatar, 25, 25, 200, 200);
+
+  const attachmentgu = new Discord.MessageAttachment(canvas.toBuffer(), 'welcome-image.png');
+
+  if (member.guild.id === '756292333019856977') return canalgu.send(member.toString(),attachmentgu)
   
   let servidor = await member.guild
   let Bienvenida = await Schema.findOne({ Guild: member.guild.id });
