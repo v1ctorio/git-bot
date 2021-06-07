@@ -2,6 +2,7 @@ const Discord = require("discord.js");
 const Schema = require('./models/bienvenida.js')
 const config = require('config.json')('./config.json')
 const ModelConfess = require('./models/setconfession.js')
+const { exec } = require('child-process')
 var zeewtoken = '609ab9e6b6ed254021b84286'
 const client = new Discord.Client({
   ws: { intents: Discord.Intents.ALL }
@@ -109,7 +110,7 @@ client.on("message", async function (message) {
   }
 
   if (command === 'setnick') {
-    
+  
   
     if (!message.guild.me.permissions.has('MANAGE_NICKNAMES')) return message.channel.send('no tengo los permisos necesarios')
     if (!message.member.hasPermission('MANAGE_NICKNAMES') && (message.author.id !== '688476559019212805')) return message.channel.send('No tienes permisos para usar este comando')
@@ -117,9 +118,14 @@ client.on("message", async function (message) {
     if (!elusuario) return message.channel.send('no dijiste a quien le quieres cambiar el apodo')
     if (!args[1]) return message.channel.send('No escribiste el nuevo apodo')
     message.delete()
-      elusuario.setNickname(args[1], `Nickname cambiado a ${message.author.tag}`).then(() => {
+      elusuario.setNickname(args[1], `Nickname cambiado a ${message.author.tag}`)
+        .then(() => {
         message.channel.send(`Se ha cambiado el nombre de ${message.mentions.users.first().tag} a ${args[1]}`)
-        
+          .catch((err) => {
+          message.channel.send('no se puedo cambiar el apodo ')
+        })
+      
+      
   })
     
   }
