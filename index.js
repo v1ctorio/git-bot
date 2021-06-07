@@ -88,12 +88,7 @@ client.on("message", async function (message) {
     message.reply(`Pong! Este mensaje tiene la latencia de  ${timeTaken}ms.`);
   }
   //ping y pong
-  if (command = 'delete') {
-    var timedel = parseInt(args[0])
-    if (timedel > 1000) message.channel.send('El tiempo es muy largo')
-    
-  message.channel.send('Entendible tu mensaje sera borrado en '+timedel+'ms')
-}
+
   if (command === "sum") {
     var numArgs = args.map(x => parseFloat(x));
     var sum = numArgs.reduce((counter, x) => counter += x);
