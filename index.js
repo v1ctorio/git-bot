@@ -64,7 +64,7 @@ client.on('ready', async () => {
   client.user.setStatus('online')
   client.user.setActivity(`escribe &help | V ${version} | Develop by: ビクトリア`)
   console.log(client.user)
-  client.channels.cache.get('835470740618346546').send('hola, ha terminado mi reinicio esto puede ser debido a un actualizacion o a un problema con el hostng')
+  client.channels.cache.get('835470740618346546').send(`hola, ha terminado mi reinicio.`)
   var channel = client.channels.cache.get("835526023176912926");
 
 
@@ -88,7 +88,12 @@ client.on("message", async function (message) {
     message.reply(`Pong! Este mensaje tiene la latencia de  ${timeTaken}ms.`);
   }
   //ping y pong
-
+  if (command = 'delete') {
+    var timedel = parseInt(args[0])
+    if (timedel > 1000) message.channel.send('El tiempo es muy largo')
+    
+  message.channel.send('Entendible tu mensaje sera borrado en '+timedel+'ms')
+}
   if (command === "sum") {
     var numArgs = args.map(x => parseFloat(x));
     var sum = numArgs.reduce((counter, x) => counter += x);
@@ -358,7 +363,7 @@ client.on("message", async function (message) {
 
       if (typeof evaled !== "string")
         evaled = require("util").inspect(evaled);
-
+      
       message.channel.send(clean(evaled), { code: "xl" });
     } catch (err) {
       message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
