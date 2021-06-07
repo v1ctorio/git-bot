@@ -637,6 +637,16 @@ client.on("message", async function (message) {
     message.channel.send('canal desbloqueado correctamente')
   }
 
+  if (command === 'var') {
+    message.channel.send('[.]').then((m) => {
+      var punto = '.'.repeat(index)
+      for (let index = 0; index < 20; index++) {
+        m.edit(`[${punto}]`)
+        
+      }
+    })
+  }
+
   if (command === 'stats') {
 
 
@@ -799,7 +809,6 @@ client.on('guildMemberAdd', async (member) => {
   const canalgu = client.channels.cache.get("756628041693921381");
       let mimebrogu = await member.user
 
-  const avatar = await Canvas.loadImage(member.user.displayAvatarURL({ format: 'jpg' }));
 
 
   if (member.guild.id === '756292333019856977') return canalgu.send(` Hey ${member.toString()} beinvenid@ a  Glitch Up`)
