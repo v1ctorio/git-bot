@@ -1,7 +1,7 @@
 const Discord = require('discord.js')
 const client = new Discord.Client
 const fumo = require('fumo-api')
-
+const config = require('config.json')('./config.json')
 
 
 client.on('ready', () => {
@@ -12,3 +12,4 @@ client.on('ready', () => {
         process.exit()
     })
 })
+client.login(config.BOT_TOKEN)
