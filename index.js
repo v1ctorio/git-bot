@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const Schema = require('./models/bienvenida.js')
 const config = require('config.json')('./config.json')
-const ModelConfess = require('./models/setconfession.js)
+const ModelConfess = require('./models/setconfession.js')
 var zeewtoken = '609ab9e6b6ed254021b84286'
 const client = new Discord.Client({
   ws: { intents: Discord.Intents.ALL }
