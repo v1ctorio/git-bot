@@ -135,15 +135,7 @@ client.on("message", async function (message) {
     message.reply("Resetting...");
     process.exit()
   }
-  if (command === 'boton') {
-    let button = new disbut.MessageButton()
-      .setStyle('red') //default: blurple
-      .setLabel('un boton!') //default: NO_LABEL_PROVIDED
-      .setID('click_to_function') //note: if you use the style "url" you must provide url using .setURL('https://example.com')
-    // . setDisabled(); //disables the button | default: false
 
-    message.channel.send('Hey, soy un boton ', button);
-  }
 
   /**
    * @param {string} messag el mensaje
@@ -825,7 +817,7 @@ client.on('guildMemberAdd', async (member) => {
 
 })
 
-client.on('clickButton', async (button) => {
+/**client.on('clickButton', async (button) => {
 
   if (button.id === 'click_to_function') {
     await button.reply.send('Felicidades pulsaste el boton', true)
@@ -833,7 +825,7 @@ client.on('clickButton', async (button) => {
   if (button.id === 'help') {
     await button.clicker.user.send('s')
   }
-});
+});*/
 
 
 
