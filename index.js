@@ -796,9 +796,9 @@ client.on('message', async message => {
 }
 )
 
-client.on('guildMemberAdd', (member) => {
+client.on('guildMemberAdd', async function (member) {
   const canalgu = client.channels.cache.get("756628041693921381");
-      let mimebrogu = await member.user
+      let mimebrogu = member.user
 
 
 
