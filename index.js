@@ -269,6 +269,7 @@ client.on("message", async function (message) {
 
 
   if (command === 'setwelcome') {
+    if (1 > 0) return message.channel.send('Ahora mismo hay problemas con los comandos que usan las bases de datos, gracias por la comprension')
 
     let Canal = message.guild.channels.cache.find(canal => canal.id == args[0]) || message.mentions.channels.first();
     let Bienvenida = await Schema.findOne({ Guild: message.guild.id }).exec();
@@ -437,6 +438,7 @@ client.on("message", async function (message) {
   }
 
   if (command === 'setconfession') {
+  if (1>0) return message.channel.send('Ahora mismo hay problemas con los comandos que usan las bases de datos, gracias por la comprension')
 
     if (!message.member.hasPermission('MANAGE_GUILD')) {//Si el usuario no tiene permisos retorna.
       return message.channel.send('❌**|** No tienes permisos suficientes para ejecutar este comando.')
@@ -465,6 +467,8 @@ client.on("message", async function (message) {
   }
 
   if (command === "confess") {
+    if (1 > 0) return message.channel.send('Ahora mismo hay problemas con los comandos que usan las bases de datos, gracias por la comprension')
+
     let canal = await ModelConfess.findOne({ guildID: message.guild.id })//Busca si ya hay algun canal establecido en el servidor.
     if (!canal) return message.channel.send("❌**|** El canal de confesiones no fue definido en este servidor.") //Retorna si no hay.
     let confesar = args.join(" ")//Argumentos para realizar la confesión.
