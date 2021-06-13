@@ -14,17 +14,7 @@ const fumo = require('fumo-api');
 const { MessageButton } = require("discord-buttons");
 var urlmon = 'mongodb+srv://vic:juan@principal.vpbcj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 
-//CANVAS COSA ESTA
-const applyText = (canvas, text) => {
-  const context = canvas.getContext('2d');
-  let fontSize = 70;
 
-  do {
-    context.font = `${fontSize -= 10}px sans-serif`;
-  } while (context.measureText(text).width > canvas.width - 300);
-
-  return context.font;
-};
 //fin de la cosa esta 
 /**
  * @param {String} reply poner message.reply('juan', { mention: false })
@@ -106,6 +96,12 @@ client.on("message", async function (message) {
         m.edit(url)
       })
     })
+  }
+
+
+  if (command === 'urlnoses') {
+    message.delete()
+    message.channel.send('https://nosesisaid.github.io\n https://github.com/Nosesisaid')
   }
 
   if (command === 'setnick') {
