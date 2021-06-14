@@ -364,7 +364,7 @@ client.on("message", async function (message) {
     let miembro = message.mentions.users.first()
     if (!miembro) {
       var embed = new Discord.MessageEmbed()
-        .setImage(`${message.author.displayAvatarURL({ size: 2084, dynamic: true })}`)
+        .setImage(`${message.author.displayAvatarURL({ size: 2048, dynamic: true })}`)
         .setColor(0x66b3ff)
         .setFooter(`Avatar de ${message.author.tag}`);
       message.channel.send(embed);
