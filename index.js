@@ -371,7 +371,7 @@ client.on("message", async function (message) {
 
     } else {
       var embed = new Discord.MessageEmbed()
-        .setImage(`${miembro.displayAvatarURL({ size: 2048 })}`)
+        .setImage(`${miembro.displayAvatarURL({ size: 2048, dynamic: true })}`)
         .setColor(0x66b3ff)
         .setFooter(`Avatar de ${miembro.tag}`);
 
