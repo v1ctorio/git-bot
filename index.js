@@ -2,6 +2,7 @@ const Discord = require("discord.js");
 const Schema = require('./models/bienvenida.js')
 const config = require('config.json')('./config.json')
 const ModelConfess = require('./models/setconfession.js')
+const gse = require('general-search-engine')
 var zeewtoken = '609ab9e6b6ed254021b84286'
 const client = new Discord.Client({
   ws: { intents: Discord.Intents.ALL }
@@ -89,6 +90,31 @@ client.on("message", async function (message) {
     message.reply(`repiola`);
     //piola
   }
+
+  if (command === 'img') {
+    try {
+    async function getimg(g) {
+      
+      let petition = await new gse.search()
+        .setType("image")
+        .setQuery(g).run()
+
+      console.log(petition)
+      return petition
+
+    }
+
+    getimg(args[0].then((i) => {
+      let embedimg = new Discord.MessageEmbed()
+        .setAuthor(i[0].from)
+        .setImage(i[0].image)
+      message.reply(embedimg)
+    }))
+
+  }catch (a) {
+      message.reply('Hubo un error ejecutando el comando')
+    }
+  }
   if (command === 'cat') {
     message.channel.send('buscando gatos...').then((m) => {
 
@@ -97,7 +123,26 @@ client.on("message", async function (message) {
       })
     })
   }
-
+  if (command === 'wikipedia') {
+    try { 
+    async function wiki(w) {
+      let we = await new gse.search()
+        .setType('Wikipedia')
+        .setQuery(w)
+      return we
+    }
+    wiki(args[0]).then((w) => {
+      const wembed = new Discord.MessageEmbed()
+        .setTitle(w.title)
+        .setAuthor(message.author.tag, message.author.displayAvatarURL())
+        .setDescription(w.description)
+        .setFooter(`Definción de wikipedia de ${args[0]}`)
+      message.reply(wembed)
+    })
+    } catch (xd) {
+      message.reply('Hubo un error ejecutando el comando')
+  }
+}
 
   if (command === 'urlnoses') {
     message.delete()
