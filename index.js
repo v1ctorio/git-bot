@@ -92,6 +92,7 @@ client.on("message", async function (message) {
   }
 
   if (command === 'img') {
+    return 
     try {
     async function getimg(g) {
       
@@ -124,6 +125,7 @@ client.on("message", async function (message) {
     })
   }
   if (command === 'wikipedia') {
+    return 
     try { 
     async function wiki(w) {
       let we = await new gse.search()
