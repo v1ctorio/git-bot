@@ -133,9 +133,9 @@ client.on("message", async function (message) {
     }
     wiki(args[0]).then((w) => {
       const wembed = new Discord.MessageEmbed()
-        .setTitle(w.title)
+        .setTitle(w[0].title)
         .setAuthor(message.author.tag, message.author.displayAvatarURL())
-        .setDescription(w.description)
+        .setDescription(w[0].description)
         .setFooter(`Definción de wikipedia de ${args[0]}`)
       message.reply(wembed)
     })
