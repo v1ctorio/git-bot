@@ -128,7 +128,7 @@ client.on("message", async function (message) {
     async function wiki(w) {
       let we = await new gse.search()
         .setType('Wikipedia')
-        .setQuery(w)
+        .setQuery(w).setOptions({language: "es"}).run()
       return we
     }
     wiki(args[0]).then((w) => {
