@@ -409,14 +409,14 @@ client.on("message", async function (message) {
     let miembro = message.mentions.users.first()
     if (!miembro) {
       var embed = new Discord.MessageEmbed()
-        .setImage(`${message.author.displayAvatarURL({ size: 2048, format: 'jpg' })}`)
+        .setImage(`${message.author.displayAvatarURL({ size: 2048, dynamic: true })}`)
         .setColor(0x66b3ff)
         .setFooter(`Avatar de ${message.author.tag}`);
       message.channel.send(embed);
 
     } else {
       var embed = new Discord.MessageEmbed()
-        .setImage(`${miembro.displayAvatarURL({ size: 2048 })}`)
+        .setImage(`${miembro.displayAvatarURL({ size: 2048, dynamic: true })}`)
         .setColor(0x66b3ff)
         .setFooter(`Avatar de ${miembro.tag}`);
 
