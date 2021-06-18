@@ -850,7 +850,7 @@ client.on('guildMemberAdd', async function (member) {
 
 
 
-  if (member.guild.id === '756292333019856977') return canalgu.send(` Hey ${member.toString()} beinvenid@ a  Glitch Up`)
+  if (member.guild.id === '756292333019856977') return canalgu.send(`❤️  ${member.toString()} ¡¡¡Bienvenid@ al servidor más Glitcheado de todo Discord!!! ¡Ya somos ${member.guild.memberCount} miembros!`)
   
   let servidor = await member.guild
   let Bienvenida = await Schema.findOne({ Guild: member.guild.id });
