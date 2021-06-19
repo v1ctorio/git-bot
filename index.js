@@ -91,31 +91,7 @@ client.on("message", async function (message) {
     //piola
   }
 
-  if (command === 'img') {
-    return 
-    try {
-    async function getimg(g) {
-      
-      let petition = await new gse.search()
-        .setType("image")
-        .setQuery(g).run()
-
-      console.log(petition)
-      return petition
-
-    }
-
-    getimg(args[0].then((i) => {
-      let embedimg = new Discord.MessageEmbed()
-        .setAuthor(i[0].from)
-        .setImage(i[0].image)
-      message.reply(embedimg)
-    }))
-
-  }catch (a) {
-      message.reply('Hubo un error ejecutando el comando')
-    }
-  }
+ 
   if (command === 'cat') {
     message.channel.send('buscando gatos...').then((m) => {
 
@@ -124,27 +100,7 @@ client.on("message", async function (message) {
       })
     })
   }
-  if (command === 'wikipedia') {
-    return 
-    try { 
-    async function wiki(w) {
-      let we = await new gse.search()
-        .setType('Wikipedia')
-        .setQuery(w).setOptions({language: "es"}).run()
-      return we
-    }
-    wiki(args[0]).then((w) => {
-      const wembed = new Discord.MessageEmbed()
-        .setTitle(w[0].title)
-        .setAuthor(message.author.tag, message.author.displayAvatarURL())
-        .setDescription(w[0].description)
-        .setFooter(`Definción de wikipedia de ${args[0]}`)
-      message.reply(wembed)
-    })
-    } catch (xd) {
-      message.reply('Hubo un error ejecutando el comando')
-  }
-}
+  
 
   if (command === 'urlnoses') {
     message.delete()
@@ -179,14 +135,6 @@ client.on("message", async function (message) {
     process.exit()
   }
 
-
-  /**
-   * @param {string} messag el mensaje
-   */
-
-  async function so(messag) {
-         console.log(messag)
-  }
   
 
   if (command === 'fumo') {
