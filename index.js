@@ -37,12 +37,12 @@ mongoose
 
 var version = "2.3.2";
 
-if (0 > 1) {
-  console.log('de alguna forma 0 es mayor que 1');
-}else  {
-  console.log('0 es menos que uno, todo bien ');
-};
 
+if (0.1 + 0.2 === 0.3) {
+  console.log("De alguna forma 0.1+0.2 es 0.3 xdn't")
+} else if (0.1 + 0.2 === 0.30000000000000004) {
+  console.log('todo piola, 0.1+0.2 es 0.30000000000000004');
+}
 // Retorna un entero aleatorio entre min (incluido) y max (excluido)
 // ¡Usando Math.round() te dará una distribución no-uniforme!
 function getRandomInt(min, max) {
@@ -432,6 +432,9 @@ client.on("message", async function (message) {
     message.channel.send(`tu eres  ${message.author}`);
     //help
   }
+
+
+
 
   if (command === 'tweet') {
 
