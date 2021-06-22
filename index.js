@@ -3,7 +3,8 @@ const Schema = require('./models/bienvenida.js')
 const config = require('config.json')('./config.json')
 const ModelConfess = require('./models/setconfession.js')
 const gse = require('general-search-engine')
-var zeewtoken = '609ab9e6b6ed254021b84286'
+
+
 const client = new Discord.Client({
   ws: { intents: Discord.Intents.ALL }
 })
@@ -49,7 +50,6 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
-
 client.on('ready', async () => {
   console.log(`Estoy listo! soy ${client.user.tag}`);
   client.user.setStatus('online')
@@ -57,7 +57,7 @@ client.on('ready', async () => {
   console.log(client.user)
   client.channels.cache.get('835470740618346546').send(`hola, ha terminado mi reinicio.`)
   var channel = client.channels.cache.get("835526023176912926");
-
+  
 
 
 
@@ -461,6 +461,25 @@ client.on("message", async function (message) {
   }
 
   if (command === "confess") {
+
+    if (message.channel.guild.id === "756292333019856977") {
+      var xdcanal = client.channels.cache.get("842789085290168330")
+      const anonimoxd = {
+        color: "#f7ffa0",
+        author: {
+          name: "Confesión anonima",
+          icon_url: "https://cdn.discordapp.com/attachments/763585345207795752/779440547403268156/incognito.png",
+        },
+        description: args.join(" "),
+        timestamp: new Date(),
+        footer: {
+          text: "Confesiones",
+        }
+      }
+      xdcanal.send({ embed: anonimo })
+    
+      
+    }
     if (1 > 0) return message.channel.send('Ahora mismo hay problemas con los comandos que usan las bases de datos, gracias por la comprension')
 
     let canal = await ModelConfess.findOne({ guildID: message.guild.id })//Busca si ya hay algun canal establecido en el servidor.
@@ -627,6 +646,7 @@ client.on("message", async function (message) {
     message.channel.send('canal desbloqueado correctamente')
   }
 
+
   if (command === 'var') {
     message.channel.send('[.]').then((m) => {
       var punto = '.'.repeat(index)
@@ -752,7 +772,9 @@ client.on('message', async message => {
   
   else
 
-
+    if (messsage.mentions.member.first.id === client.user.id) {
+  message.channel.send('Hola, mi prefix es '+prefix)
+}
 
     if (message.content === `prefix`) {
       message.reply(`el prefix es &`)
