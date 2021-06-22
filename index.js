@@ -477,10 +477,11 @@ client.on("message", async function (message) {
         }
       }
       xdcanal.send({ embed: anonimoxd })
+      message.delete()
     
       
     }
-    if (1 > 0) return message.channel.send('Ahora mismo hay problemas con los comandos que usan las bases de datos, gracias por la comprension')
+    else if (1 > 0) return message.channel.send('Ahora mismo hay problemas con los comandos que usan las bases de datos, gracias por la comprension')
 
     let canal = await ModelConfess.findOne({ guildID: message.guild.id })//Busca si ya hay algun canal establecido en el servidor.
     if (!canal) return message.channel.send("❌**|** El canal de confesiones no fue definido en este servidor.") //Retorna si no hay.
