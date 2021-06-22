@@ -476,7 +476,7 @@ client.on("message", async function (message) {
           text: "Confesiones",
         }
       }
-      xdcanal.send({ embed: anonimo })
+      xdcanal.send({ embed: anonimoxd })
     
       
     }
