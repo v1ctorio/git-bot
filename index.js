@@ -31,7 +31,7 @@ var opciones = {
 
 
 mongoose
-  .createConnection(urlmon, opciones)
+  .connect(urlmon, opciones)
   .then(() => console.log("Conectado a la db"))
   .catch(err => console.log(err));
 
