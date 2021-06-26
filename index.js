@@ -90,8 +90,19 @@ client.on("message", async function (message) {
     message.reply(`repiola`);
     //piola
   }
+  if (command === "random") {
+    if (!args[0]) return message.channel.send("Debes poner dos numeros para conseguir uno aleatorio en ese rango \n Ejemplo: `&random 1 8`")
+    if (!args[1]) return message.channel.send("Debes poner dos numeros para conseguir uno aleatorio en ese rango \n Ejemplo: `&random 1 8`")
+    if (isNaN(args[0])) return message.channel.send("Debes poner dos numeros para conseguir uno aleatorio en ese rango \n Ejemplo: `&random 1 8`")
+    if (isNaN(args[1])) return message.channel.send("Debes poner dos numeros para conseguir uno aleatorio en ese rango \n Ejemplo: `&random 1 8`")
+    if (args[0] > 1000) return message.channel.send("Los numeros elejidos son muy grandes, usa numeros menores a `1000`")
+    if (args[1] > 1000)  return message.channel.send("Los numeros elejidos son muy grandes, usa numeros menores a `1000`")
+    if (args[0] < 0) return message.channel.send("Usa numeros positivos")
+    if (args[1] < 0) return message.channel.send("Usa numeros positivos")
+    
 
- 
+    message.channel.send(`El numero elejido es ||${getRandomInt(args[0], args[1])}||`)
+  } 
   if (command === 'cat') {
     message.channel.send('buscando gatos...').then((m) => {
 
@@ -306,7 +317,7 @@ client.on("message", async function (message) {
 
   //auditoria
   if (command === 'info' || command === 'botinfo' || command === 'help') {
-    info = { "title": "Informaci\u00f3n", "description": "soy un bot creado por ビクトリア#5994 con comandos de entretenimiento y moderaci\u00f3n", "color": 5814783, "fields": [{ "name": "Comandos", "value": " \n  Estos son mis comandos:\n    **&help** - todos los comandos (lo estas viendo)\n    **&sum <num1> <num2>** - Suma 2 numeros \n **&credits** - creditos \n   **&meme** - manda un meme\n    **&invite** - manda el link para invitarme a tu servidor\n    **&kick** - expulsa a un usuario (necesita permisos de administrador)\n    **&ban** - banea a un usuario (necesita permisos de administrador)\n    **&server** - proporciona informacion del servidor\n    **&uptime** - tiempo que el bot esta online\n    **&tweet** - simula un tweet \n    **&pp** - mira tu foto de perfil o la de alguien \n    **&magik** - transforma la foto de perfil con el efecto magik \n    **&phcomment** - simula un comentario en ph \n **&setconfession** - establece el canal de confesiones \n **&confess** - haz una confesion anonimamente \n **&cat** - busca una imagen de un gato \n &fumo - busca una imagen de un fumo" }, { "name": "Servidor", "value": "Unete al servidor oficial del bot aqui [discord.gg\/P5438xBR94](https:\/\/discord.gg\/P5438xBR94)" }], "author": { "name": "Pancho del rancho", "url": "https:\/\/bit.ly\/panchodelrancho", "icon_url": "https:\/\/images-ext-2.discordapp.net\/external\/LFiST9waRyxge-xibE8gsIVb6BwQLhGnRDFPpE7HrTE\/%3Fsize%3D2048\/https\/cdn.discordapp.com\/avatars\/776106257597333515\/2a357a609135bd1372f94367c728b564.webp?width=427&height=427" }, "footer": { "text": "le\u00edste esto, tabien." }, "timestamp": new Date() }
+    info = { "title": "Informaci\u00f3n", "description": "soy un bot creado por ビクトリア#5994 con comandos de entretenimiento y moderaci\u00f3n", "color": 5814783, "fields": [{ "name": "Comandos", "value": " \n  Estos son mis comandos:\n    **&help** - todos los comandos (lo estas viendo)\n    **&sum <num1> <num2>** - Suma 2 numeros \n **&credits** - creditos \n  **&random** - genera un numero aleatorio en el rango que tu elijas \n  **&meme** - manda un meme\n    **&invite** - manda el link para invitarme a tu servidor\n    **&kick** - expulsa a un usuario (necesita permisos de administrador)\n    **&ban** - banea a un usuario (necesita permisos de administrador)\n    **&server** - proporciona informacion del servidor\n    **&uptime** - tiempo que el bot esta online\n    **&tweet** - simula un tweet \n    **&pp** - mira tu foto de perfil o la de alguien \n    **&magik** - transforma la foto de perfil con el efecto magik \n    **&phcomment** - simula un comentario en ph \n **&setconfession** - establece el canal de confesiones \n **&confess** - haz una confesion anonimamente \n **&cat** - busca una imagen de un gato \n &fumo - busca una imagen de un fumo" }, { "name": "Servidor", "value": "Unete al servidor oficial del bot aqui [discord.gg\/P5438xBR94](https:\/\/discord.gg\/P5438xBR94)" }], "author": { "name": "Pancho del rancho", "url": "https:\/\/bit.ly\/panchodelrancho", "icon_url": "https:\/\/images-ext-2.discordapp.net\/external\/LFiST9waRyxge-xibE8gsIVb6BwQLhGnRDFPpE7HrTE\/%3Fsize%3D2048\/https\/cdn.discordapp.com\/avatars\/776106257597333515\/2a357a609135bd1372f94367c728b564.webp?width=427&height=427" }, "footer": { "text": "le\u00edste esto, tabien." }, "timestamp": new Date() }
 
     var infoembed = new Discord.MessageEmbed(info)
     message.author.send(infoembed)
@@ -330,7 +341,7 @@ client.on("message", async function (message) {
       .setFooter('Un miembro de nosesisaid es la persona que me programa, Nosesisaid es una orgnaización.')
       .setDescription('Nosesisaid es una pequeña organización de programadores, con experiencia en varios lenguajes de programacióny APIs')
       .addField('Redes', '**Github:** [github.com/Nosesisaid](https://www.github.com/nosesisaid)')
-      .addField('Contacto', '[nosesisaid/contacto](https://www.github.com/nosesisaid/contacto)')
+      .addField('Web', '[nosesisaid.github.io](https://nosesisaid.github.io)')
     message.channel.send(nosesisaidembed)
   }
   if (command === 'eval') {
