@@ -141,7 +141,7 @@ client.on("message", async function (message) {
   if (command === "jumbo") {
     try {
       var emoji = Discord.Util.parseEmoji(args[0])
-      message.channel.send(`https://cdn.discordapp/emojis/${emoji.id}.png`)
+      message.channel.send(`https://cdn.discordapp.com/emojis/${emoji.id}.png`)
 
     } catch (eeeee) {
 message.reply("Emoji invalido")
