@@ -15,7 +15,9 @@ const meow = require('random-meow')
 const fumo = require('fumo-api');
 const { MessageButton } = require("discord-buttons");
 var urlmon = 'mongodb+srv://vic:juan@principal.vpbcj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+const { DiscordTogether } = require('discord-together');
 
+client.discordTogether = new DiscordTogether(client);
 
 //fin de la cosa esta 
 /**
@@ -112,6 +114,14 @@ client.on("message", async function (message) {
     })
   }
   
+  if (command === "yt" || command === "youtube") {
+    var canalvc = message.member.voice.channel
+    if (!canalvc) return message.channel.send("Unete a un canal de voz para utilizar este comando")
+    if (!message.guild.me.permissions.has("CREATE_INSTANT_INVITE")) return message.channel.send("necesito mas permisos")
+    client.discordTogether.createTogetherCode(message.member.voice.channelID, 'youtube').then(async invite => {
+      return message.channel.send(`${invite.code}`);
+    });
+  }
 
   if (command === 'urlnoses') {
     message.delete()
