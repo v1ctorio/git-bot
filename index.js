@@ -123,7 +123,19 @@ client.on("message", async function (message) {
         .setTitle("Youtube")  
         .setDescription(`[Pulsa aqui para entrar a youtube](${invite.code})`)
       .setFooter("Pedido por "+message.author.tag)
-      return message.channel.send(`${invite.code}`, einvite);
+      return message.channel.send(einvite);
+    });
+  }
+  if (command === "chess" || command === "ajedrez") {
+    var canalvc = message.member.voice.channel
+    if (!canalvc) return message.channel.send("Unete a un canal de voz para utilizar este comando")
+    if (!message.guild.me.permissions.has("CREATE_INSTANT_INVITE")) return message.channel.send("necesito mas permisos")
+    client.discordTogether.createTogetherCode(message.member.voice.channelID, 'chess').then(async invite => {
+      const einvite2 = new Discord.MessageEmbed()
+        .setTitle("Youtube")
+        .setDescription(`[Pulsa aqui para entrar a youtube](${invite.code})`)
+        .setFooter("Pedido por " + message.author.tag)
+      return message.channel.send(einvite2);
     });
   }
 
