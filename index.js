@@ -138,7 +138,15 @@ client.on("message", async function (message) {
       return message.channel.send(einvite2);
     });
   }
+  if (command === "jumbo") {
+    try {
+      var emoji = Discord.Util.parseEmoji(args[0])
+      message.channel.send(`https://cdn.discordapp/emojis/${emoji.id}.png`)
 
+    } catch (eeeee) {
+message.reply("Emoji invalido")
+    }
+}
   if (command === 'urlnoses') {
     message.delete()
     message.channel.send('https://nosesisaid.github.io\n https://github.com/Nosesisaid')
