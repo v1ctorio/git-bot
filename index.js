@@ -14,7 +14,7 @@ const bienvenida = require("./models/bienvenida.js");
 const meow = require('random-meow')
 const fumo = require('fumo-api');
 const { MessageButton } = require("discord-buttons");
-var urlmon = 'mongodb+srv://vic:juan@principal.vpbcj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+var urlmon = 'mongodb+srv://admin:1234@principal.vpbcj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 const { DiscordTogether } = require('discord-together');
 
 client.discordTogether = new DiscordTogether(client);
