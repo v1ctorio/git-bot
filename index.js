@@ -30,7 +30,7 @@ client.discordTogether = new DiscordTogether(client);
 
 
 
-var version = "2.3.2";
+var version = "2.4.2";
 
 if (0.1 + 0.2 === 0.3) {
   console.log("De alguna forma 0.1+0.2 es 0.3 xdn't")
@@ -361,12 +361,11 @@ message.reply("Emoji invalido")
     const comandos2 = `**&uptime** - tiempo que el bot esta online
 **&tweet** - simula un tweet
 **&pp** - mira tu foto de perfil o la de alguien
-**&magik** - transforma la foto de perfil con el efecto magik
 **&phcomment** - simula un comentario en ph
 **&setconfession** - establece el canal de confesiones
 **&confess** - haz una confesion anonimamente
 **&cat** - busca una imagen de un gato
- &fumo - busca una imagen de un fumo`
+ **&setprefix** - establece un nuevo prefix en el servidor`
     
     info = {
       "title": "Informaci\u00f3n",
