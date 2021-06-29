@@ -1,4 +1,5 @@
 const mongoose = require("mongoose"); // Mongoose es lo más utilizado a la hora de usar una base de datos de MongoDB y también es el mejor para esto.
+var urlmon = 'mongodb+srv://admin:1234@principal.vpbcj.mongodb.net/myFirstDatabase'
 
 mongoose.connect(urlmon, {
   useNewUrlParser: true,
@@ -22,7 +23,6 @@ const bienvenida = require("./models/bienvenida.js");
 const meow = require('random-meow')
 const { MessageButton } = require("discord-buttons");
 const Schema_Prefix = require("./models/prefix.js")
-var urlmon = 'mongodb+srv://admin:1234@principal.vpbcj.mongodb.net/myFirstDatabase'
 const { DiscordTogether } = require('discord-together');
 
 client.discordTogether = new DiscordTogether(client);
