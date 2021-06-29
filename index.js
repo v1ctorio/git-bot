@@ -341,23 +341,60 @@ message.reply("Emoji invalido")
 
     }
   }
-  if (command === 'meme') {
 
-    var meme = config.memes
-    var numerodememes = meme.length
-    var numeroestes = getRandomInt(0, numerodememes)
-    var memeembed = new Discord.MessageEmbed()
-      .setColor(0x66b3ff)
-      .setTitle(meme[numeroestes].nombre + ' | #' + numeroestes)
-      .setImage(meme[numeroestes].url)
-
-    message.channel.send(memeembed)
-  }
 
   //auditoria
   if (command === 'info' || command === 'botinfo' || command === 'help') {
-    info = { "title": "Informaci\u00f3n", "description": "soy un bot creado por ビクトリア#5994 con comandos de entretenimiento y moderaci\u00f3n", "color": 5814783, "fields": [{ "name": "Comandos", "value": " \n  Estos son mis comandos:\n    **&help** - todos los comandos (lo estas viendo)\n    **&sum <num1> <num2>** - Suma 2 numeros \n **&credits** - creditos \n  **&random** - genera un numero aleatorio en el rango que tu elijas \n  **&yt** - manda una invitacion para youtube en discord \n **chess** manda una invitacion para ajedrez en discord \n    **&invite** - manda el link para invitarme a tu servidor\n    **&kick** - expulsa a un usuario (necesita permisos de administrador)\n    **&ban** - banea a un usuario (necesita permisos de administrador)\n    **&server** - proporciona informacion del servidor\n    **&uptime** - tiempo que el bot esta online\n    **&tweet** - simula un tweet \n    **&pp** - mira tu foto de perfil o la de alguien \n    **&magik** - transforma la foto de perfil con el efecto magik \n    **&phcomment** - simula un comentario en ph \n **&setconfession** - establece el canal de confesiones \n **&confess** - haz una confesion anonimamente \n **&cat** - busca una imagen de un gato \n &fumo - busca una imagen de un fumo" }, { "name": "Servidor", "value": "Unete al servidor oficial del bot aqui [discord.gg\/P5438xBR94](https:\/\/discord.gg\/P5438xBR94)" }], "author": { "name": "Pancho del rancho", "url": "https:\/\/bit.ly\/panchodelrancho", "icon_url": "https:\/\/images-ext-2.discordapp.net\/external\/LFiST9waRyxge-xibE8gsIVb6BwQLhGnRDFPpE7HrTE\/%3Fsize%3D2048\/https\/cdn.discordapp.com\/avatars\/776106257597333515\/2a357a609135bd1372f94367c728b564.webp?width=427&height=427" }, "footer": { "text": "le\u00edste esto, tabien." }, "timestamp": new Date() }
-
+    const comandos1 = ` \n  Estos son mis comandos:
+**&help** - todos los comandos (lo estas viendo)
+**&sum <num1> <num2>** - Suma 2 numeros
+**&credits** - creditos
+**&random** - genera un numero aleatorio en el rango que tu elijas
+**&yt** - manda una invitacion para youtube en discord
+**chess** manda una invitacion para ajedrez en discord
+**&invite** - manda el link para invitarme a tu servidor
+**&kick** - expulsa a un usuario (necesita permisos de administrador)
+**&ban** - banea a un usuario (necesita permisos de administrador)
+**&server** - proporciona informacion del servidor
+`
+    const comandos2 = `**&uptime** - tiempo que el bot esta online
+**&tweet** - simula un tweet
+**&pp** - mira tu foto de perfil o la de alguien
+**&magik** - transforma la foto de perfil con el efecto magik
+**&phcomment** - simula un comentario en ph
+**&setconfession** - establece el canal de confesiones
+**&confess** - haz una confesion anonimamente
+**&cat** - busca una imagen de un gato
+ &fumo - busca una imagen de un fumo`
+    
+    info = {
+      "title": "Informaci\u00f3n",
+      "description": "soy un bot creado por ビクトリア#5994 con comandos de entretenimiento y moderaci\u00f3n",
+      "color": 5814783,
+      "fields": [
+        {
+          "name": "Comandos",
+          "value": comandos1
+        },
+        {
+          "name": "‎      ‏‏‎",
+          "value": comandos2
+        },
+        {
+          "name": "Servidor",
+          "value": "Unete al servidor oficial del bot aqui [discord.gg\/P5438xBR94](https:\/\/discord.gg\/P5438xBR94)"
+        }
+      ],
+      "author": {
+        "name": "Pancho del rancho",
+        "url": "https:\/\/bit.ly\/panchodelrancho",
+        "icon_url": "https:\/\/images-ext-2.discordapp.net\/external\/LFiST9waRyxge-xibE8gsIVb6BwQLhGnRDFPpE7HrTE\/%3Fsize%3D2048\/https\/cdn.discordapp.com\/avatars\/776106257597333515\/2a357a609135bd1372f94367c728b564.webp?width=427&height=427"
+      },
+      "footer": {
+        "text": "le\u00edste esto, tabien."
+      },
+      "timestamp": new Date()
+    }
     var infoembed = new Discord.MessageEmbed(info)
     message.author.send(infoembed)
     message.react('✅')
