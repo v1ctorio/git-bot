@@ -14,7 +14,8 @@ const bienvenida = require("./models/bienvenida.js");
 const meow = require('random-meow')
 const fumo = require('fumo-api');
 const { MessageButton } = require("discord-buttons");
-var urlmon = 'mongodb+srv://admin:1234@principal.vpbcj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority&authSource=admin'
+const Schema_Prefix = require("./models/prefix.js")
+var urlmon = 'mongodb+srv://admin:1234@principal.vpbcj.mongodb.net/myFirstDatabase'
 const { DiscordTogether } = require('discord-together');
 
 client.discordTogether = new DiscordTogether(client);
@@ -32,14 +33,15 @@ var opciones = {
 }
 
 
-mongoose
-  .connect(urlmon, opciones)
-  .then(() => console.log("Conectado a la db"))
-  .catch(err => console.log(err));
+mongoose.connect(urlmon, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true 
+  }, () => {
+    console.log("Conectado a la base de datos")
+  })
 
 
 var version = "2.3.2";
-
 
 if (0.1 + 0.2 === 0.3) {
   console.log("De alguna forma 0.1+0.2 es 0.3 xdn't")
@@ -67,7 +69,9 @@ client.on('ready', async () => {
 
 //empiezan comandos
 client.on("message", async function (message) {
-  var prefix = '&'
+  const modelo = await Schema_Prefix.findOne({ id: message.guild.id })
+
+  const prefix = modelo ? modelo.prefix : '&'
 
   if (!message.guild.me.hasPermission('SEND_MESSAGES')) return
   if (message.author.bot) return;
@@ -113,7 +117,17 @@ client.on("message", async function (message) {
       })
     })
   }
-  
+  if (command === "setprefix") {
+    const new_prefix = args[0] 
+    if (!new_prefix) return message.channel.send("Escribe un prefix nuevo ")
+    let modelo = await Schema_Prefix.findOne({ id: message.guild.id })
+    if (!modelo) modelo = new Schema_Prefix({ id: message.guild.id, prefix: new_prefix })
+    modelo.prefix = new_prefix
+    await modelo.save()
+    message.channel.send("El nuevo prefix se estableció en " + new_prefix)
+    
+
+  }
   if (command === "yt" || command === "youtube") {
     var canalvc = message.member.voice.channel
     if (!canalvc) return message.channel.send("Unete a un canal de voz para utilizar este comando")
