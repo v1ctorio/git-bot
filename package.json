@@ -34,7 +34,6 @@
         "discord-together": "^1.1.14",
         "discord.js": "^12.5.3",
         "fumo-api": "^2.0.5",
-        "general-search-engine": "^1.4.0",
         "moment": "^2.29.1",
         "moment-duration-format": "^2.3.2",
         "mongodb": "^3.6.9",

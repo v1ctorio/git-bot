@@ -21,7 +21,6 @@ const client = new Discord.Client({
 const disbut = require('discord-buttons')(client);
 const bienvenida = require("./models/bienvenida.js");
 const meow = require('random-meow')
-const fumo = require('fumo-api');
 const { MessageButton } = require("discord-buttons");
 const Schema_Prefix = require("./models/prefix.js")
 var urlmon = 'mongodb+srv://admin:1234@principal.vpbcj.mongodb.net/myFirstDatabase'
@@ -188,7 +187,7 @@ message.reply("Emoji invalido")
 
   
 
-  if (command === 'fumo') {
+  /*if (command === 'fumo') {
     message.channel.send('buscando fumos...').then((m) => {
 
       fumo().then((fumo) => {
@@ -196,7 +195,7 @@ message.reply("Emoji invalido")
       })
     })
   }
-
+*/
   //nose
 
 
