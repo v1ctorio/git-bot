@@ -58,6 +58,7 @@ client.on('ready', async () => {
 
 //empiezan comandos
 client.on("message", async function (message) {
+  if (!message.guild) return 
   const modelo = await Schema_Prefix.findOne({ id: message.guild.id })
 
   const prefix = modelo ? modelo.prefix : '&'
