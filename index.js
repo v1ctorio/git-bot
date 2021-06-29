@@ -1,6 +1,7 @@
 const mongoose = require("mongoose"); // Mongoose es lo más utilizado a la hora de usar una base de datos de MongoDB y también es el mejor para esto.
+const urlmon = 'mongodb+srv://admin:1234@principal.vpbcj.mongodb.net/myFirstDatabase'
 
-mongoose.connect(urlmon, {
+mongoose.connect("mongodb+srv://admin:1234@principal.vpbcj.mongodb.net/myFirstDatabase", {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
@@ -9,22 +10,16 @@ db.on("error", error => console.error(error))
 db.on("open", _ => console.log("Conectado a la db"))
 
 const Discord = require("discord.js");
-const Schema = require('./models/bienvenida.js')
-const config = require('config.json')('./config.json')
-const ModelConfess = require('./models/setconfession.js')
-const gse = require('general-search-engine')
 
 
 const client = new Discord.Client({
   ws: { intents: Discord.Intents.ALL }
 })
 const disbut = require('discord-buttons')(client);
-const bienvenida = require("./models/bienvenida.js");
 const meow = require('random-meow')
 const fumo = require('fumo-api');
 const { MessageButton } = require("discord-buttons");
 const Schema_Prefix = require("./models/prefix.js")
-var urlmon = 'mongodb+srv://admin:1234@principal.vpbcj.mongodb.net/myFirstDatabase'
 const { DiscordTogether } = require('discord-together');
 
 client.discordTogether = new DiscordTogether(client);
@@ -52,7 +47,7 @@ client.on('ready', async () => {
   console.log(client.user)
   client.channels.cache.get('835470740618346546').send(`hola, ha terminado mi reinicio.`)
   var channel = client.channels.cache.get("835526023176912926");
-  
+
 
 
 
@@ -93,13 +88,13 @@ client.on("message", async function (message) {
     if (isNaN(args[0])) return message.channel.send("Debes poner dos numeros para conseguir uno aleatorio en ese rango \n Ejemplo: `&random 1 8`")
     if (isNaN(args[1])) return message.channel.send("Debes poner dos numeros para conseguir uno aleatorio en ese rango \n Ejemplo: `&random 1 8`")
     if (args[0] > 1000) return message.channel.send("Los numeros elejidos son muy grandes, usa numeros menores a `1000`")
-    if (args[1] > 1000)  return message.channel.send("Los numeros elejidos son muy grandes, usa numeros menores a `1000`")
+    if (args[1] > 1000) return message.channel.send("Los numeros elejidos son muy grandes, usa numeros menores a `1000`")
     if (args[0] < 0) return message.channel.send("Usa numeros positivos")
     if (args[1] < 0) return message.channel.send("Usa numeros positivos")
-    
+
 
     message.channel.send(`El numero elejido es ||${getRandomInt(args[0], args[1])}||`)
-  } 
+  }
   if (command === 'cat') {
     message.channel.send('buscando gatos...').then((m) => {
 
@@ -109,14 +104,14 @@ client.on("message", async function (message) {
     })
   }
   if (command === "setprefix") {
-    const new_prefix = args[0] 
+    const new_prefix = args[0]
     if (!new_prefix) return message.channel.send("Escribe un prefix nuevo ")
     let modelo = await Schema_Prefix.findOne({ id: message.guild.id })
     if (!modelo) modelo = new Schema_Prefix({ id: message.guild.id, prefix: new_prefix })
     modelo.prefix = new_prefix
     await modelo.save()
     message.channel.send("El nuevo prefix se estableció en " + new_prefix)
-    
+
 
   }
   if (command === "yt" || command === "youtube") {
@@ -125,9 +120,9 @@ client.on("message", async function (message) {
     if (!message.guild.me.permissions.has("CREATE_INSTANT_INVITE")) return message.channel.send("necesito mas permisos")
     client.discordTogether.createTogetherCode(message.member.voice.channelID, 'youtube').then(async invite => {
       const einvite = new Discord.MessageEmbed()
-        .setTitle("Youtube")  
+        .setTitle("Youtube")
         .setDescription(`[Pulsa aqui para entrar a youtube](${invite.code})`)
-      .setFooter("Pedido por "+message.author.tag)
+        .setFooter("Pedido por " + message.author.tag)
       return message.channel.send(einvite);
     });
   }
@@ -150,24 +145,24 @@ client.on("message", async function (message) {
       message.channel.send(`https://cdn.discordapp.com/emojis/${emoji.id}.png`)
 
     } catch (eeeee) {
-message.reply("Emoji invalido")
+      message.reply("Emoji invalido")
     }
-}
+  }
   if (command === 'urlnoses') {
     message.delete()
     message.channel.send('https://nosesisaid.github.io\n https://github.com/Nosesisaid')
   }
 
   if (command === 'setnick') {
-  
+
     try {
-    
-  
+
+
       if (!message.guild.me.permissions.has('MANAGE_NICKNAMES')) return message.channel.send('no tengo los permisos necesarios')
       if (!message.member.hasPermission('MANAGE_NICKNAMES') && (message.author.id !== '688476559019212805')) return message.channel.send('No tienes permisos para usar este comando')
       var elusuario = message.mentions.members.first()
       if (!elusuario) return message.channel.send('no dijiste a quien le quieres cambiar el apodo')
-      
+
       if (!args[1]) return message.channel.send('No escribiste el nuevo apodo')
       message.delete()
       elusuario.setNickname(args.slice(1).join(' '), `Nickname cambiado a ${message.author.tag}`).then(() => {
@@ -177,16 +172,16 @@ message.reply("Emoji invalido")
     } catch (erroreste) {
       message.channel.send('No pude cambiar el nick')
     }
-}
-  
-  
+  }
+
+
   if (command === "reset") {
     if (message.author.id !== "688476559019212805") return
     message.reply("Resetting...");
     process.exit()
   }
 
-  
+
 
   if (command === 'fumo') {
     message.channel.send('buscando fumos...').then((m) => {
@@ -305,43 +300,11 @@ message.reply("Emoji invalido")
   }
   if (command === 'join') {
     client.emit('guildMemberAdd', message.member);
-}
-
-
-
-
-  if (command === 'setwelcome') {
-
-    let Canal = message.guild.channels.cache.find(canal => canal.id == args[0]) || message.mentions.channels.first();
-    let Bienvenida = await Schema.findOne({ Guild: message.guild.id }).exec();
-
-
-    if (!Canal) return message.channel.send('Menciona o ingresa la ID de un canal donde irán las bienvenidas');
-
-    if (!message.member.hasPermission('MANAGE_GUILD')) return message.channel.send('Permisos insuficientes\nPermisos necesarios: `Gestionar Servidor`');
-
-    if (Canal.type !== 'text') return message.channel.send('debe de ser un canal de texto')
-    if (Canal.guild.id !== message.channel.guild.id) return message.channel.send('debe ser un canal en este servidor')
-    if (Bienvenida) {
-
-      await Bienvenida.updateOne({ Guild: message.guild.id, Channel: Canal.id });
-
-
-      message.channel.send(new Discord.MessageEmbed()
-        .setDescription(`El canal de bienvenidas ahora es ` + Canal.toString())
-        .setColor('RANDOM')
-      );
-
-    } else {
-      await new Schema({ Guild: message.guild.id, Channel: Canal.id }).save();
-
-
-      message.channel.send(new Discord.MessageEmbed()
-        .setDescription(`El canal de bienvenidas es ` + Canal.toString())
-      );
-
-    }
   }
+
+
+
+
   if (command === 'meme') {
 
     var meme = config.memes
@@ -399,12 +362,12 @@ message.reply("Emoji invalido")
 
       if (typeof evaled !== "string")
         evaled = require("util").inspect(evaled);
-      
-      message.channel.send(clean(evaled), { code: "xl" }).catch((sopa)=>console.log(sopa))
+
+      message.channel.send(clean(evaled), { code: "xl" }).catch((sopa) => console.log(sopa))
     } catch (err) {
       message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
     }
-}
+  }
   if (command === 'pp' || command === 'avatar') {
     let miembro = message.mentions.users.first()
     if (!miembro) {
@@ -450,7 +413,7 @@ message.reply("Emoji invalido")
 
     var urltweet = `https://nekobot.xyz/api/imagegen?type=tweet&username=${autor.username}&text=${txt}&raw=1`
     let autor = message.author; //Definiremos autor
-    
+
     let attachment = new Discord.MessageAttachment(urltweet, 'logo.png')
 
     //Creamos el attachment reemplazando los valores por el nombre del autor y los argumentos por el texto
@@ -468,46 +431,20 @@ message.reply("Emoji invalido")
 
     var txt = args.join('%20');  //Argumentos
     if (text.length > 40) return message.channel.send('el texto que pusiste es muy largo')
-    if (!txt) return message.channel.send("Olvidaste colocar los argumentos xdn't") 
+    if (!txt) return message.channel.send("Olvidaste colocar los argumentos xdn't")
 
-    let autor = message.author 
+    let autor = message.author
 
 
     let attachment = new Discord.MessageAttachment(`https://nekobot.xyz/api/imagegen?type=phcomment&image=${message.author.displayAvatarURL()}&text=${txt}&username=${autor.username}&raw=1`, 'logo.png') //Pedimos la imagen
 
 
 
-    message.channel.send(attachment)    
+    message.channel.send(attachment)
 
   }
 
-  if (command === 'setconfession') {
 
-    if (!message.member.hasPermission('MANAGE_GUILD')) {//Si el usuario no tiene permisos retorna.
-      return message.channel.send('❌**|** No tienes permisos suficientes para ejecutar este comando.')
-    }
-    let channel = message.mentions.channels.first()
-    if (!channel) {//Si no menciona ningun canal, retorna.
-      return message.channel.send('❌**|** Debes mencionar un canal del servidor.')
-    }
-    if (channel.type !== 'text') return message.channel.send('❌**|** No puedes establecer un canal de voz como canal de confesiones ')
-    if (!channel.guild.id === message.channel.guild.id) return message.channel.send('❌**|** El canal debe de estar en este servidor')
-    let establecer = await ModelConfess.findOne({ guildID: message.guild.id }).exec()//Busca si ya hay algo establecido.
-    if (establecer) {
-      await establecer.updateOne({ guildID: message.guild.id, channelID: channel.id }) //Busca si ya hay algun canal guardado.
-      message.channel.send('🛑**|** El Canal de confesiones es <#' + channel.id + '>.')//Retorna el mensaje.
-    } else {
-      let establecido = new ModelConfess({ guildID: message.guild.id, channelID: channel.id })//Colocamos los nuevos datos.
-      await establecido.save()//Guardamos los nuevos datos.
-      message.channel.send('🛑**|** El Canal de confesiones es <#' + channel.id + '>.')//Retorna el mensaje.
-    }
-    let ewe = await ModelConfess.findOne({ guildID: message.guild.id })//Averigua si ya hay algo guardado en el servidor.
-    if (!ewe) {
-      return message.channel.send('❌**|** No hay ningun canal configurado.')//Si no hay canal, retorna.
-    }
-    let channel2 = message.guild.channels.cache.get(ewe.channelID)//Busca el canal de confesiones.
-    channel2.send("🛑**|** Este es el nuevo canal de confesiones.")//Retorna mandando un mensaje al canal.
-  }
 
   if (command === "confess") {
 
@@ -527,34 +464,12 @@ message.reply("Emoji invalido")
       }
       xdcanal.send({ embed: anonimoxd })
       message.delete()
-    return 0
-      
-    }
-    
+      return 0
 
-    let canal = await ModelConfess.findOne({ guildID: message.guild.id })//Busca si ya hay algun canal establecido en el servidor.
-    if (!canal) return message.channel.send("❌**|** El canal de confesiones no fue definido en este servidor.") //Retorna si no hay.
-    let confesar = args.join(" ")//Argumentos para realizar la confesión.
-    if (!confesar) return message.channel.send("❌**|** No has argumentando tu confesión.")//Si no hay, retorna.
-    let confesar2 = confesar.length > 10 //Opcional.
-    if (!confesar2) return message.channel.send("❌**|** Tu confesión necesita minimo `10` letras.")//Si en los argumentos el texto no supera las 10 letras retorna el mensaje.
-    message.delete({ timeout: 0 })//Borra el mensaje con los argumentos.
-    let filtro = message.guild.channels.cache.get(canal.channelID)//Busca el canal con la id de la db.
-
-    const anonimo = {
-      color: "#f7ffa0",
-      author: {
-        name: "Confesión anonima",
-        icon_url: "https://cdn.discordapp.com/attachments/763585345207795752/779440547403268156/incognito.png",
-      },
-      description: confesar,
-      timestamp: new Date(),
-      footer: {
-        text: "Confesiones",
-      }
     }
-    filtro.send({ embed: anonimo })
-    
+
+
+
   }
   if (command === 'ship') {
 
@@ -653,12 +568,12 @@ message.reply("Emoji invalido")
   }
 
   if (command === 'purge') {
-    if (!message.guild.me.permissions.has('MANAGE_MESSAGES')) return 
+    if (!message.guild.me.permissions.has('MANAGE_MESSAGES')) return
     let deletees = args[0]
     var deletee = parseInt(deletees) + 1
     if (!deletee) return 0
     if (deletee > 50) return message.channel.send('no puedes borrar mas de 50 mensajes')
-    if (!message.member.hasPermission('MANAGE_MESSAGES') && (message.author.id !== '688476559019212805' )) return message.channel.send('necesitas los permisos de amdinistrar mensajes')
+    if (!message.member.hasPermission('MANAGE_MESSAGES') && (message.author.id !== '688476559019212805')) return message.channel.send('necesitas los permisos de amdinistrar mensajes')
     message.channel.bulkDelete(deletee).then(() => {
       message.channel.send(`Borré ${deletee} mensajes.`).then((msg) => {
         setTimeout(() => {
@@ -667,8 +582,8 @@ message.reply("Emoji invalido")
       });
     });
 
-    
-}
+
+  }
 
   if (command === 'lock') {
     var permisosLock = message.member.hasPermission('MANAGE_GUILD'); //creamos una variable de permisos
@@ -703,7 +618,7 @@ message.reply("Emoji invalido")
       var punto = '.'.repeat(index)
       for (let index = 0; index < 20; index++) {
         m.edit(`[${punto}]`)
-        
+
       }
     })
   }
@@ -758,10 +673,10 @@ incluye razón para los registros de auditoría-log
     user.kick(razon);
     message.channel.send(`**${user.username}**, fue expulsado del servidor, razón: ${razon}.`);
 
-    
+
   }
 
-    
+
   if (command === "uptime") {
     let totalSeconds = (client.uptime / 1000);
     let days = Math.floor(totalSeconds / 86400);
@@ -800,7 +715,7 @@ incluye razón para los registros de auditoría-log
     if (!razon) {
       razon = 'Razon no especificada'
     }
-  
+
     razon += `, Baneado por ${message.author.tag}`
 
     message.guild.members.ban(persona, {
@@ -811,8 +726,8 @@ incluye razón para los registros de auditoría-log
         message.channel.send(`Listo, banee a **${persona.user.tag}**`)
       })
 
-    
-    
+
+
   }
   // invitcaion de bot https://discord.com/oauth2/authorize?client_id=%20776106257597333515&scope=bot&permissions=8
 
@@ -820,16 +735,16 @@ incluye razón para los registros de auditoría-log
 client.on('message', async message => {
   if (message.author.bot || message.channel === '782048910898233355') return;
   if (message.guild.me.hasPermission('SEND_MESSAGES')) return
-  
+
   else
 
     if (messsage.mentions.member.first.id === client.user.id) {
-  message.channel.send('Hola, mi prefix es '+prefix)
-}
-
-    if (message.content === `prefix`) {
-      message.reply(`el prefix es &`)
+      message.channel.send('Hola, mi prefix es ' + prefix)
     }
+
+  if (message.content === `prefix`) {
+    message.reply(`el prefix es &`)
+  }
   //`💎Server Booster💎  * se vería al booster entrando épicamente al chat *
   if (message.content === `:c`) {
     message.channel.send(`${message.author.username} esta triste:c `)
@@ -870,19 +785,12 @@ client.on('message', async message => {
 
 client.on('guildMemberAdd', async function (member) {
   const canalgu = client.channels.cache.get("756628041693921381");
-      let mimebrogu = member.user
+  let mimebrogu = member.user
 
 
 
   if (member.guild.id === '756292333019856977') return canalgu.send(`❤️  ${member.toString()} ¡¡¡Bienvenid@ al servidor más Glitcheado de todo Discord!!! ¡Ya somos ${member.guild.memberCount} miembros!`)
-  
-  let servidor = await member.guild
-  let Bienvenida = await Schema.findOne({ Guild: member.guild.id });
-  if (!Bienvenida) return; // Si no hay nada retorna
-  let Channel = member.guild.channels.cache.get(Bienvenida.Channel)
-  if (!Channel) return; // Si no hay nada retorna
 
-  Channel.send(`hey <@${member.user.id}> bienvenid@ a ${member.guild.name}`);
 
 
 
@@ -924,4 +832,4 @@ client.on('messageReactionAdd', async (reaction, user) => {
 )
 
 //terminan los comandos
-client.login(config.BOT_TOKEN)
+client.login('Nzc2MTA2MjU3NTk3MzMzNTE1.X6wDRw.XAIYYd0yUo678SExjcMffYVKMIc')
