@@ -1,6 +1,6 @@
 const mongoose = require("mongoose"); // Mongoose es lo más utilizado a la hora de usar una base de datos de MongoDB y también es el mejor para esto.
 const urlmon = 'mongodb+srv://admin:1234@principal.vpbcj.mongodb.net/myFirstDatabase'
-
+/*
 mongoose.connect("mongodb+srv://admin:1234@principal.vpbcj.mongodb.net/myFirstDatabase", {
   useNewUrlParser: true,
   useUnifiedTopology: true
@@ -8,7 +8,7 @@ mongoose.connect("mongodb+srv://admin:1234@principal.vpbcj.mongodb.net/myFirstDa
 const db = mongoose.connection
 db.on("error", error => console.log(error))
 db.on("open", _ => console.log("Conectado a la db"))
-
+*/
 const Discord = require("discord.js");
 
 
@@ -57,8 +57,8 @@ client.on('ready', async () => {
 client.on("message", async function (message) {
   const modelo = await Schema_Prefix.findOne({ id: message.guild.id })
 
-  const prefix = modelo ? modelo.prefix : '&'
-
+  //const prefix = modelo ? modelo.prefix : '&'
+const prefix = "&"
   if (!message.guild.me.hasPermission('SEND_MESSAGES')) return
   if (message.author.bot) return;
   if (!message.content.startsWith(prefix)) return;
