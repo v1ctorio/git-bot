@@ -12,7 +12,6 @@ const Discord = require("discord.js");
 const Schema = require('./models/bienvenida.js')
 const config = require('config.json')('./config.json')
 const ModelConfess = require('./models/setconfession.js')
-const gse = require('general-search-engine')
 
 
 const client = new Discord.Client({
