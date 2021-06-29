@@ -4,7 +4,7 @@ const urlmon = 'mongodb+srv://admin:1234@principal.vpbcj.mongodb.net/myFirstData
 mongoose.connect("mongodb+srv://admin:1234@principal.vpbcj.mongodb.net/myFirstDatabase", {
   useNewUrlParser: true,
   useUnifiedTopology: true
-})
+}).catch((E)=>console.log(E))
 const db = mongoose.connection
 db.on("error", error => console.error(error))
 db.on("open", _ => console.log("Conectado a la db"))
