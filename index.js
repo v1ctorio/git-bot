@@ -6,7 +6,7 @@ mongoose.connect("mongodb+srv://admin:1234@principal.vpbcj.mongodb.net/myFirstDa
   useUnifiedTopology: true
 }).catch((E)=>console.log(E))
 const db = mongoose.connection
-db.on("error", error => console.error(error))
+db.on("error", error => console.log(error))
 db.on("open", _ => console.log("Conectado a la db"))
 
 const Discord = require("discord.js");
