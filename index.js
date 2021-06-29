@@ -1,3 +1,13 @@
+const mongoose = require("mongoose"); // Mongoose es lo más utilizado a la hora de usar una base de datos de MongoDB y también es el mejor para esto.
+
+mongoose.connect(urlmon, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+const db = mongoose.connection
+db.on("error", error => console.error(error))
+db.on("open", _ => console.log("Conectado a la db"))
+
 const Discord = require("discord.js");
 const Schema = require('./models/bienvenida.js')
 const config = require('config.json')('./config.json')
@@ -9,7 +19,6 @@ const client = new Discord.Client({
   ws: { intents: Discord.Intents.ALL }
 })
 const disbut = require('discord-buttons')(client);
-const mongoose = require("mongoose"); // Mongoose es lo más utilizado a la hora de usar una base de datos de MongoDB y también es el mejor para esto.
 const bienvenida = require("./models/bienvenida.js");
 const meow = require('random-meow')
 const fumo = require('fumo-api');
@@ -20,25 +29,7 @@ const { DiscordTogether } = require('discord-together');
 
 client.discordTogether = new DiscordTogether(client);
 
-//fin de la cosa esta 
-/**
- * @param {String} reply poner message.reply('juan', { mention: false })
- */
 
-// Conectamos la base:
-var opciones = {
-
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-}
-
-
-mongoose.connect(urlmon, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true 
-  }, () => {
-    console.log("Conectado a la base de datos")
-  })
 
 
 var version = "2.3.2";
