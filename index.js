@@ -65,6 +65,9 @@ client.on("message", async function (message) {
 
   if (!message.guild.me.hasPermission('SEND_MESSAGES')) return
   if (message.author.bot) return;
+  if (message.mentions.users.first().id === '776106257597333515') {
+    message.reply(`el prefix es ${prefix}`)
+  }
   if (!message.content.startsWith(prefix)) return;
   var commandBody = message.content.slice(prefix.length);
   var args = commandBody.split(' ');
@@ -109,7 +112,8 @@ client.on("message", async function (message) {
   }
   if (command === "setprefix") {
     if (!message.member.hasPermission("MANAGE_GUILD")) return message.reply("No tienes los permisos necesarios para cambiar el prefix")
-    const new_prefix = args[0] 
+    const new_prefix = args[0]
+    if (new_prefix.length > 4) return message.reply("El prefix debe de tener menos de 4 caracteres ")
     if (!new_prefix) return message.channel.send("Escribe un prefix nuevo ")
     let modelo = await Schema_Prefix.findOne({ id: message.guild.id })
     if (!modelo) modelo = new Schema_Prefix({ id: message.guild.id, prefix: new_prefix })
@@ -863,9 +867,7 @@ client.on('message', async message => {
   message.channel.send('Hola, mi prefix es '+prefix)
 }
 
-    if (message.content === `prefix`) {
-      message.reply(`el prefix es &`)
-    }
+
   //`💎Server Booster💎  * se vería al booster entrando épicamente al chat *
   if (message.content === `:c`) {
     message.channel.send(`${message.author.username} esta triste:c `)
