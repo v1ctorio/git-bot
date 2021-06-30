@@ -126,6 +126,8 @@ client.on("message", async function (message) {
   if (command === "yt" || command === "youtube") {
     var canalvc = message.member.voice.channel
     if (!canalvc) return message.channel.send("Unete a un canal de voz para utilizar este comando")
+    if(!message.member.hasPermission("SPEAK")) return message.reply("Necesitas mas permisos ")
+    if(!message.member.hasPermission("CREATE_INSTANT_INVITE")) return message.reply("Necesitas mas permisos ")
     if (!message.guild.me.permissions.has("CREATE_INSTANT_INVITE")) return message.channel.send("necesito mas permisos")
     client.discordTogether.createTogetherCode(message.member.voice.channelID, 'youtube').then(async invite => {
       const einvite = new Discord.MessageEmbed()
