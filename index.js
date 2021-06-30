@@ -65,9 +65,7 @@ client.on("message", async function (message) {
 
   if (!message.guild.me.hasPermission('SEND_MESSAGES')) return
   if (message.author.bot) return;
-  if (message.mentions.users.first().id === '776106257597333515') {
-    message.reply(`el prefix es ${prefix}`)
-  }
+
   if (!message.content.startsWith(prefix)) return;
   var commandBody = message.content.slice(prefix.length);
   var args = commandBody.split(' ');
