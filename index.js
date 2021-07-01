@@ -317,6 +317,8 @@ message.reply("Emoji invalido")
   if (command === 'setwelcome') {
 
     let Canal = message.guild.channels.cache.find(canal => canal.id == args[0]) || message.mentions.channels.first();
+    if (!Canal.isText()) return message.channel.send("Debes elejir un canal de texto")
+
     let Bienvenida = await Schema.findOne({ Guild: message.guild.id }).exec();
 
 
@@ -424,6 +426,7 @@ message.reply("Emoji invalido")
       .addField('Web', '[nosesisaid.github.io](https://nosesisaid.github.io)')
     message.channel.send(nosesisaidembed)
   }
+
   if (command === 'eval') {
     function clean(text) {
       if (typeof (text) === "string")
@@ -440,9 +443,9 @@ message.reply("Emoji invalido")
       if (typeof evaled !== "string")
         evaled = require("util").inspect(evaled);
       
-      message.channel.send(clean(evaled), { code: "xl" }).catch((sopa)=>console.log(sopa))
+      message.channel.send(clean(evaled), { code: "xl", split: true }).catch((sopa)=>console.log(sopa))
     } catch (err) {
-      message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
+      message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``, { split: true});
     }
 }
   if (command === 'pp' || command === 'avatar') {
@@ -522,11 +525,13 @@ message.reply("Emoji invalido")
   }
 
   if (command === 'setconfession') {
+    
 
     if (!message.member.hasPermission('MANAGE_GUILD')) {//Si el usuario no tiene permisos retorna.
       return message.channel.send('❌**|** No tienes permisos suficientes para ejecutar este comando.')
     }
     let channel = message.mentions.channels.first()
+  if (!channel.isText()) return message.channel.send("Debes elejir un canal de texto")
     if (!channel) {//Si no menciona ningun canal, retorna.
       return message.channel.send('❌**|** Debes mencionar un canal del servidor.')
     }
