@@ -70,11 +70,19 @@ client.on("message", async function (message) {
   var commandBody = message.content.slice(prefix.length);
   var args = commandBody.split(' ');
   const command = args.shift().toLowerCase();
+  if (command === "banner") {
+    if (!message.guild.banner) return message.channel.send("Este servidor no tiene banner")
+    const bannere = new Discord.MessageEmbed()
+      .setTitle("Banner de " + message.guild.name)
+      .setFooter("Pedido por " + message.author.tag)
+      .setImage(message.guild.bannerURL())
+    message.channel.send(bannere)
+  }
   if (command === "icon") {
     const icone = new Discord.MessageEmbed()
       .setTitle("Icono de " + message.guild.name)
       .setFooter("Pedido por " + message.author.tag)
-      .setImage(message.guild.iconURL())
+      .setImage(message.guild.iconURL({ dynamic: true }))
     message.channel.send(icone)
   }
 
@@ -362,26 +370,27 @@ message.reply("Emoji invalido")
   //auditoria
   if (command === 'info' || command === 'botinfo' || command === 'help') {
     const comandos1 = ` \n  Estos son mis comandos:
-**&help** - todos los comandos (lo estas viendo)
-**&sum <num1> <num2>** - Suma 2 numeros
-**&credits** - creditos
-**&random** - genera un numero aleatorio en el rango que tu elijas
-**&yt** - manda una invitacion para youtube en discord
-**chess** manda una invitacion para ajedrez en discord
-**&invite** - manda el link para invitarme a tu servidor
-**&kick** - expulsa a un usuario (necesita permisos de administrador)
-**&ban** - banea a un usuario (necesita permisos de administrador)
-**&server** - proporciona informacion del servidor
+**${prefix}help** - todos los comandos (lo estas viendo)
+**${prefix}sum <num1> <num2>** - Suma 2 numeros
+**${prefix}credits** - creditos
+**${prefix}random** - genera un numero aleatorio en el rango que tu elijas
+**${prefix}yt** - manda una invitacion para youtube en discord
+**${prefix}chess** manda una invitacion para ajedrez en discord
+**${prefix}invite** - manda el link para invitarme a tu servidor
+**${prefix}kick** - expulsa a un usuario (necesita permisos de administrador)
+**${prefix}ban** - banea a un usuario (necesita permisos de administrador)
+**${prefix}server** - proporciona informacion del servidor
 `
     const comandos2 = `**&uptime** - tiempo que el bot esta online
-**&tweet** - simula un tweet
-**&pp** - mira tu foto de perfil o la de alguien
-**&phcomment** - simula un comentario en ph
-**&setconfession** - establece el canal de confesiones
-**&confess** - haz una confesion anonimamente
-**&cat** - busca una imagen de un gato
- **&setprefix** - establece un nuevo prefix en el servidor
- **&icon** - manda el icono del servidor`
+**${prefix}tweet** - simula un tweet
+**${prefix}pp** - mira tu foto de perfil o la de alguien
+**${prefix}phcomment** - simula un comentario en ph
+**${prefix}setconfession** - establece el canal de confesiones
+**${prefix}confess** - haz una confesion anonimamente
+**${prefix}cat** - busca una imagen de un gato
+ **${prefix}setprefix** - establece un nuevo prefix en el servidor
+ **${prefix}icon** - manda el icono del servidor
+ **${prefix}banner** - mandar el banner del servidor`
     
     info = {
       "title": "Informaci\u00f3n",
@@ -407,7 +416,7 @@ message.reply("Emoji invalido")
         "icon_url": "https:\/\/images-ext-2.discordapp.net\/external\/LFiST9waRyxge-xibE8gsIVb6BwQLhGnRDFPpE7HrTE\/%3Fsize%3D2048\/https\/cdn.discordapp.com\/avatars\/776106257597333515\/2a357a609135bd1372f94367c728b564.webp?width=427&height=427"
       },
       "footer": {
-        "text": "le\u00edste esto, tabien."
+        "text": `Ayuda cone el prefix ${prefix}, el default es \`&\`.`
       },
       "timestamp": new Date()
     }

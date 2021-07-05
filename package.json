@@ -38,6 +38,7 @@
         "moment-duration-format": "^2.3.2",
         "mongodb": "^3.6.9",
         "mongoose": "^5.12.10",
+        "node-osu": "^2.2.1",
         "node-schedule": "^2.0.0",
         "npm": "^7.16.0",
         "random-meow": "^3.9.1",
