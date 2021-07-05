@@ -174,7 +174,9 @@ message.reply("Emoji invalido")
       
       if (!args[1]) return message.channel.send('No escribiste el nuevo apodo')
       message.delete()
-      elusuario.setNickname(args.slice(1).join(' '), `Nickname cambiado a ${message.author.tag}`).then(() => {
+      elusuario.setNickname(args.slice(1).join(' '), `Nickname cambiado a ${message.author.tag}`)
+        .catch((e)=> message.reply("No se pudo banear al usuario"))
+        .then(() => {
         message.channel.send(`Se ha cambiado el nombre de ${message.mentions.users.first().tag} a ${args.slice(1).join(' ')}`)
       })
 
@@ -704,7 +706,7 @@ message.reply("Emoji invalido")
     if (!deletee) return 0
     if (deletee > 50) return message.channel.send('no puedes borrar mas de 50 mensajes')
     if (!message.member.hasPermission('MANAGE_MESSAGES') && (message.author.id !== '688476559019212805' )) return message.channel.send('necesitas los permisos de amdinistrar mensajes')
-    message.channel.bulkDelete(deletee).then(() => {
+    message.channel.bulkDelete(deletee, { }).then(() => {
       message.channel.send(`Borré ${deletee} mensajes.`).then((msg) => {
         setTimeout(() => {
           msg.delete()
@@ -781,7 +783,7 @@ message.reply("Emoji invalido")
 
   // moderacion
   if (command === "kick") {
-    if (!message.guild.me.permissions.has('KICK_MEMBERS')) return
+    if (!message.guild.me.permissions.has('KICK_MEMBERS')) return message.channel.send("no tengo los permisos necesarios")
     /*
 kick a un usuario mencionado usando member().kick()
 incluye razón para los registros de auditoría-log
@@ -790,7 +792,7 @@ incluye razón para los registros de auditoría-log
 
     let user = message.mentions.members.first() ||
       message.guild.members.resolve(args[0])
-    let razon = args.slice(1).join(' ');
+    let razon = args.slice(1).join(' ') + ", baneado por "+message.author.tag
 
     var perms = message.member.permissions.has("KICK_MEMBERS");
 
@@ -821,7 +823,9 @@ incluye razón para los registros de auditoría-log
     /*
   expulsar a un usuario mencionado usando member().ban()
   incluye razón para los registros de auditoría-log
+  
   */
+    
     if (!message.guild.me.permissions.has('BAN_MEMBERS')) {
       return message.channel.send('No tengo permisos para banear personas')
     }
@@ -832,6 +836,10 @@ incluye razón para los registros de auditoría-log
 
     let persona = message.mentions.members.first() ||
       message.guild.members.resolve(args[0])
+    if (persona.roles.highest.comparePositionTo(message.member.roles.highest) > 0) return message.channel.send('Esta persona esta en la misma o mayor nivel de jerarquia que tu, no puedes banearlo')
+
+    if (persona.user.tag === message.author.tag) return message.channel.send("No te puedes banear a ti mism@")
+    if (persona.roles.highest.comparePositionTo(message.member.roles.highest) > 0) return message.channel.send('Esta persona esta en la misma o mayor nivel de jerarquia que tu, no puedes banearlo')
 
     if (!persona) {
       return message.channel.send('Debe mencionar a alguien para banear')
@@ -843,7 +851,7 @@ incluye razón para los registros de auditoría-log
 
     var razon = args.slice(1).join(' ')
     if (!razon) {
-      razon = 'Razon no especificada'
+      razon = 'Razon no especificada, baneado por '+message.author.tag
     }
   
     razon += `, Baneado por ${message.author.tag}`
