@@ -803,7 +803,7 @@ if (!user) return message.channel.send("menciona a alguien")
     if (!user.kickable) return message.reply('No puedo expulsar al usuario mencionado.');
 
     user.kick(razon);
-    message.channel.send(`**${user.username}**, fue expulsado del servidor, razón: ${razon}.`);
+    message.channel.send(`**${user.user.tag}**, fue expulsado del servidor, razón: ${razon}.`);
 
     
   }
