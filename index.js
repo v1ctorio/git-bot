@@ -798,7 +798,7 @@ if (!user) return message.channel.send("menciona a alguien")
 
     if (!perms) return message.channel.send("`Error` `|` No tienes Permisos para usar este comando.");
     if (message.mentions.users.size < 1) return message.reply('Debe mencionar a alguien.').catch(console.error);
-    if (user.roles.highest.comparePositionTo(message.member.roles.highest) > 0) return message.channel.send('Esta persona esta en la misma o mayor nivel de jerarquia que tu, no puedes banearlo')
+    if (message.members.roles.highest.comparePositionTo(user.roles.highest) <= 0) return message.channel.send("No puedes banear a esta persona")
     if (!razon) return message.channel.send('Escriba una razón, `&kick @username [razón]`');
     if (!user.kickable) return message.reply('No puedo expulsar al usuario mencionado.');
 
@@ -836,10 +836,9 @@ if (!user) return message.channel.send("menciona a alguien")
 
     let persona = message.mentions.members.first() ||
       message.guild.members.resolve(args[0])
-    if (persona.roles.highest.comparePositionTo(message.member.roles.highest) > 0) return message.channel.send('Esta persona esta en la misma o mayor nivel de jerarquia que tu, no puedes banearlo')
+    if (message.members.roles.highest.comparePositionTo(persona.roles.highest) <= 0) return message.channel.send("No puedes banear a esta persona")
 
     if (persona.user.tag === message.author.tag) return message.channel.send("No te puedes banear a ti mism@")
-    if (persona.roles.highest.comparePositionTo(message.member.roles.highest) > 0) return message.channel.send('Esta persona esta en la misma o mayor nivel de jerarquia que tu, no puedes banearlo')
 
     if (!persona) {
       return message.channel.send('Debe mencionar a alguien para banear')
