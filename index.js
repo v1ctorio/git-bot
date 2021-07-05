@@ -70,6 +70,13 @@ client.on("message", async function (message) {
   var commandBody = message.content.slice(prefix.length);
   var args = commandBody.split(' ');
   const command = args.shift().toLowerCase();
+  if (command === "icon") {
+    const icone = new Discord.MessageEmbed()
+      .setTitle("Icono de " + message.guild.name)
+      .setFooter("Pedido por " + message.author.tag)
+      .setImage(message.guild.iconURL())
+    message.channel.send(icone)
+  }
 
   if (command === "ping") {
     var timeTaken = Date.now() - message.createdTimestamp;
@@ -373,7 +380,8 @@ message.reply("Emoji invalido")
 **&setconfession** - establece el canal de confesiones
 **&confess** - haz una confesion anonimamente
 **&cat** - busca una imagen de un gato
- **&setprefix** - establece un nuevo prefix en el servidor`
+ **&setprefix** - establece un nuevo prefix en el servidor
+ **&icon** - manda el icono del servidor`
     
     info = {
       "title": "Informaci\u00f3n",
