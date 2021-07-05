@@ -798,7 +798,7 @@ incluye razón para los registros de auditoría-log
 
     if (!perms) return message.channel.send("`Error` `|` No tienes Permisos para usar este comando.");
     if (message.mentions.users.size < 1) return message.reply('Debe mencionar a alguien.').catch(console.error);
-    if (persona.roles.highest.comparePositionTo(message.member.roles.highest) > 0) return message.channel.send('Esta persona esta en la misma o mayor nivel de jerarquia que tu, no puedes banearlo')
+    if (user.roles.highest.comparePositionTo(message.member.roles.highest) > 0) return message.channel.send('Esta persona esta en la misma o mayor nivel de jerarquia que tu, no puedes banearlo')
     if (!razon) return message.channel.send('Escriba una razón, `&kick @username [razón]`');
     if (!user.kickable) return message.reply('No puedo expulsar al usuario mencionado.');
 
