@@ -793,7 +793,7 @@ incluye razón para los registros de auditoría-log
     let user = message.mentions.members.first() ||
       message.guild.members.resolve(args[0])
     let razon = args.slice(1).join(' ') + ", baneado por "+message.author.tag
-
+if (!user) return message.channel.send("menciona a alguien")
     var perms = message.member.permissions.has("KICK_MEMBERS");
 
     if (!perms) return message.channel.send("`Error` `|` No tienes Permisos para usar este comando.");
