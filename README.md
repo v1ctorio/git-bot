@@ -1,9 +1,31 @@
-# git-bot
+
+-------------------------------------
+# Proyecto pausado
+
+
+
+------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## git-bot
 
 bot de discord desarrollado por Victorio#5994
 
 
-## Construido con 🛠️
+### Construido con 🛠️
 
 
 
@@ -11,7 +33,7 @@ bot de discord desarrollado por Victorio#5994
 * Visual studio code - editor de codigo
 * [mybot](https://portalmybot.com) guia
 
-## Autores ✒️
+### Autores ✒️
 
 
 

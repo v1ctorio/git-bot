@@ -93,12 +93,7 @@ const idiomamodelo = await Sidioma.findOne({ ServerID: message.guild.id })
   }
   //ping y pong
 
-  if (command === "sum") {
-    var numArgs = args.map(x => parseFloat(x));
-    var sum = numArgs.reduce((counter, x) => counter += x);
-    message.reply(`la suma de todos los numeros dados da ${sum}!`);
-    //comando de suma
-  }
+
   if (command === "piola") {
     message.reply(`repiola`);
     //piola
@@ -191,7 +186,7 @@ message.reply("Emoji invalido")
       if (!args[1]) return message.channel.send('No escribiste el nuevo apodo')
       message.delete()
       elusuario.setNickname(args.slice(1).join(' '), `Nickname cambiado a ${message.author.tag}`)
-        .catch((e)=> message.reply("No se pudo banear al usuario"))
+        .catch((e)=> message.reply("No se pudo cambiar el nick"))
         .then(() => {
         message.channel.send(`Se ha cambiado el nombre de ${message.mentions.users.first().tag} a ${args.slice(1).join(' ')}`)
       })
@@ -1006,5 +1001,4 @@ client.on('messageReactionAdd', async (reaction, user) => {
 )
 
 //terminan los comandos
-//client.login(config.BOT_TOKEN)
-client.login("ODYxODk5NzgzOTE1OTYyMzY4.YOQguQ.BKVQk5-LVHspoZECIZHL5-lOYzA")
+client.login(config.BOT_TOKEN)
