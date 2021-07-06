@@ -8,7 +8,7 @@ mongoose.connect(urlmon, {
 const db = mongoose.connection
 db.on("error", error => console.error(error))
 db.on("open", _ => console.log("Conectado a la db"))
-
+const Sidioma = require("./models/idioma.js")
 const Discord = require("discord.js");
 const Schema = require('./models/bienvenida.js')
 const config = require('config.json')('./config.json')
@@ -231,7 +231,17 @@ message.reply("Emoji invalido")
     }
     )
   }
-
+  if (command === "setlanguage") {
+    const idiomas = ["es", "en", "jp"]
+    var language = args[0]
+    if (!language) return message.channel.send("Elije uno de los siguientes idiomas " + idiomas.join(" "))
+    if (!idiomas.includes(language)) return message.channel.send("Actualmente solo estan disponibles los siguientes idiomas "+idiomas.join(" "))
+    let modelo = await Sidioma.findOne({ ServerID: message.guild.id })
+    if (!modelo) modelo = new Sidioma({ ServerID: message.guild.id, Language: language })
+    modelo.Language = languaged
+    await modelo.save()
+  message.channel.send("El nuevo idioma para el servidor es "+language)
+  }
   if (command === "serverinfo" || command === 'server') {//primero tienen que tener command y args definidos
     var server = message.guild;//definimos server
     if (server.owner) {
