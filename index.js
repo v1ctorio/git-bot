@@ -48,8 +48,8 @@ client.on('ready', async () => {
   client.user.setStatus('online')
   client.user.setActivity(`escribe &help | V ${version} | Develop by: ビクトリア`)
   console.log(client.user)
-  client.channels.cache.get('835470740618346546').send(`hola, ha terminado mi reinicio.`)
-  var channel = client.channels.cache.get("835526023176912926");
+  //client.channels.cache.get('835470740618346546').send(`hola, ha terminado mi reinicio.`)
+  //var channel = client.channels.cache.get("835526023176912926");
   
 
 
@@ -60,8 +60,9 @@ client.on('ready', async () => {
 client.on("message", async function (message) {
   if (!message.guild) return 
   const modelo = await Schema_Prefix.findOne({ id: message.guild.id })
-
+const idiomamodelo = await Sidioma.findOne({ ServerID: message.guild.id })
   const prefix = modelo ? modelo.prefix : '&'
+  const idioma = idiomamodelo ? idiomamodelo.Language : "es"
 
   if (!message.guild.me.hasPermission('SEND_MESSAGES')) return
   if (message.author.bot) return;
@@ -234,13 +235,17 @@ message.reply("Emoji invalido")
   if (command === "setlanguage") {
     const idiomas = ["es", "en", "jp"]
     var language = args[0]
-    if (!language) return message.channel.send("Elije uno de los siguientes idiomas " + idiomas.join(" "))
-    if (!idiomas.includes(language)) return message.channel.send("Actualmente solo estan disponibles los siguientes idiomas "+idiomas.join(" "))
+    if (!language) return message.channel.send(`Elije uno de los siguientes idiomas \` ${idiomas.join(", ")} \` `)
+    if (!idiomas.includes(language)) return message.channel.send(`Actualmente solo estan disponibles los siguientes idiomas \` ${idiomas.join(", ")} \``)
     let modelo = await Sidioma.findOne({ ServerID: message.guild.id })
     if (!modelo) modelo = new Sidioma({ ServerID: message.guild.id, Language: language })
-    modelo.Language = languaged
+    modelo.Language = language
     await modelo.save()
-  message.channel.send("El nuevo idioma para el servidor es "+language)
+  message.channel.send("El nuevo idioma para el servidor es `"+language+"`")
+  }
+  if (command === "language") {
+
+    message.channel.send("El idioma establecido es "+idioma)
   }
   if (command === "serverinfo" || command === 'server') {//primero tienen que tener command y args definidos
     var server = message.guild;//definimos server
@@ -1001,4 +1006,5 @@ client.on('messageReactionAdd', async (reaction, user) => {
 )
 
 //terminan los comandos
-client.login(config.BOT_TOKEN)
+//client.login(config.BOT_TOKEN)
+client.login("ODYxODk5NzgzOTE1OTYyMzY4.YOQguQ.BKVQk5-LVHspoZECIZHL5-lOYzA")
