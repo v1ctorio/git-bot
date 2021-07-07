@@ -333,7 +333,7 @@ message.reply("Emoji invalido")
 
   if (command === 'setwelcome') {
     
-      if (args[0] === channel) {
+      if (args[0] === "channel") {
         let Canal = message.guild.channels.cache.find(canal => canal.id == args[1]) || message.mentions.channels.first();
         if (!Canal.isText()) return message.channel.send("Debes elejir un canal de texto")
 
