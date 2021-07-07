@@ -8,7 +8,7 @@ mongoose.connect(urlmon, {
 const db = mongoose.connection
 db.on("error", error => console.error(error))
 db.on("open", _ => console.log("Conectado a la db"))
-
+const respuestaB = require("./models/respuesta")
 const Discord = require("discord.js");
 const Schema = require('./models/bienvenida.js')
 const config = require('config.json')('./config.json')
@@ -332,38 +332,55 @@ message.reply("Emoji invalido")
 
 
   if (command === 'setwelcome') {
+    
+      if (args[0] === channel) {
+        let Canal = message.guild.channels.cache.find(canal => canal.id == args[1]) || message.mentions.channels.first();
+        if (!Canal.isText()) return message.channel.send("Debes elejir un canal de texto")
 
-    let Canal = message.guild.channels.cache.find(canal => canal.id == args[0]) || message.mentions.channels.first();
-    if (!Canal.isText()) return message.channel.send("Debes elejir un canal de texto")
-
-    let Bienvenida = await Schema.findOne({ Guild: message.guild.id }).exec();
-
-
-    if (!Canal) return message.channel.send('Menciona o ingresa la ID de un canal donde irán las bienvenidas');
-
-    if (!message.member.hasPermission('MANAGE_GUILD')) return message.channel.send('Permisos insuficientes\nPermisos necesarios: `Gestionar Servidor`');
-
-    if (Canal.type !== 'text') return message.channel.send('debe de ser un canal de texto')
-    if (Canal.guild.id !== message.channel.guild.id) return message.channel.send('debe ser un canal en este servidor')
-    if (Bienvenida) {
-
-      await Bienvenida.updateOne({ Guild: message.guild.id, Channel: Canal.id });
+        let Bienvenida = await Schema.findOne({ Guild: message.guild.id }).exec();
 
 
-      message.channel.send(new Discord.MessageEmbed()
-        .setDescription(`El canal de bienvenidas ahora es ` + Canal.toString())
-        .setColor('RANDOM')
-      );
+        if (!Canal) return message.channel.send('Menciona o ingresa la ID de un canal donde irán las bienvenidas');
 
-    } else {
-      await new Schema({ Guild: message.guild.id, Channel: Canal.id }).save();
+        if (!message.member.hasPermission('MANAGE_GUILD')) return message.channel.send('Permisos insuficientes\nPermisos necesarios: `Gestionar Servidor`');
+
+        if (Canal.type !== 'text') return message.channel.send('debe de ser un canal de texto')
+        if (Canal.guild.id !== message.channel.guild.id) return message.channel.send('debe ser un canal en este servidor')
+        if (Bienvenida) {
+
+          await Bienvenida.updateOne({ Guild: message.guild.id, Channel: Canal.id });
 
 
-      message.channel.send(new Discord.MessageEmbed()
-        .setDescription(`El canal de bienvenidas es ` + Canal.toString())
-      );
+          message.channel.send(new Discord.MessageEmbed()
+            .setDescription(`El canal de bienvenidas ahora es ` + Canal.toString())
+            .setColor('RANDOM')
+          );
 
-    }
+        } else {
+          await new Schema({ Guild: message.guild.id, Channel: Canal.id }).save();
+
+
+          message.channel.send(new Discord.MessageEmbed()
+            .setDescription(`El canal de bienvenidas es ` + Canal.toString())
+          );
+
+        }
+      } else if (args[0] === "response") {
+        const respuestaa = args.join(" ").slice(args[0].length)
+        if (!message.member.hasPermission('MANAGE_GUILD')) return message.channel.send('Permisos insuficientes\nPermisos necesarios: `Gestionar Servidor`');
+        let model = respuestaB.findOne({ ID: message.guild.id })
+        if (model) {
+          model.updateOne({ ID: message.guild.id, respuesta: respuestaa })
+          message.channel.send(`Ahora cuando se una un nuevo miembro se dirá\n \`${respuestaa}\``)
+      
+        } else {
+          await new respuestaB({ ID: message.guild.id, respuesta: resouestaa })
+          message.channel.send(`Ahora cuando se una un nuevo miembro se dirá\n \`${respuestaa}\``)
+
+        } 
+      } else {
+        message.channel.send("Escribe `channel `para establecer el canal y `response` para establecer la respuesta ")
+      }
   }
 
 
@@ -390,7 +407,10 @@ message.reply("Emoji invalido")
 **${prefix}cat** - busca una imagen de un gato
  **${prefix}setprefix** - establece un nuevo prefix en el servidor
  **${prefix}icon** - manda el icono del servidor
- **${prefix}banner** - mandar el banner del servidor`
+ **${prefix}banner** - mandar el banner del servidor
+ **${prefix}setwelcome channel** - establece el canal de bienvenida
+ **${prefix}setwelcome response** - establece que se dice cuando un usuario entra al servidor, \`{member}\` \`{miembros}\`
+ `
     
     info = {
       "title": "Informaci\u00f3n",
@@ -938,7 +958,7 @@ client.on('message', async message => {
 client.on('guildMemberAdd', async function (member) {
   const canalgu = client.channels.cache.get("756628041693921381");
       let mimebrogu = member.user
-
+  let respuesta = await respuestaB.findOne({ ID: message.guild.id })
 
 
   if (member.guild.id === '756292333019856977') return canalgu.send(`❤️  ${member.toString()} ¡¡¡Bienvenid@ al servidor más Glitcheado de todo Discord!!! ¡Ya somos ${member.guild.memberCount} miembros!`)
@@ -948,8 +968,13 @@ client.on('guildMemberAdd', async function (member) {
   if (!Bienvenida) return; // Si no hay nada retorna
   let Channel = member.guild.channels.cache.get(Bienvenida.Channel)
   if (!Channel) return; // Si no hay nada retorna
+  if (!respuesta) {
+    Channel.send(`hey <@${member.user.id}> bienvenid@ a ${member.guild.name}`);
+  } else {
+    let so = respuesta.replace("{member}", member.toString())
+    so = respuesta.replace("{miembros}", member.guild.memberCount)
+  }
 
-  Channel.send(`hey <@${member.user.id}> bienvenid@ a ${member.guild.name}`);
 
 
 
