@@ -958,7 +958,7 @@ client.on('message', async message => {
 client.on('guildMemberAdd', async function (member) {
   const canalgu = client.channels.cache.get("756628041693921381");
       let mimebrogu = member.user
-  let respuesta = await respuestaB.findOne({ ID: message.guild.id })
+  let respuesta = await respuestaB.findOne({ ID: member.guild.id })
 
 
   if (member.guild.id === '756292333019856977') return canalgu.send(`❤️  ${member.toString()} ¡¡¡Bienvenid@ al servidor más Glitcheado de todo Discord!!! ¡Ya somos ${member.guild.memberCount} miembros!`)
