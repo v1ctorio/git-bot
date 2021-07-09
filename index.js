@@ -13,7 +13,13 @@ const Discord = require("discord.js");
 const Schema = require('./models/bienvenida.js')
 const config = require('config.json')('./config.json')
 const ModelConfess = require('./models/setconfession.js')
-
+const osuToken = ""
+const osu = require('node-osu');//npm node-osu
+const osuApi = new osu.Api(osuToken , {//ahi va tu api key
+    notFoundAsError: true,
+    completeScores: false,
+    parseNumeric: false
+});
 
 const client = new Discord.Client({
   ws: { intents: Discord.Intents.ALL }
@@ -102,6 +108,33 @@ client.on("message", async function (message) {
     message.reply(`repiola`);
     //piola
   }
+  if (command === "osu") {
+
+    let usuario = args.join(" ");//definimos usuario
+    if (!usuario) {
+      message.channel.send("Dime un usuario")//si no pone un usuario enviara este mensaje
+    }
+    osuApi.getUser({ u: usuario }).then(user => {//obtenemos el usuario
+      const xddd = new Discord.MessageEmbed()//embed
+        .setTitle(`Estadísticas de ${usuario}`)
+        .setURL(`https://osu.ppy.sh/users/${usuario}`)
+        .setThumbnail(`http://s.ppy.sh/a/${user.id}`)
+        .addField('Nick:', user.name, true)//el nombre
+        .addField('ID:', user.id, true)//el id
+        .addField('Jugadas:', user.counts.plays, true)//veces jugadas
+        .addField('País:', user.country, true)//país
+        .addField('Precisión:', user.accuracyFormatted, true)//la precisión 
+        .addField('PP:', user.pp.raw, true)//su pp
+        .addField('Nivel:', user.level, true)//su nivel
+        .addField('Rank Nacional:', `#${user.pp.countryRank}`, true)//rank nacional
+        .addField('Rank Global:', `#${user.pp.rank}`, true)//rank global
+        .addField('Puntuación total:', user.scores.total, true)//puntos totales
+        .addField('Puntuación ranked:', user.scores.ranked, true)//puntos ranked
+        .addField('Segundos Jugados:', user.secondsPlayed, true)//segundos jugados
+        .setColor("RANDOM")
+      message.channel.send(xddd)
+    })
+  }//cerramos
   if (command === "random") {
     if (!args[0]) return message.channel.send("Debes poner dos numeros para conseguir uno aleatorio en ese rango \n Ejemplo: `&random 1 8`")
     if (!args[1]) return message.channel.send("Debes poner dos numeros para conseguir uno aleatorio en ese rango \n Ejemplo: `&random 1 8`")
