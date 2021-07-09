@@ -13,7 +13,7 @@ const Discord = require("discord.js");
 const Schema = require('./models/bienvenida.js')
 const config = require('config.json')('./config.json')
 const ModelConfess = require('./models/setconfession.js')
-const osuToken = ""
+const osuToken = "5de38ad4a61cbde9fa4a08099454aa1af19da00a"
 const osu = require('node-osu');//npm node-osu
 const osuApi = new osu.Api(osuToken , {//ahi va tu api key
     notFoundAsError: true,
@@ -46,9 +46,8 @@ if (0.1 + 0.2 === 0.3) {
 // Retorna un entero aleatorio entre min (incluido) y max (excluido)
 // ¡Usando Math.round() te dará una distribución no-uniforme!
 function getRandomInt(min, max) {
-  return Math.floor(Math.random() * (max - min)) + min;
+    resolve(Math.floor(Math.random() * (max - min)) + min)
 }
-
 client.on('ready', async () => {
   console.log(`Estoy listo! soy ${client.user.tag}`);
   client.user.setStatus('online')
