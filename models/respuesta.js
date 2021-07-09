@@ -1,10 +1,8 @@
-const { Schema, model } = require("mongoose")
 
-
-
-const eskema = Schema({
-    respuesta: String,
-    ID: String
+const mongoose = require("mongoose")
+const eskema = mongoose.Schema({
+    ID: String,
+    respuesta: String
 })
 
-module.exports = model("respuesta", eskema)
+module.exports = mongoose.model("respuesta", eskema)

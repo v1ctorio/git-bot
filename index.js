@@ -61,8 +61,8 @@ client.on("message", async function (message) {
   if (!message.guild) return 
   const modelo = await Schema_Prefix.findOne({ id: message.guild.id })
 
-  const prefix = modelo ? modelo.prefix : '&'
-
+  //const prefix = modelo ? modelo.prefix : '&'
+const prefix = "¿"
   if (!message.guild.me.hasPermission('SEND_MESSAGES')) return
   if (message.author.bot) return;
 
@@ -368,16 +368,13 @@ message.reply("Emoji invalido")
       } else if (args[0] === "response") {
         const respuestaa = args.join(" ").slice(args[0].length)
         if (!message.member.hasPermission('MANAGE_GUILD')) return message.channel.send('Permisos insuficientes\nPermisos necesarios: `Gestionar Servidor`');
-        let model = respuestaB.findOne({ ID: message.guild.id })
-        if (model) {
-          model.updateOne({ ID: message.guild.id, respuesta: respuestaa })
+        var modelb = respuestaB.findOne({ ID: message.guild.id })
+        if (!modelb) modelb = new respuestaB({ ID: message.guild.id, respuesta: respuestaa})
+        modelb.respuesta = respuestaa
+          await modelb.save()
           message.channel.send(`Ahora cuando se una un nuevo miembro se dirá\n \`${respuestaa}\``)
-      
-        } else {
-          await new respuestaB({ ID: message.guild.id, respuesta: resouestaa })
-          message.channel.send(`Ahora cuando se una un nuevo miembro se dirá\n \`${respuestaa}\``)
-
-        } 
+        console.log(modelb)
+        
       } else {
         message.channel.send("Escribe `channel `para establecer el canal y `response` para establecer la respuesta ")
       }
@@ -958,21 +955,21 @@ client.on('message', async message => {
 client.on('guildMemberAdd', async function (member) {
   const canalgu = client.channels.cache.get("756628041693921381");
       let mimebrogu = member.user
-  let respuesta = await respuestaB.findOne({ ID: member.guild.id })
+  var respuestaaa = await respuestaB.findOne({ ID: member.guild.id })
 
 
   if (member.guild.id === '756292333019856977') return canalgu.send(`❤️  ${member.toString()} ¡¡¡Bienvenid@ al servidor más Glitcheado de todo Discord!!! ¡Ya somos ${member.guild.memberCount} miembros!`)
-  
+  console.log(respuestaaa)
   let servidor = await member.guild
   let Bienvenida = await Schema.findOne({ Guild: member.guild.id });
   if (!Bienvenida) return; // Si no hay nada retorna
   let Channel = member.guild.channels.cache.get(Bienvenida.Channel)
   if (!Channel) return; // Si no hay nada retorna
-  if (!respuesta) {
+  if (!respuestaaa) {
     Channel.send(`hey <@${member.user.id}> bienvenid@ a ${member.guild.name}`);
   } else {
-    let so = respuesta.replace("{member}", member.toString())
-    so = respuesta.replace("{miembros}", member.guild.memberCount)
+    let so = respuestaaa.replace("{member}", member.toString())
+    so = so.replace("{miembros}", member.guild.memberCount)
   }
 
 
