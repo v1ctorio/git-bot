@@ -113,7 +113,9 @@ client.on("message", async function (message) {
     if (!usuario) {
       message.channel.send("Dime un usuario")//si no pone un usuario enviara este mensaje
     }
-    osuApi.getUser({ u: usuario }).then(user => {//obtenemos el usuario
+    osuApi.getUser({ u: usuario })
+      .catch((eeee) => message.reply("NO se encontró al usuario"))
+      .then(user => {//obtenemos el usuario
       const xddd = new Discord.MessageEmbed()//embed
         .setTitle(`Estadísticas de ${usuario}`)
         .setURL(`https://osu.ppy.sh/users/${usuario}`)
