@@ -444,6 +444,7 @@ message.reply("Emoji invalido")
  **${prefix}banner** - mandar el banner del servidor
  **${prefix}setwelcome channel** - establece el canal de bienvenida
  **${prefix}setwelcome response** - establece que se dice cuando un usuario entra al servidor, \`{member}\` \`{miembros}\`
+ **${prefix}osu - Enseña los datos de un usuario de osu!
  `
     
     info = {
