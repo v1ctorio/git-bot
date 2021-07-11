@@ -1050,5 +1050,8 @@ client.on('messageReactionAdd', async (reaction, user) => {
 }
 )
 
+client.on("error", async function (err) {
+  console.log("Error \n"+err)
+})
 //terminan los comandos
 client.login(config.BOT_TOKEN)
