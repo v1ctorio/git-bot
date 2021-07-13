@@ -1052,6 +1052,18 @@ client.on('messageReactionAdd', async (reaction, user) => {
 
 client.on("error", async function (err) {
   console.log("Error \n"+err)
+  function clean(text) {
+      if (typeof (text) === "string")
+        return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
+      else
+        return text;
+    }
+    const errora = new Discord.MessageAttachment(clean(err), "error.txt")
+    const errores = client.channels.cache.get('864524778895048704')
+    if (clean(err.length) > 2000) return errores.send("ERROR", errora)
+    errores.send(clean(err), { code: "xl"})
 })
 //terminan los comandos
 client.login(config.BOT_TOKEN)
+
+
