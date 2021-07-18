@@ -114,28 +114,32 @@ client.on("message", async function (message) {
       message.channel.send("Dime un usuario")//si no pone un usuario enviara este mensaje
     }
     osuApi.getUser({ u: usuario })
-      .catch((eeee) => message.reply("NO se encontró al usuario"))
+      .catch((eeee) => message.reply("No se encontró al usuario"))
       .then(user => {//obtenemos el usuario
-      const xddd = new Discord.MessageEmbed()//embed
-        .setTitle(`Estadísticas de ${usuario}`)
-        .setURL(`https://osu.ppy.sh/users/${usuario}`)
-        .setThumbnail(`http://s.ppy.sh/a/${user.id}`)
-        .addField('Nick:', user.name, true)//el nombre
-        .addField('ID:', user.id, true)//el id
-        .addField('Jugadas:', user.counts.plays, true)//veces jugadas
-        .addField('País:', user.country, true)//país
-        .addField('Precisión:', user.accuracyFormatted, true)//la precisión 
-        .addField('PP:', user.pp.raw, true)//su pp
-        .addField('Nivel:', user.level, true)//su nivel
-        .addField('Rank Nacional:', `#${user.pp.countryRank}`, true)//rank nacional
-        .addField('Rank Global:', `#${user.pp.rank}`, true)//rank global
-        .addField('Puntuación total:', user.scores.total, true)//puntos totales
-        .addField('Puntuación ranked:', user.scores.ranked, true)//puntos ranked
-        .addField('Segundos Jugados:', user.secondsPlayed, true)//segundos jugados
-        .setColor("RANDOM")
-      message.channel.send(xddd)
+        try {
+          const xddd = new Discord.MessageEmbed()//embed
+            .setTitle(`Estadísticas de ${usuario}`)
+            .setURL(`https://osu.ppy.sh/users/${usuario}`)
+            .setThumbnail(`http://s.ppy.sh/a/${user.id}`)
+            .addField('Nick:', user.name, true)//el nombre
+            .addField('ID:', user.id, true)//el id
+            .addField('Jugadas:', user.counts.plays, true)//veces jugadas
+            .addField('País:', user.country, true)//país
+            .addField('Precisión:', user.accuracyFormatted, true)//la precisión 
+            .addField('PP:', user.pp.raw, true)//su pp
+            .addField('Nivel:', user.level, true)//su nivel
+            .addField('Rank Nacional:', `#${user.pp.countryRank}`, true)//rank nacional
+            .addField('Rank Global:', `#${user.pp.rank}`, true)//rank global
+            .addField('Puntuación total:', user.scores.total, true)//puntos totales
+            .addField('Puntuación ranked:', user.scores.ranked, true)//puntos ranked
+            .addField('Segundos Jugados:', user.secondsPlayed, true)//segundos jugados
+            .setColor("RANDOM")
+          message.channel.send(xddd)
+        } catch (Eeeeeeeeeeeeeeee) {
+          message.reply("Hubo un error ejecutando el comando")
+        }
     })
-  }//cerramos
+  }
   if (command === "random") {
     if (!args[0]) return message.channel.send("Debes poner dos numeros para conseguir uno aleatorio en ese rango \n Ejemplo: `&random 1 8`")
     if (!args[1]) return message.channel.send("Debes poner dos numeros para conseguir uno aleatorio en ese rango \n Ejemplo: `&random 1 8`")
