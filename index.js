@@ -20,7 +20,7 @@ const osuApi = new osu.Api(osuToken , {//ahi va tu api key
     completeScores: false,
     parseNumeric: false
 });
-
+const DisTube = require("distube")
 const client = new Discord.Client({
   ws: { intents: Discord.Intents.ALL }
 })
@@ -30,7 +30,7 @@ const meow = require('random-meow')
 const { MessageButton } = require("discord-buttons");
 const Schema_Prefix = require("./models/prefix.js")
 const { DiscordTogether } = require('discord-together');
-
+const distube = new DisTube(client, { searchSongs: true, emitNewSongOnly: true });
 client.discordTogether = new DiscordTogether(client);
 
 
@@ -153,6 +153,34 @@ client.on("message", async function (message) {
 
     message.channel.send(`El numero elejido es ||${getRandomInt(args[0], args[1])}||`)
   } 
+  /* MUSICA */
+
+  if (command == "play")
+    distube.play(message, args.join(" "));
+
+  if (["repeat", "loop"].includes(command))
+    distube.setRepeatMode(message, parseInt(args[0]));
+
+  if (command == "stop") {
+    distube.stop(message);
+    message.channel.send("Parando la musica");
+  }
+
+  if (command == "skip")
+    distube.skip(message);
+
+  if (command == "queue") {
+    let queue = distube.getQueue(message);
+    message.channel.send('Lista actual:\n' + queue.songs.map((song, id) =>
+      `**${id + 1}**. ${song.name} - \`${song.formattedDuration}\``
+    ).slice(0, 10).join("\n"));
+  }
+
+  if ([`3d`, `bassboost`, `echo`, `karaoke`, `nightcore`, `vaporwave`].includes(command)) {
+    let filter = distube.setFilter(message, command);
+    message.channel.send("Filtro actual: " + (filter || "Off"));
+  }
+
   if (command === 'cat') {
     message.channel.send('buscando gatos...').then((m) => {
 
@@ -1067,6 +1095,34 @@ client.on("error", async function (err) {
     if (clean(err.length) > 2000) return errores.send("ERROR", errora)
     errores.send(clean(err), { code: "xl"})*/
 })
+const status = (queue) => `Volume: \`${queue.volume}%\` | Filter: \`${queue.filter || "Off"}\` | Loop: \`${queue.repeatMode ? queue.repeatMode == 2 ? "All Queue" : "This Song" : "Off"}\` | Autoplay: \`${queue.autoplay ? "On" : "Off"}\``;
+
+// DisTube event listeners, more in the documentation page
+distube
+  .on("playSong", (message, queue, song) => message.channel.send(
+    ` \`${song.name}\` - \`${song.formattedDuration}\`\Pedido por: ${song.user}\n${status(queue)}`
+  ))
+  .on("addSong", (message, queue, song) => message.channel.send(
+    `añadiendo ${song.name} - \`${song.formattedDuration}\` a la lista por ${song.user}`
+  ))
+  .on("playList", (message, queue, playlist, song) => message.channel.send(
+    `Poniendo \`${playlist.name}\` playlist (${playlist.songs.length} canciones).\n Pedida por: ${song.user}\n Ahora: \`${song.name}\` - \`${song.formattedDuration}\`\n${status(queue)}`
+  ))
+  .on("addList", (message, queue, playlist) => message.channel.send(
+    `Añadida \`${playlist.name}\` playlist (${playlist.songs.length} canciones) a la lista\n${status(queue)}`
+  ))
+  // DisTubeOptions.searchSongs = true
+  .on("searchResult", (message, result) => {
+    let i = 0;
+    message.channel.send(`**Escoje una de las siguientes opciones**\n${result.map(song => `**${++i}**. ${song.name} - \`${song.formattedDuration}\``).join("\n")}\n*Escribe otra o espera 60s para cancelar*`);
+  })
+  // DisTubeOptions.searchSongs = true
+  .on("searchCancel", (message) => message.channel.send(`Busqueda cancelada`))
+  .on("error", (message, e) => {
+    console.error(e)
+    message.channel.send("Ocurrió un error: " + e);
+  });
+
 //terminan los comandos
 client.login(config.BOT_TOKEN)
 
