@@ -25,6 +25,7 @@ const client = new Discord.Client({
   ws: { intents: Discord.Intents.ALL }
 })
 const disbut = require('discord-buttons')(client);
+const fumo = require("fumo-api")
 const bienvenida = require("./models/bienvenida.js");
 const meow = require('random-meow')
 const { MessageButton } = require("discord-buttons");
@@ -102,6 +103,13 @@ client.on("message", async function (message) {
     var sum = numArgs.reduce((counter, x) => counter += x);
     message.reply(`la suma de todos los numeros dados da ${sum}!`);
     //comando de suma
+  }
+  if (command === "fumo") {
+    message.channel.send("Buscando fumos...").then(m => {
+      fumo().then(f => {
+        m.edit(f)
+      })
+    })
   }
   if (command === "piola") {
     message.reply(`repiola`);
